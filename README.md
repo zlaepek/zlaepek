@@ -1,6 +1,33 @@
+
+
 ### Hi there 👋
 <!-- ref https://github.com/kyechan99/capsule-render -->
 ![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=header&text=zlapek%20github&fontSize=90&animation=fadeIn&fontAlignY=38&desc=Decorate%20GitHub%20Profile%20or%20any%20Repo%20like%20me!&descAlignY=51&descAlign=62)
+
+![Zlaepek's GitHub stats](https://github-readme-stats.vercel.app/api?username=zlaepek&show_icons=true&theme=radical)
+
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=zlaepek&layout=compact)](https://github.com/깃허브아이디/github-readme-stats)
+
+메인 스펙<br>
+[![My Skills](https://skillicons.dev/icons?i=unity,cs)](https://skillicons.dev)<br>
+
+프론트<br>
+[![My Skills](https://skillicons.dev/icons?i=redux,react,css,androidstudio)](https://skillicons.dev)<br>
+백<br>
+[![My Skills](https://skillicons.dev/icons?i=spring,mysql,maven,gradle,hibernate,gitlab,github,git,docker)](https://skillicons.dev)<br>
+클라우드<br>
+[![My Skills](https://skillicons.dev/icons?i=aws)](https://skillicons.dev)<br>
+
+언어<br>
+[![My Skills](https://skillicons.dev/icons?i=py,js,java,html)](https://skillicons.dev)<br>
+툴<br>
+[![My Skills](https://skillicons.dev/icons?i=visualstudio,vscode,idea,eclipse)](https://skillicons.dev)<br>
+
+사용해봄<br>
+[![My Skills](https://skillicons.dev/icons?i=vim,kubernetes,linux,jenkins,flutter,figma,arduino,)](https://skillicons.dev)<br>
+
+
+
 <!--
 <p align='center'> Decorate GitHub Profile or any Repo like me! </p>
 <p align='center'>
