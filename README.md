@@ -19,12 +19,12 @@
 [![My Skills](https://skillicons.dev/icons?i=aws)](https://skillicons.dev)<br>
 
 언어<br>
-[![My Skills](https://skillicons.dev/icons?i=py,js,java,html)](https://skillicons.dev)<br>
+[![My Skills](https://skillicons.dev/icons?i=py,js,java,html,md)](https://skillicons.dev)<br>
 툴<br>
 [![My Skills](https://skillicons.dev/icons?i=visualstudio,vscode,idea,eclipse)](https://skillicons.dev)<br>
 
 사용해봄<br>
-[![My Skills](https://skillicons.dev/icons?i=vim,kubernetes,linux,jenkins,flutter,figma,arduino,)](https://skillicons.dev)<br>
+[![My Skills](https://skillicons.dev/icons?i=vim,kubernetes,linux,jenkins,flutter,figma,arduino,nginx,nodejs,pytorch,tensorflow)](https://skillicons.dev)<br>
 
 
 
