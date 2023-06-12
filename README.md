@@ -2,7 +2,7 @@
 
 ### Hi there 👋
 <!-- ref https://github.com/kyechan99/capsule-render -->
-![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=header&text=zlapek%20github&fontSize=90&animation=fadeIn&fontAlignY=38&desc=Decorate%20GitHub%20Profile%20or%20any%20Repo%20like%20me!&descAlignY=51&descAlign=62)
+![header](https://capsule-render.vercel.app/api?type=waving&color=auto&height=300&section=header&text=zlapek%20github&fontSize=70&animation=fadeIn&fontAlignY=38&desc=김민경의 포트폴리오 입니다&descAlignY=51&descAlign=62)
 
 ![Zlaepek's GitHub stats](https://github-readme-stats.vercel.app/api?username=zlaepek&show_icons=true&theme=radical)
 
