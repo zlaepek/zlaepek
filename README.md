@@ -11,7 +11,6 @@
 ### 1.2 Education
 가천대학교, 2019-02~2023-03
  - 전공: 소프트웨어학과
- - 학점: 3.84 / 4.5
 
 ### 1.3 Skills
 Skill        | Experiences | Careers | Note
@@ -31,7 +30,7 @@ UNITY 개발자 입니다.
 ### 3.1
 Company        | Project                | Skills              | Special Note
 ---------------|------------------------|---------------------|---------------------
-디캐릭         | Real Green             | Unity               | Golf
+[디캐릭](https://www.dcarrick.co.kr/)   | Real Green          | Unity, Photon | 골프 메타버스
 
 
 ### 3.2 Side Projects
@@ -41,7 +40,7 @@ Project            | Skills           | Description
 ### 3.3 University Projects
 Project            | Skills           | Description
 -------------------|------------------|-----------------------------
-MR Contents Sharing Platform | Unity, Hololens, MRTK | 3D 오브젝트 및 상호작용 공유
+[MR Contents Sharing Platform](https://github.com/zlaepek/zlaepek/wiki/MR-Contents-Sharing-Platform) | Unity, Hololens, MRTK | 3D 오브젝트 및 상호작용 공유
 
 <!--
 MR 컨텐츠 제작 플랫폼 (졸업작품 및 학부연구 활동)<br>
