@@ -25,6 +25,7 @@ Company | Entry Date | Leave Date | Form
 
 ## 2. Introduction
 UNITY 개발자 입니다.
+AR / VR 프로젝트
  
 ## 3. Projects
 ### 3.1
@@ -36,7 +37,7 @@ Company        | Project                | Skills              | Special Note
 ### 3.2 Side Projects
 Project            | Skills           | Description
 -------------------|------------------|-----------------------------
-골렘 (뱀서라이크)   | Unity            | 보스 제
+[골렘 (뱀서라이크)](https://github.com/zlaepek/ivern)  | Unity            | 보스 패턴 & 네크워크 매니저
 
 ### 3.3 University Projects
 Project            | Skills           | Description
