@@ -4,7 +4,7 @@
 ### 1.1 Profile
 
 이름:
-  - 생년월일: 1988-03-11
+  - 생년월일: 2000-10-27
   - 연락처: 010-9694-4813
   - 메일: alice4813@naver.com
 
@@ -30,12 +30,13 @@ UNITY 개발자 입니다.
 ### 3.1
 Company        | Project                | Skills              | Special Note
 ---------------|------------------------|---------------------|---------------------
-[디캐릭](https://www.dcarrick.co.kr/)   | Real Green          | Unity, Photon | 골프 메타버스
+[디캐릭](https://www.dcarrick.co.kr/)   | Real Green          | Unity, Photon | 스크린 골프 메타버스
 
 
 ### 3.2 Side Projects
 Project            | Skills           | Description
 -------------------|------------------|-----------------------------
+골렘 (뱀서라이크)   | Unity            | 보스 제
 
 ### 3.3 University Projects
 Project            | Skills           | Description
