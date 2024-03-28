@@ -1,48 +1,166 @@
-# Resume of zlaepek
+<div align="center">
+<br>
 
-## 1. Outline
-### 1.1 Profile
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=NanumBarunGothic+Script&color=9D9ED2&size=35&center=true&vCenter=true&width=404&height=53&lines=%E3%80%80%E3%80%80Resume+of+Zlaepek.+%E3%80%80%E3%80%80)](https://git.io/typing-svg)
 
-이름:
+<br>
+
+<!-- git statistics -->
+<table>
+    <tr>
+        <td>
+            <a href="https://github.com/anuraghazra/github-readme-stats">
+                <img src="https://github-readme-stats.vercel.app/api?username=zlaepek&show_icons=true&theme=material-palenight&hide_border=true&bg_color=20232a&icon_color=E3E3E3A8&text_color=fff&title_color=918FE0&count_private=true" />
+            </a>
+        </td>
+        <td>
+            <a href="https://github.com/anuraghazra/github-readme-stats">
+                <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=zlaepek&layout=compact&show_icons=true&theme=material-palenight&hide_border=true&bg_color=20232a&icon_color=E3E3E3A8&text_color=fff&title_color=918FE0&count_private=true" />
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <a href="https://github.com/ashutosh00710/github-readme-activity-graph">
+                <img src="https://github-readme-activity-graph.vercel.app/graph?username=zlaepek&theme=react-dark&bg_color=20232a&hide_border=true&line=8A87D0&color=918FE0" width="100%"/>
+            </a>
+        </td>
+    </tr>
+</table>
+
+<br><br><br>
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fdevpla&count_bg=%23918FE0&title_bg=%23545454&icon=github.svg&icon_color=%23E7E7E7&title=Views&edge_flat=false)](https://hits.seeyoufarm.com)</div>
+
+</div>
+
+<div>
+
+<h2>1. Outline</h2>
+<h3>1.1 Profile</h3>
+
+  - 이름: 김민경
   - 생년월일: 2000-10-27
   - 연락처: 010-9694-4813
   - 메일: alice4813@naver.com
 
-### 1.2 Education
-가천대학교, 2019-02~2023-03
- - 전공: 소프트웨어학과
+<h3>1.2 Education</h3>
 
-### 1.3 Skills
-Skill        | Experiences | Careers | Note
--------------|-------------|---------|-----------------------------------
-Unity        | 5 년        | 1 년    | 
+  - 가천대학교: 2019-02~2023-03
+  - 전공: 소프트웨어학과
+
+<h3>1.3 Skills</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Skill</th>
+            <th>Experiences</th>
+            <th>Careers</th>
+            <th>Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Unity</td>
+            <td>5 년</td>
+            <td>1 년</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
 
 
-### 1.4 Experiences
-Company | Entry Date | Leave Date | Form
---------|------------|------------|-------
-디캐릭	| 2023-02    | 재직중	  | 정규직
+<h3> 1.4 Experiences </h3>
 
-## 2. Introduction
+<table>
+    <thead>
+        <tr>
+            <th>Company</th>
+            <th>Entry Date</th>
+            <th>Leave Date</th>
+            <th>Form</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>디캐릭</td>
+            <td>2023-02</td>
+            <td>재직중</td>
+            <td>정규직</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2> 2. Introduction </h2>
 UNITY 개발자 입니다.
 AR / VR 프로젝트
  
-## 3. Projects
-### 3.1
-Company        | Project                | Skills              | Special Note
----------------|------------------------|---------------------|---------------------
-[디캐릭](https://www.dcarrick.co.kr/)   | Real Green          | Unity, Photon | 스크린 골프 메타버스
+<h2> 3. Projects </h2>
+<h3> 3.1 </h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Company</th>
+            <th>Project</th>
+            <th>Skills</th>
+            <th>Special Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="https://www.dcarrick.co.kr/">디캐릭</a></td>
+            <td>Real Green</td>
+            <td>Unity, Photon</td>
+            <td>스크린 골프 메타버스</td>
+        </tr>
+    </tbody>
+</table>
 
 
-### 3.2 Side Projects
-Project            | Skills           | Description
--------------------|------------------|-----------------------------
-[골렘 (뱀서라이크)](https://github.com/zlaepek/ivern)  | Unity            | 보스 패턴 & 네크워크 매니저
 
-### 3.3 University Projects
-Project            | Skills           | Description
--------------------|------------------|-----------------------------
-[MR Contents Sharing Platform](https://github.com/zlaepek/zlaepek/wiki/MR-Contents-Sharing-Platform) | Unity, Hololens, MRTK | 3D 오브젝트 및 상호작용 공유
+<h3> 3.2 Side Projects </h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Project</th>
+            <th>Skills</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="https://github.com/zlaepek/ivern">골렘 (뱀서라이크)</a></td>
+            <td>Unity</td>
+            <td>보스 패턴 & 네크워크 매니저</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>  3.3 University Projects </h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Project</th>
+            <th>Skills</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="https://github.com/zlaepek/zlaepek/wiki/MR-Contents-Sharing-Platform">MR Contents Sharing Platform</a></td>
+            <td>Unity, Hololens, MRTK</td>
+            <td>3D 오브젝트 및 상호작용 공유</td>
+        </tr>
+    </tbody>
+</table>
+
+
+</div>
 
 <!--
 MR 컨텐츠 제작 플랫폼 (졸업작품 및 학부연구 활동)<br>
@@ -73,9 +191,7 @@ https://github.com/zlaepek/Furniture-Auto-Arrangement<br>
 	유니티 기본 인터페이스 및 기초 기능 탐색 스터디<br>
 	2020 여름 하눌신폭 게임잼<br>
 -->
-![Zlaepek's GitHub stats](https://github-readme-stats.vercel.app/api?username=zlaepek&show_icons=true&theme=radical)
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=zlaepek&layout=compact)](https://github.com/깃허브아이디/github-readme-stats)
 <!--
 메인 스펙<br>
 [![My Skills](https://skillicons.dev/icons?i=unity,cs)](https://skillicons.dev)<br>
