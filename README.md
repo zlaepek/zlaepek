@@ -93,11 +93,17 @@
 </table>
 
 <h2> 2. Introduction </h2>
-UNITY 개발자 입니다.
-AR / VR 프로젝트
+
+유니티 개발자 입니다. </br>
+MRTK와 AWS를 사용하여, AR / VR 프로젝트 진행 경헙이 있습니다. (홀로렌즈 2, 오큘러스) </br>
+<!-- 메타버스 (Photon을 사용한 멀티플레이어) 프로젝트에 참여한 경험이 있습니다. 
+스크린 골프를 제작하고 있습니다. </br> -->
+
+I am a Unity developer. </br>
+I have experience working on AR/VR projects using MRTK and AWS. (with HoloLens 2 and Oculus) </br>
  
 <h2> 3. Projects </h2>
-<h3> 3.1 </h3>
+<h3> 3.1 Career </h3>
 
 <table>
     <thead>
