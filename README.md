@@ -141,6 +141,11 @@ I have experience working on AR/VR projects using MRTK and AWS. (with HoloLens 2
             <td>Unity</td>
             <td>보스 패턴 & 네크워크 매니저</td>
         </tr>
+	<tr>
+            <td><a href="https://github.com/zlaepek/EarthInvasion_WebGL">지구 침공 (클릭커)</a></td>
+            <td>Unity</td>
+            <td>Web Build 버전</td>
+        </tr>
     </tbody>
 </table>
 
