@@ -74,7 +74,7 @@
         <tr>
             <td>디캐릭</td>
             <td>2023-02</td>
-            <td>재직중</td>
+            <td>2024-10</td>
             <td>정규직</td>
         </tr>
     </tbody>
@@ -125,6 +125,7 @@ I have experience working on AR/VR projects using MRTK and AWS. (with HoloLens 2
         </tr>
     </thead>
     <tbody>
+	    <!-- 
         <tr>
             <td><a href="https://github.com/zlaepek/ivern">골렘 (뱀서라이크)</a></td>
             <td>Unity</td>
@@ -135,6 +136,7 @@ I have experience working on AR/VR projects using MRTK and AWS. (with HoloLens 2
             <td>Unity</td>
             <td>Web Build 버전</td>
         </tr>
+	    -->
     </tbody>
 </table>
 
