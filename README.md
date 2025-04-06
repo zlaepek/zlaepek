@@ -19,8 +19,6 @@
 
 <br><br><br>
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fzlaepek&count_bg=%2340916C&title_bg=%23555555&icon=github.svg&icon_color=%23E7E7E7&title=Views&edge_flat=false)](https://hits.seeyoufarm.com)</div>
-
 </div>
 
 <div>
@@ -137,26 +135,6 @@ I have experience working on AR/VR projects using MRTK and AWS. (with HoloLens 2
             <td>Web Build 버전</td>
         </tr>
 	    -->
-    </tbody>
-</table>
-
-
-<h3>  3.3 University Projects </h3>
-
-<table>
-    <thead>
-        <tr>
-            <th>Project</th>
-            <th>Skills</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="https://github.com/zlaepek/zlaepek/wiki/MR-Contents-Sharing-Platform">MR Contents Sharing Platform</a></td>
-            <td>Unity, Hololens, MRTK</td>
-            <td>3D 오브젝트 및 상호작용 공유</td>
-        </tr>
     </tbody>
 </table>
 
