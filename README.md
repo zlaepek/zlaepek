@@ -53,22 +53,22 @@
   </thead>
   <tbody>
     <tr>
-      <td><img src="https://img.shields.io/badge/C%23-Lv80-239120?style=for-the-badge&logo=c-sharp&logoColor=white" alt="C#"/></td>
+      <td><img src="https://img.shields.io/badge/C%23-Expert-239120?style=for-the-badge&logo=c-sharp&logoColor=white" alt="C#"/></td>
       <td><img src="https://img.shields.io/badge/Progress-80%25-FFD700?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
       <td><img src="https://img.shields.io/badge/%F0%9F%A5%87-EXPERT-FFD700?style=for-the-badge&logoColor=white" alt="EXPERT" height="28"/></td>
     </tr>
     <tr>
-      <td><img src="https://img.shields.io/badge/JavaScript-Lv50-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"/></td>
+      <td><img src="https://img.shields.io/badge/JavaScript-Intermediate-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"/></td>
       <td><img src="https://img.shields.io/badge/Progress-50%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
       <td><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE" height="28"/></td>
     </tr>
     <tr>
-      <td><img src="https://img.shields.io/badge/CSS-Lv48-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS"/></td>
+      <td><img src="https://img.shields.io/badge/CSS-Intermediate-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS"/></td>
       <td><img src="https://img.shields.io/badge/Progress-48%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
       <td><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE" height="28"/></td>
     </tr>
     <tr>
-      <td><img src="https://img.shields.io/badge/HTML-Lv42-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML"/></td>
+      <td><img src="https://img.shields.io/badge/HTML-Intermediate-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML"/></td>
       <td><img src="https://img.shields.io/badge/Progress-42%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
       <td><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE" height="28"/></td>
     </tr>
@@ -107,16 +107,16 @@
   </thead>
   <tbody>
     <tr>
-      <td align="center"><img src="https://img.shields.io/badge/%EA%B2%8C%EC%9E%84%EA%B0%9C%EB%B0%9C-E74C3C?style=for-the-badge&logo=unity&logoColor=white"/></td>
+      <td align="center"><img src="https://img.shields.io/badge/%EA%B2%8C%EC%9E%84%EA%B0%9C%EB%B0%9C-4A90E2?style=for-the-badge&logo=unity&logoColor=white"/></td>
       <td align="center"><span style="color: #e74c3c; font-weight: bold;">-32%</span></td>
-      <td align="center">C#, Unity</td>
-      <td align="left">PTAHLABS 전시 프로젝트</td>
+      <td align="center">C#, Unity, C++</td>
+      <td align="left">PTAHLABS 게임, VR/AR 프로젝트</td>
     </tr>
     <tr>
-      <td align="center"><img src="https://img.shields.io/badge/%EC%9B%B9%EA%B0%9C%EB%B0%9C-4A90E2?style=for-the-badge&logo=javascript&logoColor=white"/></td>
+      <td align="center"><img src="https://img.shields.io/badge/%EC%9B%B9%EA%B0%9C%EB%B0%9C-FFD700?style=for-the-badge&logo=javascript&logoColor=white"/></td>
       <td align="center"><span style="color: #52b788; font-weight: bold;">+45%</span></td>
       <td align="center">JavaScript, HTML, CSS, React</td>
-      <td align="left">PTAHLABS 웹사이트, 웹사이트, 배포 자동화</td>
+      <td align="left">PTAHLABS 웹사이트, 프로필 자동화</td>
     </tr>
   </tbody>
 </table>
@@ -180,7 +180,9 @@
 
 <!-- ACTIVITY_START -->
 **Recent Projects:**  
-- `zlaepek/zlaepek`: 수정 4 (5 commits)  
+- `zlaepek/zlaepek`: 매력적인 차트
+
+매력적으로 차트 디자인을 업데이트 해줬대 (5 commits)  
 
 **This Month:**  
 - 5 commits across 1 repositories  
@@ -195,6 +197,6 @@
 <div align="center">
 
 *이 프로필은 GitHub Actions로 자동 업데이트됩니다*  
-*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 21:50 KST<!-- /UPDATE_TIME -->*
+*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 22:09 KST<!-- /UPDATE_TIME -->*
 
 </div>
