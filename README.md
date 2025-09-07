@@ -1,7 +1,7 @@
 <div align="center">
 <br>
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Inter&color=52b788&size=30&center=true&vCenter=true&width=500&height=50&lines=Kim+Minkyung;PTAHLABS+CEO;Full-stack+Developer)](https://git.io/typing-svg)
+<h1 align="center">✨ Zlaepek Profile ✨</h1>
 
 <br>
 
@@ -73,10 +73,10 @@
 
 <!-- WEEKLY_START -->
 **이번 주 주력 분야:**  
-Backend Development (45%) - Node.js API 최적화, 데이터베이스 설계  
-Frontend (30%) - React 컴포넌트 개발, TypeScript 도입  
-Business (15%) - 기획, 팀 빌딩, 전략 수립  
-DevOps (10%) - AWS 인프라, 배포 자동화  
+**Backend Development** (45%) - Node.js API 최적화, 데이터베이스 설계  
+**Frontend** (30%) - React 컴포넌트 개발, TypeScript 도입  
+**Business** (15%) - 기획, 팀 빌딩, 전략 수립  
+**DevOps** (10%) - AWS 인프라, 배포 자동화  
 
 **주목할 성장:**  
 Python 급상승 (+25%) - 데이터 분석 도구 개발 시작  

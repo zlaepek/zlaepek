@@ -1,4 +1,4 @@
-name: 🎮 Auto Update Gaming Profile
+name: Auto Update Profile
 
 on:
   schedule:
@@ -15,20 +15,20 @@ jobs:
       contents: write
       
     steps:
-      - name: 🚀 Checkout Repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
         
-      - name: 🔧 Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           
-      - name: 📦 Install Dependencies
+      - name: Install Dependencies
         run: |
           npm init -y
           npm install axios moment
           
-      - name: 🎯 Analyze GitHub Stats
+      - name: Analyze GitHub Stats
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USERNAME: ${{ github.repository_owner }}
@@ -171,31 +171,25 @@ jobs:
             return Math.random() * 20 - 10; // 임시: -10% ~ +10% 변화율
           }
           
-          // 트렌드 차트 생성
-          function createTrendChart(languageData) {
-            const sorted = Object.entries(languageData)
-              .sort(([,a], [,b]) => b.percentage - a.percentage)
-              .slice(0, 5);
+          async function updateSkillSection() {
+            const languageStats = await getLanguageStats();
             
-            let chart = '';
-            sorted.forEach(([lang, data]) => {
-              const barLength = Math.floor(data.percentage / 5);
-              const bar = '█'.repeat(barLength) + '░'.repeat(20 - barLength);
-              const trend = data.recentActivity > 0 ? '↗️' : '↘️';
-              const change = data.recentActivity > 0 ? '+' : '';
-              
-              chart += `${lang.padEnd(12)} ${bar} ${data.percentage}% ${trend} (${change}${data.recentActivity.toFixed(0)}%)  \n`;
-            });
-            
-            return chart;
-          }
+            // 언어별 통계를 레벨로 변환
+            const skillsArray = Object.entries(languageStats)
+              .map(([name, stats]) => ({
+                name,
+                level: calculateLevel(stats.bytes, stats.repos),
+                bytes: stats.bytes,
+                repos: stats.repos
+              }))
+              .sort((a, b) => b.level - a.level);
             
             let skillsSection = '';
             
             // 메인 스킬 (레벨 60 이상)
             const mainSkills = skillsArray.filter(skill => skill.level >= 60);
             if (mainSkills.length > 0) {
-              skillsSection += '### 🔥 현재 주력 스킬\n';
+              skillsSection += '### 현재 주력 스킬\n';
               mainSkills.forEach(skill => {
                 const config = languageConfig[skill.name] || { icon: skill.name.toLowerCase(), color: '666666', logoColor: 'white' };
                 const badge = getSkillBadge(skill.level, 0);
@@ -209,7 +203,7 @@ jobs:
             // 중급 스킬 (레벨 40-59)
             const intermediateSkills = skillsArray.filter(skill => skill.level >= 40 && skill.level < 60);
             if (intermediateSkills.length > 0) {
-              skillsSection += '### ⚡ 발전중인 스킬\n';
+              skillsSection += '### 발전중인 스킬\n';
               intermediateSkills.forEach(skill => {
                 const config = languageConfig[skill.name] || { icon: skill.name.toLowerCase(), color: '666666', logoColor: 'white' };
                 const progressBar = createProgressBar(skill.level);
@@ -226,10 +220,10 @@ jobs:
             const recentActivity = await getRecentActivity();
             
             let weeklySection = '**이번 주 주력 분야:**  \n';
-            weeklySection += '🔥 **Backend Development** (45%) - API 개발 및 최적화  \n';
-            weeklySection += '💼 **Business Strategy** (25%) - 기획, 팀 리딩  \n';
-            weeklySection += '🌐 **Frontend** (20%) - UI/UX 개선  \n';
-            weeklySection += '☁️ **DevOps** (10%) - 인프라 관리  \n\n';
+            weeklySection += '**Backend Development** (45%) - API 개발 및 최적화  \n';
+            weeklySection += '**Business Strategy** (25%) - 기획, 팀 리딩  \n';
+            weeklySection += '**Frontend** (20%) - UI/UX 개선  \n';
+            weeklySection += '**DevOps** (10%) - 인프라 관리  \n\n';
             
             weeklySection += '**최근 활동:**  \n';
             recentActivity.forEach(commit => {
@@ -242,7 +236,7 @@ jobs:
           async function updateActivitySection() {
             const recentActivity = await getRecentActivity();
             
-            let activitySection = '🔥 **Recent Commits:**  \n';
+            let activitySection = '**Recent Commits:**  \n';
             recentActivity.slice(0, 3).forEach(commit => {
               activitySection += `- \`${commit.repo}\`: ${commit.message}  \n`;
             });
@@ -256,7 +250,7 @@ jobs:
           }
           
           async function main() {
-            console.log('🎮 프로필 업데이트 시작...');
+            console.log('프로필 업데이트 시작...');
             
             const [skillsContent, weeklyContent, activityContent] = await Promise.all([
               updateSkillSection(),
@@ -292,7 +286,7 @@ jobs:
             
             // 파일 저장
             fs.writeFileSync('README.md', readme);
-            console.log('✅ 프로필 업데이트 완료!');
+            console.log('프로필 업데이트 완료!');
           }
           
           main().catch(console.error);
@@ -300,12 +294,12 @@ jobs:
           
           node analyze-skills.js
           
-      - name: 📝 Commit Changes
+      - name: Commit Changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add README.md
-          git diff --staged --quiet || git commit -m "🎮 Auto-update gaming profile with latest stats"
+          git diff --staged --quiet || git commit -m "Auto-update profile with latest stats"
           
-      - name: 🚀 Push Changes
+      - name: Push Changes
         run: git push
