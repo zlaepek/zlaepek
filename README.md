@@ -1,4 +1,11 @@
-## Profile Overview
+<div align="center">
+  <h1>🚀 김민경 (Zlaepek)</h1>
+  <p><strong>Full Stack Developer | CEO @ PTAHLABS</strong></p>
+</div>
+
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+
+## 👨‍💻 Profile Overview
 
 <div align="center">
 <table width="80%" style="margin: 0 auto; border-collapse: collapse;">
@@ -17,9 +24,7 @@
 </table>
 </div>
 
-<br>
-
-## Career Journey
+## 🚀 Career Journey
 
 <div align="center">
 <table width="90%" style="margin: 0 auto; border-collapse: collapse;">
@@ -56,7 +61,9 @@
 
 ---
 
-## 2025 기술 스택 변화 추이 (Auto-Updated)
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+
+## 📊 2025 기술 스택 변화 추이 (Auto-Updated)
 
 <div align="center">
 
@@ -91,7 +98,9 @@
 
 ---
 
-## Current Status & Skills (Auto-Updated)
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+
+## 🎯 Current Status & Skills (Auto-Updated)
 
 <!-- SKILL_START -->
 <div align="center">
@@ -144,7 +153,9 @@
 
 ---
 
-## Language Trend Analysis (Auto-Updated)
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+
+## 📈 Language Trend Analysis (Auto-Updated)
 
 <!-- TREND_CHART -->
 ![Language Trends](./assets/language_trend_chart.png)
@@ -165,27 +176,36 @@
 
 ---
 
+## 📈 GitHub Analytics
+
 <div align="center">
 
-<!-- GitHub 통계 - 높이 맞춤 -->
-<p align="center">
-  <img height=200 src="https://github-readme-stats.vercel.app/api?username=zlaepek&show_icons=true&count_private=true&include_all_commits=true&theme=material-palenight&hide_border=true&bg_color=20232a&icon_color=E3E3E3A8&text_color=fff&title_color=52b788" />
-  <img height=200 src="https://github-readme-activity-graph.vercel.app/graph?username=zlaepek&theme=react-dark&bg_color=20232a&hide_border=true&line=b7e4c7&color=52b788&area=true&height=200&custom_title=Contribution%20Activity"/>
-</p>
+<!-- GitHub 통계 카드들 -->
+<img height="180em" src="https://github-readme-stats.vercel.app/api?username=zlaepek&show_icons=true&count_private=true&include_all_commits=true&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=52b788&icon_color=52b788&text_color=c9d1d9"/>
 
-<br>
+<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=zlaepek&layout=compact&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=52b788&text_color=c9d1d9"/>
 
-<!-- 현재 상태 -->
-![Profile Views](https://komarev.com/ghpvc/?username=zlaepek&color=52b788&style=flat-square)
-![GitHub followers](https://img.shields.io/github/followers/zlaepek?color=52b788&style=flat-square)
-![GitHub stars](https://img.shields.io/github/stars/zlaepek?color=52b788&style=flat-square)
+<!-- 연속 커밋 통계 -->
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=zlaepek&theme=github-dark-blue&hide_border=true&background=0D1117&ring=52b788&fire=52b788&currStreakLabel=52b788"/>
+
+<!-- 활동 그래프 -->
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=zlaepek&theme=github-compact&bg_color=0D1117&hide_border=true&line=52b788&color=52b788&area=true&custom_title=📊%20Contribution%20Activity"/>
+
+<br/>
+
+<!-- 프로필 뱃지들 -->
+<img src="https://komarev.com/ghpvc/?username=zlaepek&color=52b788&style=for-the-badge&label=PROFILE+VIEWS"/>
+<img src="https://img.shields.io/github/followers/zlaepek?color=52b788&style=for-the-badge&logo=github&label=FOLLOWERS"/>
+<img src="https://img.shields.io/github/stars/zlaepek?color=52b788&style=for-the-badge&logo=github&label=STARS"/>
 
 </div>
 
 <br>
 
 
-## Weekly Development Report (Auto-Generated)
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+
+## 📅 Weekly Development Report (Auto-Generated)
 
 <!-- WEEKLY_START -->
 **이번 주 주력 분야:**  
@@ -204,7 +224,7 @@
 
 <br>
 
-## Latest Activity (Auto-Updated)
+## ⚡ Latest Activity (Auto-Updated)
 
 <!-- ACTIVITY_START -->
 **Recent Commits:**  

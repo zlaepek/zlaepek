@@ -81,13 +81,19 @@ jobs:
               """지난 12개월간 언어별 사용률 데이터 수집"""
               print("📊 월별 언어 데이터 수집 시작...")
               
-              # 지난 12개월 생성
+              # 2020년부터 현재까지 모든 월 생성
               months = []
               current_date = datetime.now()
-              for i in range(12):
-                  month_date = current_date - timedelta(days=30*i)
-                  months.append(month_date.strftime('%Y-%m'))
-              months.reverse()
+              start_date = datetime(2020, 1, 1)
+              
+              temp_date = start_date
+              while temp_date <= current_date:
+                  months.append(temp_date.strftime('%Y-%m'))
+                  # 다음 월로 이동
+                  if temp_date.month == 12:
+                      temp_date = temp_date.replace(year=temp_date.year + 1, month=1)
+                  else:
+                      temp_date = temp_date.replace(month=temp_date.month + 1)
               
               # 새로운 데이터를 위해 기존 파일 삭제
               import os
@@ -199,18 +205,18 @@ jobs:
               languages = ['C#', 'JavaScript', 'Python', 'TypeScript', 'HTML', 'CSS']
               sample_data = defaultdict(lambda: defaultdict(int))
               
-              # 당신의 실제 개발 히스토리를 반영한 패턴
+              # 2020년부터 현재까지 실제 개발 히스토리 반영
               base_values = {
-                  'C#': 80,      # Unity 시절 주력 언어
-                  'JavaScript': 20, # 웹 개발 전환으로 증가
-                  'Python': 10,  # PTAHLABS 창업으로 증가
-                  'TypeScript': 5, # 최근 도입
-                  'HTML': 15,    # 웹 개발과 함께 증가
-                  'CSS': 10      # 웹 개발과 함께 증가
+                  'C#': 70,      # Unity 개발 주력
+                  'JavaScript': 15, # 점진적 증가
+                  'Python': 12,  # 대학 + PTAHLABS
+                  'Java': 25,    # 대학 시절 주력
+                  'TypeScript': 3, # 최근 도입
+                  'HTML': 12,    # 웹 개발
+                  'CSS': 8       # 웹 개발
               }
               
               for i, month in enumerate(months):
-                  # 2023년 이전 = 대학 시절, 2023-2024 = 디캐릭(Unity), 2024.11~ = PTAHLABS(웹)
                   year_month = month.split('-')
                   year = int(year_month[0])
                   month_num = int(year_month[1])
@@ -218,24 +224,43 @@ jobs:
                   for lang in languages:
                       base = base_values[lang]
                       
-                      # 시기별 가중치 적용
-                      if year <= 2022:  # 대학 시절
-                          if lang == 'C#': value = base * 0.3  # 기초 학습
-                          elif lang in ['Python', 'JavaScript']: value = base * 0.5
-                          else: value = base * 0.2
-                      elif year == 2023 or (year == 2024 and month_num <= 10):  # 디캐릭 시절
-                          if lang == 'C#': value = base * 1.2  # Unity 개발
-                          elif lang in ['JavaScript', 'HTML', 'CSS']: value = base * 0.3
-                          else: value = base * 0.6
-                      else:  # PTAHLABS 시절 (2024.11~)
-                          if lang in ['JavaScript', 'Python', 'HTML', 'CSS']: value = base * 1.8
-                          elif lang == 'TypeScript': value = base * 2.0  # 새로 도입
-                          elif lang == 'C#': value = base * 0.6  # 비중 감소
-                          else: value = base
+                      # 연도별 기술 스택 변화 반영
+                      if year == 2020:  # 대학 1년차
+                          if lang == 'Java': value = base * 1.5  # 대학 커리큘럼
+                          elif lang == 'Python': value = base * 0.8
+                          elif lang == 'C#': value = base * 0.2  # 아직 Unity 전
+                          else: value = base * 0.3
+                      elif year == 2021:  # 대학 2년차
+                          if lang == 'Java': value = base * 1.3
+                          elif lang == 'Python': value = base * 1.0
+                          elif lang == 'C#': value = base * 0.4  # Unity 입문
+                          else: value = base * 0.4
+                      elif year == 2022:  # 대학 3년차
+                          if lang == 'Java': value = base * 1.0
+                          elif lang == 'C#': value = base * 0.7  # Unity 본격 시작
+                          elif lang == 'Python': value = base * 0.9
+                          else: value = base * 0.5
+                      elif year == 2023:  # 디캐릭 입사
+                          if lang == 'C#': value = base * 1.4  # Unity 전문가
+                          elif lang == 'Java': value = base * 0.3  # 사용 중단
+                          elif lang in ['JavaScript', 'HTML', 'CSS']: value = base * 0.4
+                          else: value = base * 0.8
+                      elif year == 2024 and month_num <= 10:  # 디캐릭 마지막
+                          if lang == 'C#': value = base * 1.3
+                          elif lang in ['JavaScript', 'HTML', 'CSS']: value = base * 0.6  # 웹 학습 시작
+                          elif lang == 'Python': value = base * 1.1
+                          else: value = base * 0.9
+                      else:  # PTAHLABS 시대 (2024.11~)
+                          if lang in ['JavaScript', 'HTML', 'CSS']: value = base * 2.2  # 웹 전환
+                          elif lang == 'Python': value = base * 1.8  # 백엔드
+                          elif lang == 'TypeScript': value = base * 3.0  # 새 기술
+                          elif lang == 'C#': value = base * 0.5  # 비중 감소
+                          else: value = base * 0.4
                       
-                      # 랜덤 변동 추가
-                      noise = np.random.normal(0, 2)
-                      final_value = max(5, min(95, value + noise))
+                      # 시간에 따른 자연스러운 변화 추가
+                      time_factor = i * 0.02  # 시간이 지날수록 약간씩 변화
+                      noise = np.random.normal(0, 1.5)  # 랜덤 노이즈 감소
+                      final_value = max(2, min(98, value + time_factor + noise))
                       
                       sample_data[month][lang] = final_value
               
@@ -245,33 +270,37 @@ jobs:
               """언어 트렌드 차트 생성"""
               print("🎨 트렌드 차트 생성 중...")
               
+              # 최근 24개월만 표시 (너무 많으면 읽기 어려움)
+              display_months = months[-24:] if len(months) > 24 else months
+              display_data = {month: monthly_data[month] for month in display_months if month in monthly_data}
+              
               # 스타일 설정
               plt.style.use('dark_background')
               sns.set_palette("husl")
               
-              fig, ax = plt.subplots(figsize=(12, 8))
+              fig, ax = plt.subplots(figsize=(14, 8))
               fig.patch.set_facecolor('#20232a')
               ax.set_facecolor('#20232a')
               
-              # 주요 언어들만 선택 (데이터가 있는 언어들)
+              # 주요 언어들만 선택 (표시할 데이터에서)
               all_languages = set()
-              for month_data in monthly_data.values():
+              for month_data in display_data.values():
                   all_languages.update(month_data.keys())
               
               # 평균 사용률로 정렬해서 상위 5개 언어만
               lang_averages = {}
               for lang in all_languages:
-                  values = [monthly_data[month].get(lang, 0) for month in months]
-                  lang_averages[lang] = sum(values) / len(values)
+                  values = [display_data[month].get(lang, 0) for month in display_months]
+                  lang_averages[lang] = sum(values) / len(values) if values else 0
               
               top_languages = sorted(lang_averages.items(), key=lambda x: x[1], reverse=True)[:5]
               
               # 각 언어별 선 그래프
               for lang, _ in top_languages:
-                  values = [monthly_data[month].get(lang, 0) for month in months]
+                  values = [display_data[month].get(lang, 0) for month in display_months]
                   color = language_colors.get(lang, '#ffffff')
                   
-                  ax.plot(range(len(months)), values, 
+                  ax.plot(range(len(display_months)), values, 
                          marker='o', linewidth=2.5, markersize=6,
                          label=lang, color=color, alpha=0.9)
               
@@ -280,14 +309,14 @@ jobs:
                            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
               
               # 차트 스타일링
-              ax.set_xticks(range(len(months)))
+              ax.set_xticks(range(len(display_months)))
               month_labels = []
-              for month in months:
+              for month in display_months:
                   year, month_num = month.split('-')
                   month_name = month_names[int(month_num) - 1]
                   month_labels.append(f'{month_name} {year[2:]}')
               
-              ax.set_xticklabels(month_labels, color='#ffffff', fontsize=10, rotation=45)
+              ax.set_xticklabels(month_labels, color='#ffffff', fontsize=9, rotation=45)
               ax.set_ylabel('Usage (%)', color='#52b788', fontsize=12, fontweight='bold')
               ax.set_title('📊 Programming Language Trends Over Time', color='#52b788', 
                           fontsize=16, fontweight='bold', pad=20)
