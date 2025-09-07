@@ -5,10 +5,15 @@ on:
     # 매일 한국시간 오전 9시 (UTC 0시)
     - cron: '0 0 * * *'
   workflow_dispatch: # 수동 실행 가능
+  workflow_run:
+    workflows: ["Generate Language Trend Charts"]
+    types:
+      - completed
 
 jobs:
   update-profile:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
     permissions:
       contents: write
       
@@ -193,7 +198,8 @@ jobs:
                 const badge = getSkillBadge(skill.level, 0);
                 const progressBar = createProgressBar(skill.level);
                 
-                skillsSection += `![${skill.name}](https://img.shields.io/badge/${skill.name}-Lv.${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}) ${progressBar} ${badge}  \n`;
+                const encodedName = encodeURIComponent(skill.name);
+                skillsSection += `![${skill.name}](https://img.shields.io/badge/${encodedName}-Lv.${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}) ${progressBar} ${badge}  \n`;
               });
               skillsSection += '\n';
             }
@@ -206,7 +212,8 @@ jobs:
                 const config = languageConfig[skill.name] || { icon: skill.name.toLowerCase(), color: '666666', logoColor: 'white' };
                 const progressBar = createProgressBar(skill.level);
                 
-                skillsSection += `![${skill.name}](https://img.shields.io/badge/${skill.name}-Lv.${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}) ${progressBar}  \n`;
+                const encodedName = encodeURIComponent(skill.name);
+                skillsSection += `![${skill.name}](https://img.shields.io/badge/${encodedName}-Lv.${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}) ${progressBar}  \n`;
               });
               skillsSection += '\n';
             }
@@ -292,12 +299,11 @@ jobs:
           
           node analyze-skills.js
           
-      - name: Commit Changes
+      - name: Commit and Push Changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git pull origin main
           git add README.md
           git diff --staged --quiet || git commit -m "Auto-update profile with latest stats"
-          
-      - name: Push Changes
-        run: git push
+          git push
