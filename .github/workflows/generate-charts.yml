@@ -420,9 +420,9 @@ jobs:
               all_valid_languages = sorted(lang_totals.items(), key=lambda x: x[1], reverse=True)
               top_lang_names = [lang for lang, _ in all_valid_languages]
               
-              # 차트 설정 (모던 디자인)
+              # 차트 설정 (모던 디자인, 가로형)
               plt.style.use('dark_background')
-              fig, ax = plt.subplots(figsize=(14, 9))
+              fig, ax = plt.subplots(figsize=(12, 10))  # 세로를 더 길게
               fig.patch.set_facecolor('#0d1117')
               ax.set_facecolor('#161b22')
               
@@ -432,69 +432,79 @@ jobs:
                   plt.close()
                   return
               
+              # 언어별 각 연도 데이터로 가로 바 차트 생성  
+              y_pos = np.arange(len(top_lang_names))
+              
               # 기술 스택별 분류
               game_langs = ['C#', 'Unity', 'UnityScript', 'C++']
               web_langs = ['JavaScript', 'TypeScript', 'HTML', 'CSS', 'React', 'Vue', 'Angular']
               
-              # 연도별 기술 스택 합계 계산
-              x_pos = np.arange(len(years))
-              game_totals = []
-              web_totals = []
-              other_totals = []
+              plotted_languages = []
+              bar_height = 0.8 / max(1, len(years))
               
-              for year in years:
-                  year_data = yearly_data[year]
+              # 연도별로 가로 바 생성 (각 언어마다 연도별 바)
+              for year_idx, year in enumerate(years):
+                  y_positions = []
+                  values = []
+                  colors = []
+                  labels = []
                   
-                  # 각 카테고리별 합계
-                  game_sum = sum(year_data.get(lang, 0) for lang in game_langs)
-                  web_sum = sum(year_data.get(lang, 0) for lang in web_langs)
-                  other_sum = sum(lines for lang, lines in year_data.items() 
-                                if lang not in game_langs and lang not in web_langs)
+                  for lang_idx, lang in enumerate(top_lang_names):
+                      value = yearly_data[year].get(lang, 0)
+                      
+                      # 값이 0인 언어는 스킵
+                      if value == 0:
+                          continue
+                      
+                      y_positions.append(lang_idx + year_idx * bar_height - bar_height * (len(years) - 1) / 2)
+                      values.append(value)
+                      
+                      # 분야별 스타일 설정
+                      if lang in game_langs:
+                          color = language_colors.get(lang, '#4169E1')
+                      elif lang in web_langs:
+                          color = language_colors.get(lang, '#FFD700')
+                      else:
+                          color = language_colors.get(lang, '#9932CC')
+                      colors.append(color)
+                      
+                      # 첫 번째 연도에서만 언어 라벨 추가
+                      if year_idx == 0:
+                          labels.append(lang)
                   
-                  total_lines = game_sum + web_sum + other_sum
-                  
-                  # 퍼센트 계산
-                  if total_lines > 0:
-                      game_totals.append((game_sum / total_lines) * 100)
-                      web_totals.append((web_sum / total_lines) * 100)
-                      other_totals.append((other_sum / total_lines) * 100)
-                  else:
-                      game_totals.append(0)
-                      web_totals.append(0)
-                      other_totals.append(0)
+                  if values:  # 값이 있는 경우에만 바 생성
+                      bars = ax.barh(y_positions, values, bar_height * 0.8,
+                                   color=colors, alpha=0.8, label=year)
+                      
+                      # 각 언어를 plotted_languages에 추가 (첫 번째 연도에서만)
+                      if year_idx == 0:
+                          for lang_idx, lang in enumerate(top_lang_names):
+                              if yearly_data[year].get(lang, 0) > 0:
+                                  plotted_languages.append(lang)
               
-              # 스택 바 차트 생성
-              bar_width = 0.6
-              
-              # 게임개발 (파란색)
-              bars1 = ax.bar(x_pos, game_totals, bar_width, label='Game Dev', 
-                           color='#4169E1', alpha=0.9)
-              
-              # 웹개발 (노란색) - 게임개발 위에 쌓기
-              bars2 = ax.bar(x_pos, web_totals, bar_width, bottom=game_totals, 
-                           label='Web Dev', color='#FFD700', alpha=0.9)
-              
-              # 나머지 (보라색) - 게임+웹 위에 쌓기
-              bottom_values = [g + w for g, w in zip(game_totals, web_totals)]
-              bars3 = ax.bar(x_pos, other_totals, bar_width, bottom=bottom_values, 
-                           label='Others', color='#9932CC', alpha=0.9)
-              
-              # 차트 스타일링 (개선된 디자인)
-              ax.set_xlabel('Year', color='#7c3aed', fontsize=14, fontweight='bold', labelpad=15)
-              ax.set_ylabel('Percentage (%)', color='#7c3aed', fontsize=14, fontweight='bold', labelpad=15)
-              ax.set_title('Tech Stack Distribution Trends', color='#f0f6fc', 
+              # 차트 스타일링 (개선된 디자인 - 가로형)
+              ax.set_xlabel('Lines of Code', color='#7c3aed', fontsize=14, fontweight='bold', labelpad=15)
+              ax.set_ylabel('Programming Languages', color='#7c3aed', fontsize=14, fontweight='bold', labelpad=15)
+              ax.set_title('Yearly Language Usage (All Languages)', color='#f0f6fc', 
                           fontsize=20, fontweight='bold', pad=30)
-              ax.set_xticks(x_pos)
-              ax.set_xticklabels(years, color='#f0f6fc', fontsize=12, fontweight='500')
+              ax.set_yticks(y_pos)
+              ax.set_yticklabels(top_lang_names, color='#f0f6fc', fontsize=12, fontweight='500')
               
-              # Y축 0-100% 고정
-              ax.set_ylim(0, 100)
+              # X축 자동 조정 (가로형 차트이므로 X축이 값 범위)
+              if plotted_languages:
+                  max_values = []
+                  for lang in plotted_languages:
+                      values = [yearly_data[year].get(lang, 0) for year in years]
+                      max_values.extend(values)
+                  if max_values:
+                      ax.set_xlim(0, max(max_values) * 1.1)
               
-              # 개선된 범례 및 그리드
-              ax.legend(loc='upper left', frameon=True, fancybox=True, 
-                       shadow=False, ncol=3, fontsize=12, 
+              # 개선된 범례 및 그리드 (연도별 범례)
+              legend_cols = min(len(years), 4)  # 연도 수에 맞춰 컬럼 수 설정
+              ax.legend(loc='upper right', frameon=True, fancybox=True, 
+                       shadow=False, ncol=legend_cols, fontsize=10, 
                        facecolor='#21262d', edgecolor='#7c3aed', framealpha=0.95,
-                       borderpad=1.5, columnspacing=2)
+                       borderpad=1, columnspacing=1.5)
               ax.grid(True, alpha=0.15, color='#30363d', linestyle='-', linewidth=1)
               
               # 축 색상 및 스타일
