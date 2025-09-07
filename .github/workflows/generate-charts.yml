@@ -4,6 +4,8 @@ on:
   schedule:
     # 매주 월요일 오전 9시 (일요일 UTC 24:00)
     - cron: '0 0 * * 1'
+    # 매일 오전 8시 45분 (차트를 먼저 생성)
+    - cron: '45 23 * * *'
   workflow_dispatch:
 
 jobs:
@@ -327,6 +329,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git pull origin main
           git add assets/ README.md
           git diff --staged --quiet || git commit -m "Update language trend charts"
           git push

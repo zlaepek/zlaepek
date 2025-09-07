@@ -32,7 +32,7 @@
 
 <!-- SKILL_START -->
 ### 현재 주력 스킬
-![C#](https://img.shields.io/badge/C#-Lv.80-239120?style=for-the-badge&logo=c-sharp&logoColor=white) ███████████░░░ **[EXPERT]**  
+![C#](https://img.shields.io/badge/C%23-Lv.80-239120?style=for-the-badge&logo=c-sharp&logoColor=white) ███████████░░░ **[EXPERT]**  
 
 ### 발전중인 스킬
 ![ShaderLab](https://img.shields.io/badge/ShaderLab-Lv.52-666666?style=for-the-badge&logo=shaderlab&logoColor=white) ███████░░░░░░░  
