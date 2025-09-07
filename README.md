@@ -179,13 +179,11 @@
 ## Latest Activity (Auto-Updated)
 
 <!-- ACTIVITY_START -->
-**Recent Commits:**  
-- `zlaepek/zlaepek`: 레이아웃 수정 3  
-- `zlaepek/zlaepek`: 내용 수정  
-- `zlaepek/zlaepek`: 줄수로 수정  
+**Recent Projects:**  
+- `zlaepek/zlaepek`: 수정 4 (5 commits)  
 
 **This Month:**  
-- 5 commits across multiple repositories  
+- 5 commits across 1 repositories  
 - 새로운 기술 스택 학습 진행중  
 - 프로젝트 마일스톤 달성  
 <!-- ACTIVITY_END -->
@@ -197,6 +195,6 @@
 <div align="center">
 
 *이 프로필은 GitHub Actions로 자동 업데이트됩니다*  
-*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 21:37 KST<!-- /UPDATE_TIME -->*
+*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 21:50 KST<!-- /UPDATE_TIME -->*
 
 </div>
