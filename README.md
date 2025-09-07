@@ -55,42 +55,7 @@
 <div align="center">
 
 <!-- TREND_START -->
-<table>
-  <thead>
-    <tr>
-      <th align="center" width="120">📈 분야</th>
-      <th align="center" width="80">변화율</th>
-      <th align="center" width="200">주요 기술</th>
-      <th align="center" width="300">현재 상황</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="center"><img src="https://img.shields.io/badge/웹개발-4A90E2?style=for-the-badge&logo=javascript&logoColor=white"/></td>
-      <td align="center"><span style="color: #52b788; font-weight: bold;">+45%</span></td>
-      <td align="center">JS, HTML, CSS, React</td>
-      <td align="left">React, Node.js 집중 학습 중</td>
-    </tr>
-    <tr>
-      <td align="center"><img src="https://img.shields.io/badge/백엔드-F4A261?style=for-the-badge&logo=python&logoColor=white"/></td>
-      <td align="center"><span style="color: #52b788; font-weight: bold;">+38%</span></td>
-      <td align="center">Python, Java</td>
-      <td align="left">API 개발, 데이터 분석</td>
-    </tr>
-    <tr>
-      <td align="center"><img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/></td>
-      <td align="center"><span style="color: #52b788; font-weight: bold;">+28%</span></td>
-      <td align="center">TypeScript</td>
-      <td align="left">JS 프로젝트 마이그레이션</td>
-    </tr>
-    <tr>
-      <td align="center"><img src="https://img.shields.io/badge/게임개발-E74C3C?style=for-the-badge&logo=unity&logoColor=white"/></td>
-      <td align="center"><span style="color: #e74c3c; font-weight: bold;">-32%</span></td>
-      <td align="center">C#, Unity</td>
-      <td align="left">PTAHLABS에서도 활용, 비중 감소</td>
-    </tr>
-  </tbody>
-</table>
+<table>\n  <thead>\n    <tr>\n      <th align="center" width="120">📈 분야</th>\n      <th align="center" width="80">변화율</th>\n      <th align="center" width="200">주요 기술</th>\n      <th align="center" width="300">현재 상황</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td align="center"><img src="https://img.shields.io/badge/%EA%B2%8C%EC%9E%84%EA%B0%9C%EB%B0%9C-E74C3C?style=for-the-badge&logo=unity&logoColor=white"/></td>\n      <td align="center"><span style="color: #e74c3c; font-weight: bold;">-32%</span></td>\n      <td align="center">C#, Unity</td>\n      <td align="left">PTAHLABS에서도 활용, 비중 감소</td>\n    </tr>\n    <tr>\n      <td align="center"><img src="https://img.shields.io/badge/%EC%9B%B9%EA%B0%9C%EB%B0%9C-4A90E2?style=for-the-badge&logo=javascript&logoColor=white"/></td>\n      <td align="center"><span style="color: #52b788; font-weight: bold;">+45%</span></td>\n      <td align="center">JavaScript, HTML, CSS, React</td>\n      <td align="left">React, Node.js 집중 학습 중</td>\n    </tr>\n  </tbody>\n</table>
 <!-- TREND_END -->
 
 ### 증가하는 기술들
@@ -115,9 +80,8 @@
 ![C#](https://img.shields.io/badge/C%23-Lv.80-239120?style=for-the-badge&logo=c-sharp&logoColor=white) ███████████░░░ **[EXPERT]**
 
 ### 발전중인 스킬
-![ShaderLab](https://img.shields.io/badge/ShaderLab-Lv.52-666666?style=for-the-badge&logo=shaderlab&logoColor=white) ███████░░░░░░░  
-![JavaScript](https://img.shields.io/badge/JavaScript-Lv.50-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ███████░░░░░░░  
-![CSS](https://img.shields.io/badge/CSS-Lv.48-1572B6?style=for-the-badge&logo=css3&logoColor=white) ██████░░░░░░░░  
+![JavaScript](https://img.shields.io/badge/JavaScript-Lv.50-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ███████░░░░░░░
+![CSS](https://img.shields.io/badge/CSS-Lv.48-1572B6?style=for-the-badge&logo=css3&logoColor=white) ██████░░░░░░░░
 ![HTML](https://img.shields.io/badge/HTML-Lv.42-E34F26?style=for-the-badge&logo=html5&logoColor=white) ██████░░░░░░░░
 
 <!-- SKILL_END -->
@@ -187,13 +151,11 @@
 **DevOps** (10%) - 인프라 관리  
 
 **최근 활동:**  
-- `zlaepek/zlaepek`: Update generate-charts.yml (09-07)  
-- `zlaepek/zlaepek`: 수정 (09-07)  
+- `zlaepek/zlaepek`: 레이아웃 수정 (09-07)  
 - `zlaepek/zlaepek`: 테스트 (09-07)  
-- `wnj719/WebSite`: 배포 설정 변경
-
-url에서 readme.md가 보이는 것을 index.html로 보이게끔 변경 (08-28)  
-- `2025-Ptahlabs/WebSite`: Update README.md (08-28)  
+- `zlaepek/zlaepek`: 테스트 (09-07)  
+- `zlaepek/zlaepek`: 브랜치 분기 (09-07)  
+- `zlaepek/zlaepek`: 브랜치 분기 (09-07)  
 <!-- WEEKLY_END -->
 
 <br>
@@ -202,8 +164,8 @@ url에서 readme.md가 보이는 것을 index.html로 보이게끔 변경 (08-28
 
 <!-- ACTIVITY_START -->
 **Recent Commits:**  
-- `zlaepek/zlaepek`: Update generate-charts.yml  
-- `zlaepek/zlaepek`: 수정  
+- `zlaepek/zlaepek`: 레이아웃 수정  
+- `zlaepek/zlaepek`: 테스트  
 - `zlaepek/zlaepek`: 테스트  
 
 **This Month:**  
@@ -219,6 +181,6 @@ url에서 readme.md가 보이는 것을 index.html로 보이게끔 변경 (08-28
 <div align="center">
 
 *이 프로필은 GitHub Actions로 자동 업데이트됩니다*  
-*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 19:04 KST<!-- /UPDATE_TIME -->*
+*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 19:38 KST<!-- /UPDATE_TIME -->*
 
 </div>
