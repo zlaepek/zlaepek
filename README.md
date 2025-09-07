@@ -109,30 +109,29 @@
       <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/C%23-Expert-239120?style=for-the-badge&logo=c-sharp&logoColor=white" alt="C#"/></td>
       <td style="padding: 10px; text-align: center;"><strong>80</strong></td>
       <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-80%25-FFD700?style=flat&logo=chartdotjs&logoColor=white" alt="Progress"/></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/🥇-EXPERT-FFD700?style=for-the-badge&logoColor=white" alt="Expert"/></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/%F0%9F%A5%87-EXPERT-FFD700?style=for-the-badge&logoColor=white" alt="EXPERT"/></td>
     </tr>
     <tr style="border: 1px solid #ddd;">
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/JavaScript-Advanced-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"/></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/JavaScript-Intermediate-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"/></td>
       <td style="padding: 10px; text-align: center;"><strong>50</strong></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-50%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white" alt="Progress"/></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/🥈-ADVANCED-C0C0C0?style=for-the-badge&logoColor=white" alt="Advanced"/></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-50%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white" alt="Progress"/></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE"/></td>
     </tr>
     <tr style="border: 1px solid #ddd;">
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/CSS-Advanced-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS"/></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/CSS-Intermediate-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS"/></td>
       <td style="padding: 10px; text-align: center;"><strong>48</strong></td>
       <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-48%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white" alt="Progress"/></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/🥈-ADVANCED-C0C0C0?style=for-the-badge&logoColor=white" alt="Advanced"/></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE"/></td>
     </tr>
     <tr style="border: 1px solid #ddd;">
       <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/HTML-Intermediate-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML"/></td>
       <td style="padding: 10px; text-align: center;"><strong>42</strong></td>
       <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-42%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white" alt="Progress"/></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/🥉-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="Intermediate"/></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE"/></td>
     </tr>
   </tbody>
 </table>
 </div>
-
 <!-- SKILL_END -->
 
 ### 레벨 계산 방식
@@ -196,11 +195,11 @@
 **DevOps** (10%) - 인프라 관리  
 
 **최근 활동:**  
+- `zlaepek/zlaepek`: 수정 (09-07)  
+- `zlaepek/zlaepek`: 레이아웃 수정 2 (09-07)  
 - `zlaepek/zlaepek`: 레이아웃 수정 (09-07)  
 - `zlaepek/zlaepek`: 테스트 (09-07)  
 - `zlaepek/zlaepek`: 테스트 (09-07)  
-- `zlaepek/zlaepek`: 브랜치 분기 (09-07)  
-- `zlaepek/zlaepek`: 브랜치 분기 (09-07)  
 <!-- WEEKLY_END -->
 
 <br>
@@ -209,9 +208,9 @@
 
 <!-- ACTIVITY_START -->
 **Recent Commits:**  
+- `zlaepek/zlaepek`: 수정  
+- `zlaepek/zlaepek`: 레이아웃 수정 2  
 - `zlaepek/zlaepek`: 레이아웃 수정  
-- `zlaepek/zlaepek`: 테스트  
-- `zlaepek/zlaepek`: 테스트  
 
 **This Month:**  
 - 5 commits across multiple repositories  
@@ -226,6 +225,6 @@
 <div align="center">
 
 *이 프로필은 GitHub Actions로 자동 업데이트됩니다*  
-*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 19:38 KST<!-- /UPDATE_TIME -->*
+*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 20:37 KST<!-- /UPDATE_TIME -->*
 
 </div>
