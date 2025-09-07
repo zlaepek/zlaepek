@@ -172,18 +172,7 @@ jobs:
               except Exception as e:
                   print(f"리포지토리 데이터 가져오기 실패: {e}")
                   
-              # 현재 월만 새로 수집 (기존 데이터 유지)
-              current_month = datetime.now().strftime('%Y-%m')
-              if current_month not in saved_data:
-                  print(f"🔄 {current_month} 데이터 수집 중...")
-                  # 현재 월 데이터만 수집
-                  saved_data[current_month] = {}
-              
-              # 기존 데이터를 monthly_data로 복사
-              for month in months:
-                  if month in saved_data:
-                      for lang, value in saved_data[month].items():
-                          monthly_data[month][lang] = value
+              # 수집된 모든 데이터가 monthly_data에 있으므로 그대로 사용
               
               # 데이터가 부족한 경우 경고만 표시
               if len(monthly_data) < 6:  # 6개월 이하 데이터면 경고
