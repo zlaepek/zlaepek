@@ -5,8 +5,6 @@ on:
     # 매주 월요일 오전 9시 (일요일 UTC 24:00)
     - cron: '0 0 * * 1'
   workflow_dispatch:
-  push:
-    branches: [ main ]
 
 jobs:
   generate-charts:
