@@ -177,8 +177,10 @@ jobs:
           async function updateSkillSection() {
             const languageStats = await getLanguageStats();
             
-            // 언어별 통계를 레벨로 변환
+            // 언어별 통계를 레벨로 변환 (제외할 언어 필터링)
+            const excludeLanguages = ['ShaderLab', 'HLSL', 'Makefile', 'Batchfile', 'Shell'];
             const skillsArray = Object.entries(languageStats)
+              .filter(([name]) => !excludeLanguages.includes(name))
               .map(([name, stats]) => ({
                 name,
                 level: calculateLevel(stats.bytes, stats.repos),
@@ -192,14 +194,14 @@ jobs:
             // 메인 스킬 (레벨 60 이상)
             const mainSkills = skillsArray.filter(skill => skill.level >= 60);
             if (mainSkills.length > 0) {
-              skillsSection += '### 현재 주력 스킬\n';
+              skillsSection += '### 주력 스킬\n';
               mainSkills.forEach(skill => {
                 const config = languageConfig[skill.name] || { icon: skill.name.toLowerCase(), color: '666666', logoColor: 'white' };
                 const badge = getSkillBadge(skill.level, 0);
                 const progressBar = createProgressBar(skill.level);
                 
                 const encodedName = encodeURIComponent(skill.name);
-                skillsSection += `![${skill.name}](https://img.shields.io/badge/${encodedName}-Lv.${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}) ${progressBar} ${badge}  \n`;
+                skillsSection += `![${skill.name}](https://img.shields.io/badge/${encodedName}-Lv.${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}) ${progressBar} ${badge}\n`;
               });
               skillsSection += '\n';
             }
@@ -213,7 +215,7 @@ jobs:
                 const progressBar = createProgressBar(skill.level);
                 
                 const encodedName = encodeURIComponent(skill.name);
-                skillsSection += `![${skill.name}](https://img.shields.io/badge/${encodedName}-Lv.${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}) ${progressBar}  \n`;
+                skillsSection += `![${skill.name}](https://img.shields.io/badge/${encodedName}-Lv.${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}) ${progressBar}\n`;
               });
               skillsSection += '\n';
             }
@@ -254,19 +256,94 @@ jobs:
             return activitySection;
           }
           
+          async function updateTechStackTrendTable() {
+            const languageStats = await getLanguageStats();
+            const excludeLanguages = ['ShaderLab', 'HLSL', 'Makefile', 'Batchfile', 'Shell'];
+            
+            // 언어들을 분야별로 그룹화
+            const techStacks = {
+              웹개발: { languages: ['JavaScript', 'HTML', 'CSS', 'React'], total: 0, growth: 45, logo: 'javascript', color: '4A90E2' },
+              백엔드: { languages: ['Python', 'Java', 'Node.js'], total: 0, growth: 38, logo: 'python', color: 'F4A261' },
+              TypeScript: { languages: ['TypeScript'], total: 0, growth: 28, logo: 'typescript', color: '3178C6' },
+              게임개발: { languages: ['C#', 'Unity'], total: 0, growth: -32, logo: 'unity', color: 'E74C3C' }
+            };
+            
+            // 각 분야별 사용량 계산
+            Object.entries(languageStats).forEach(([lang, stats]) => {
+              if (!excludeLanguages.includes(lang)) {
+                Object.values(techStacks).forEach(stack => {
+                  if (stack.languages.includes(lang)) {
+                    stack.total += stats.bytes || 0;
+                  }
+                });
+              }
+            });
+            
+            // 테이블 생성
+            let tableContent = '<table>\\n';
+            tableContent += '  <thead>\\n';
+            tableContent += '    <tr>\\n';
+            tableContent += '      <th align="center" width="120">📈 분야</th>\\n';
+            tableContent += '      <th align="center" width="80">변화율</th>\\n';
+            tableContent += '      <th align="center" width="200">주요 기술</th>\\n';
+            tableContent += '      <th align="center" width="300">현재 상황</th>\\n';
+            tableContent += '    </tr>\\n';
+            tableContent += '  </thead>\\n';
+            tableContent += '  <tbody>\\n';
+            
+            // 사용량 순으로 정렬
+            const sortedStacks = Object.entries(techStacks)
+              .filter(([_, stack]) => stack.total > 0)
+              .sort(([,a], [,b]) => b.total - a.total);
+              
+            sortedStacks.forEach(([name, stack]) => {
+              const growthColor = stack.growth > 0 ? '#52b788' : '#e74c3c';
+              const growthSign = stack.growth > 0 ? '+' : '';
+              const description = getTechStackDescription(name);
+              
+              tableContent += '    <tr>\\n';
+              tableContent += `      <td align="center"><img src="https://img.shields.io/badge/${encodeURIComponent(name)}-${stack.color}?style=for-the-badge&logo=${stack.logo}&logoColor=white"/></td>\\n`;
+              tableContent += `      <td align="center"><span style="color: ${growthColor}; font-weight: bold;">${growthSign}${stack.growth}%</span></td>\\n`;
+              tableContent += `      <td align="center">${stack.languages.join(', ')}</td>\\n`;
+              tableContent += `      <td align="left">${description}</td>\\n`;
+              tableContent += '    </tr>\\n';
+            });
+            
+            tableContent += '  </tbody>\\n';
+            tableContent += '</table>';
+            
+            return tableContent;
+          }
+          
+          function getTechStackDescription(stackName) {
+            const descriptions = {
+              '웹개발': 'React, Node.js 집중 학습 중',
+              '백엔드': 'API 개발, 데이터 분석',
+              'TypeScript': 'JS 프로젝트 마이그레이션',
+              '게임개발': 'PTAHLABS에서도 활용, 비중 감소'
+            };
+            return descriptions[stackName] || '개발 진행 중';
+          }
+          
           async function main() {
             console.log('프로필 업데이트 시작...');
             
-            const [skillsContent, weeklyContent, activityContent] = await Promise.all([
+            const [skillsContent, weeklyContent, activityContent, trendContent] = await Promise.all([
               updateSkillSection(),
               updateWeeklyReport(),
-              updateActivitySection()
+              updateActivitySection(),
+              updateTechStackTrendTable()
             ]);
             
             // README 파일 읽기
             let readme = fs.readFileSync('README.md', 'utf8');
             
             // 각 섹션 업데이트
+            readme = readme.replace(
+              /<!-- TREND_START -->[\s\S]*?<!-- TREND_END -->/,
+              `<!-- TREND_START -->\n${trendContent}\n<!-- TREND_END -->`
+            );
+            
             readme = readme.replace(
               /<!-- SKILL_START -->[\s\S]*?<!-- SKILL_END -->/,
               `<!-- SKILL_START -->\n${skillsContent}<!-- SKILL_END -->`

@@ -43,6 +43,12 @@ jobs:
           from collections import defaultdict
           import numpy as np
           
+          # matplotlib 설정 - 폰트 문제 해결
+          import matplotlib
+          matplotlib.use('Agg')
+          matplotlib.rcParams['axes.unicode_minus'] = False
+          matplotlib.rcParams['font.family'] = 'DejaVu Sans'
+          
           # GitHub API 설정
           GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
           USERNAME = os.environ['USERNAME']
@@ -82,6 +88,23 @@ jobs:
                   month_date = current_date - timedelta(days=30*i)
                   months.append(month_date.strftime('%Y-%m'))
               months.reverse()
+              
+              # 기존 데이터 로드 시도 (연도별 파일)
+              current_year = datetime.now().year
+              all_data = {}
+              
+              # 최근 3년 데이터 로드
+              for year in range(current_year - 2, current_year + 1):
+                  filename = f'monthly_data_{year}.json'
+                  try:
+                      with open(filename, 'r') as f:
+                          year_data = json.load(f)
+                          all_data.update(year_data)
+                          print(f"✅ {year}년 데이터 로드 성공")
+                  except FileNotFoundError:
+                      print(f"ℹ️  {year}년 데이터 없음")
+              
+              saved_data = all_data
               
               # 월별 언어 데이터 저장
               monthly_data = defaultdict(lambda: defaultdict(int))
@@ -125,10 +148,42 @@ jobs:
               except Exception as e:
                   print(f"리포지토리 데이터 가져오기 실패: {e}")
                   
+              # 현재 월만 새로 수집 (기존 데이터 유지)
+              current_month = datetime.now().strftime('%Y-%m')
+              if current_month not in saved_data:
+                  print(f"🔄 {current_month} 데이터 수집 중...")
+                  # 현재 월 데이터만 수집
+                  saved_data[current_month] = {}
+              
+              # 기존 데이터를 monthly_data로 복사
+              for month in months:
+                  if month in saved_data:
+                      for lang, value in saved_data[month].items():
+                          monthly_data[month][lang] = value
+              
               # 데이터가 없는 경우 샘플 데이터 생성
               if not monthly_data:
                   print("⚠️  실제 데이터가 없어서 샘플 데이터로 차트 생성")
                   monthly_data = generate_sample_data(months)
+              
+              # 연도별로 데이터 분리 저장
+              try:
+                  years_data = {}
+                  for month, data in monthly_data.items():
+                      year = month.split('-')[0]
+                      if year not in years_data:
+                          years_data[year] = {}
+                      years_data[year][month] = data
+                  
+                  # 각 연도별 파일로 저장
+                  for year, year_data in years_data.items():
+                      filename = f'monthly_data_{year}.json'
+                      with open(filename, 'w') as f:
+                          json.dump(year_data, f, indent=2)
+                      print(f"💾 {year}년 데이터 저장 완료: {filename}")
+                      
+              except Exception as e:
+                  print(f"⚠️  데이터 저장 실패: {e}")
               
               return months, monthly_data
           
@@ -203,8 +258,8 @@ jobs:
               ax.set_xticks(range(len(months)))
               ax.set_xticklabels([month.split('-')[1] + '월' for month in months], 
                                color='#ffffff', fontsize=10)
-              ax.set_ylabel('사용률 (%)', color='#52b788', fontsize=12, fontweight='bold')
-              ax.set_title('월별 프로그래밍 언어 트렌드', color='#52b788', 
+              ax.set_ylabel('Usage (%)', color='#52b788', fontsize=12, fontweight='bold')
+              ax.set_title('Monthly Programming Language Trends', color='#52b788', 
                           fontsize=16, fontweight='bold', pad=20)
               
               # 그리드 및 범례
@@ -267,8 +322,8 @@ jobs:
                          f'{growth_rates[i]:+.1f}%', ha='left' if width >= 0 else 'right',
                          va='center', color='white', fontweight='bold')
               
-              ax.set_xlabel('성장률 (%)', color='#52b788', fontsize=12, fontweight='bold')
-              ax.set_title('언어별 연간 성장률', color='#52b788', 
+              ax.set_xlabel('Growth Rate (%)', color='#52b788', fontsize=12, fontweight='bold')
+              ax.set_title('Annual Language Growth Rate', color='#52b788', 
                           fontsize=16, fontweight='bold', pad=20)
               ax.axvline(0, color='#555555', linewidth=1)
               ax.grid(True, alpha=0.3, color='#555555', axis='x')
@@ -330,6 +385,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git pull origin main
-          git add assets/ README.md
+          git add assets/ README.md monthly_data_*.json
           git diff --staged --quiet || git commit -m "Update language trend charts"
           git push
