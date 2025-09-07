@@ -144,15 +144,10 @@ jobs:
                                   
                                   # 리포지토리가 해당 월에 존재했다면 데이터 추가
                                   if created_at <= month_date <= updated_at:
-                                      total_bytes = sum(languages.values())
-                                      
-                                      # 시간에 따른 가중치 (최근일수록 높음)
-                                      months_diff = (datetime.now() - month_date).days // 30
-                                      weight = max(0.1, 1.0 - (months_diff * 0.05))  # 매월 5%씩 감소
-                                      
                                       for lang, bytes_count in languages.items():
-                                          percentage = (bytes_count / total_bytes * 100 * weight) if total_bytes > 0 else 0
-                                          monthly_data[month][lang] += percentage
+                                          # 대략적인 줄 수로 변환 (평균 50 바이트 = 1줄)
+                                          lines_estimate = bytes_count // 50
+                                          monthly_data[month][lang] += lines_estimate
                                   
                       except Exception as e:
                           print(f"언어 데이터 가져오기 실패 {repo['name']}: {e}")
@@ -205,15 +200,15 @@ jobs:
               languages = ['C#', 'JavaScript', 'Python', 'TypeScript', 'HTML', 'CSS']
               sample_data = defaultdict(lambda: defaultdict(int))
               
-              # 2020년부터 현재까지 실제 개발 히스토리 반영
+              # 2020년부터 현재까지 실제 개발 히스토리 반영 (줄 수 기준)
               base_values = {
-                  'C#': 70,      # Unity 개발 주력
-                  'JavaScript': 15, # 점진적 증가
-                  'Python': 12,  # 대학 + PTAHLABS
-                  'Java': 25,    # 대학 시절 주력
-                  'TypeScript': 3, # 최근 도입
-                  'HTML': 12,    # 웹 개발
-                  'CSS': 8       # 웹 개발
+                  'C#': 1000,      # Unity 개발 주력 (1000줄)
+                  'JavaScript': 400, # 점진적 증가 (400줄)
+                  'Python': 300,  # 대학 + PTAHLABS (300줄)
+                  'Java': 600,    # 대학 시절 주력 (600줄)
+                  'TypeScript': 100, # 최근 도입 (100줄)
+                  'HTML': 160,    # 웹 개발 (160줄)
+                  'CSS': 120       # 웹 개발 (120줄)
               }
               
               for i, month in enumerate(months):
@@ -257,10 +252,10 @@ jobs:
                           elif lang == 'C#': value = base * 0.5  # 비중 감소
                           else: value = base * 0.4
                       
-                      # 시간에 따른 자연스러운 변화 추가
-                      time_factor = i * 0.02  # 시간이 지날수록 약간씩 변화
-                      noise = np.random.normal(0, 1.5)  # 랜덤 노이즈 감소
-                      final_value = max(2, min(98, value + time_factor + noise))
+                      # 시간에 따른 자연스러운 변화 추가 (줄 수)
+                      time_factor = i * 2  # 시간이 지날수록 약간씩 변화
+                      noise = np.random.normal(0, 10)  # 랜덤 노이즈
+                      final_value = max(10, int(value + time_factor + noise))  # 최소 10줄
                       
                       sample_data[month][lang] = final_value
               
@@ -297,10 +292,21 @@ jobs:
               
               # 각 언어별 선 그래프
               for lang, _ in top_languages:
-                  values = [display_data.get(month, {}).get(lang, 0) for month in display_months]
-                  color = language_colors.get(lang, '#ffffff')
+                  line_values = [display_data.get(month, {}).get(lang, 0) for month in display_months]
                   
-                  ax.plot(range(len(display_months)), values, 
+                  # 각 월의 총 줄 수 계산해서 백분율로 변환
+                  percentage_values = []
+                  for i, month in enumerate(display_months):
+                      month_data = display_data.get(month, {})
+                      total_lines = sum(month_data.values()) if month_data else 0
+                      if total_lines > 0:
+                          percentage = (line_values[i] / total_lines) * 100
+                      else:
+                          percentage = 0
+                      percentage_values.append(percentage)
+                  
+                  color = language_colors.get(lang, '#ffffff')
+                  ax.plot(range(len(display_months)), percentage_values, 
                          marker='o', linewidth=2.5, markersize=6,
                          label=lang, color=color, alpha=0.9)
               
