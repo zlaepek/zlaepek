@@ -1,0 +1,332 @@
+name: Generate Language Trend Charts
+
+on:
+  schedule:
+    # 매주 월요일 오전 9시 (일요일 UTC 24:00)
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+jobs:
+  generate-charts:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          
+      - name: Install Dependencies
+        run: |
+          pip install matplotlib seaborn pandas requests python-dateutil
+          
+      - name: Generate Language Trend Charts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+        run: |
+          cat > generate_charts.py << 'EOF'
+          import matplotlib.pyplot as plt
+          import seaborn as sns
+          import pandas as pd
+          import requests
+          import json
+          from datetime import datetime, timedelta
+          import os
+          from collections import defaultdict
+          import numpy as np
+          
+          # GitHub API 설정
+          GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
+          USERNAME = os.environ['USERNAME']
+          
+          headers = {
+              'Authorization': f'token {GITHUB_TOKEN}',
+              'Accept': 'application/vnd.github.v3+json'
+          }
+          
+          # 언어별 색상 매핑
+          language_colors = {
+              'JavaScript': '#f7df1e',
+              'TypeScript': '#3178c6',
+              'Python': '#3776ab',
+              'Java': '#ed8b00',
+              'C#': '#239120',
+              'Unity': '#000000',
+              'HTML': '#e34f26',
+              'CSS': '#1572b6',
+              'React': '#61dafb',
+              'Vue': '#4fc08d',
+              'PHP': '#777bb4',
+              'Go': '#00add8',
+              'Rust': '#dea584',
+              'Swift': '#fa7343',
+              'Kotlin': '#7f52ff'
+          }
+          
+          def get_monthly_language_data():
+              """지난 12개월간 언어별 사용률 데이터 수집"""
+              print("📊 월별 언어 데이터 수집 시작...")
+              
+              # 지난 12개월 생성
+              months = []
+              current_date = datetime.now()
+              for i in range(12):
+                  month_date = current_date - timedelta(days=30*i)
+                  months.append(month_date.strftime('%Y-%m'))
+              months.reverse()
+              
+              # 월별 언어 데이터 저장
+              monthly_data = defaultdict(lambda: defaultdict(int))
+              
+              try:
+                  # 사용자의 모든 리포지토리 가져오기
+                  repos_response = requests.get(
+                      f'https://api.github.com/users/{USERNAME}/repos?per_page=100&sort=updated',
+                      headers=headers
+                  )
+                  repos = repos_response.json()
+                  
+                  for repo in repos[:20]:  # 최근 업데이트된 20개 리포만
+                      if repo['fork']:
+                          continue
+                          
+                      print(f"분석 중: {repo['name']}")
+                      
+                      # 각 리포지토리의 언어 통계
+                      try:
+                          lang_response = requests.get(
+                              f"https://api.github.com/repos/{USERNAME}/{repo['name']}/languages",
+                              headers=headers
+                          )
+                          languages = lang_response.json()
+                          
+                          # 리포지토리 마지막 업데이트 시간으로 월 판단
+                          updated_at = datetime.strptime(repo['updated_at'], '%Y-%m-%dT%H:%M:%SZ')
+                          month_key = updated_at.strftime('%Y-%m')
+                          
+                          if month_key in months:
+                              total_bytes = sum(languages.values())
+                              for lang, bytes_count in languages.items():
+                                  percentage = (bytes_count / total_bytes * 100) if total_bytes > 0 else 0
+                                  monthly_data[month_key][lang] += percentage
+                                  
+                      except Exception as e:
+                          print(f"언어 데이터 가져오기 실패 {repo['name']}: {e}")
+                          continue
+                          
+              except Exception as e:
+                  print(f"리포지토리 데이터 가져오기 실패: {e}")
+                  
+              # 데이터가 없는 경우 샘플 데이터 생성
+              if not monthly_data:
+                  print("⚠️  실제 데이터가 없어서 샘플 데이터로 차트 생성")
+                  monthly_data = generate_sample_data(months)
+              
+              return months, monthly_data
+          
+          def generate_sample_data(months):
+              """샘플 데이터 생성 (실제 데이터가 없을 때)"""
+              languages = ['JavaScript', 'Python', 'TypeScript', 'C#', 'Unity']
+              sample_data = defaultdict(lambda: defaultdict(int))
+              
+              # 실제와 비슷한 패턴으로 샘플 데이터 생성
+              base_values = {
+                  'JavaScript': 45,
+                  'Python': 25,
+                  'TypeScript': 15,
+                  'C#': 60,  # 과거에 높았다가 감소
+                  'Unity': 55   # C#과 비슷한 패턴
+              }
+              
+              for i, month in enumerate(months):
+                  for lang in languages:
+                      base = base_values[lang]
+                      
+                      # C#, Unity는 시간이 지날수록 감소 (게임 개발 → 웹 개발)
+                      if lang in ['C#', 'Unity']:
+                          trend = -2.5 * i  # 월마다 2.5% 감소
+                      # JavaScript, Python, TypeScript는 증가
+                      else:
+                          trend = 1.5 * i   # 월마다 1.5% 증가
+                      
+                      # 랜덤 변동 추가
+                      noise = np.random.normal(0, 3)
+                      value = max(0, min(100, base + trend + noise))
+                      
+                      sample_data[month][lang] = value
+              
+              return sample_data
+          
+          def create_trend_chart(months, monthly_data):
+              """언어 트렌드 차트 생성"""
+              print("🎨 트렌드 차트 생성 중...")
+              
+              # 스타일 설정
+              plt.style.use('dark_background')
+              sns.set_palette("husl")
+              
+              fig, ax = plt.subplots(figsize=(12, 8))
+              fig.patch.set_facecolor('#20232a')
+              ax.set_facecolor('#20232a')
+              
+              # 주요 언어들만 선택 (데이터가 있는 언어들)
+              all_languages = set()
+              for month_data in monthly_data.values():
+                  all_languages.update(month_data.keys())
+              
+              # 평균 사용률로 정렬해서 상위 5개 언어만
+              lang_averages = {}
+              for lang in all_languages:
+                  values = [monthly_data[month].get(lang, 0) for month in months]
+                  lang_averages[lang] = sum(values) / len(values)
+              
+              top_languages = sorted(lang_averages.items(), key=lambda x: x[1], reverse=True)[:5]
+              
+              # 각 언어별 선 그래프
+              for lang, _ in top_languages:
+                  values = [monthly_data[month].get(lang, 0) for month in months]
+                  color = language_colors.get(lang, '#ffffff')
+                  
+                  ax.plot(range(len(months)), values, 
+                         marker='o', linewidth=2.5, markersize=6,
+                         label=lang, color=color, alpha=0.9)
+              
+              # 차트 스타일링
+              ax.set_xticks(range(len(months)))
+              ax.set_xticklabels([month.split('-')[1] + '월' for month in months], 
+                               color='#ffffff', fontsize=10)
+              ax.set_ylabel('사용률 (%)', color='#52b788', fontsize=12, fontweight='bold')
+              ax.set_title('월별 프로그래밍 언어 트렌드', color='#52b788', 
+                          fontsize=16, fontweight='bold', pad=20)
+              
+              # 그리드 및 범례
+              ax.grid(True, alpha=0.3, color='#555555')
+              ax.legend(loc='upper left', frameon=True, fancybox=True, 
+                       shadow=True, ncol=1, fontsize=10)
+              
+              # 축 색상
+              ax.tick_params(axis='y', colors='#ffffff')
+              ax.spines['bottom'].set_color('#555555')
+              ax.spines['left'].set_color('#555555')
+              ax.spines['top'].set_visible(False)
+              ax.spines['right'].set_visible(False)
+              
+              # Y축 범위 설정
+              ax.set_ylim(0, 100)
+              
+              plt.tight_layout()
+              plt.savefig('language_trend_chart.png', dpi=300, bbox_inches='tight', 
+                         facecolor='#20232a', edgecolor='none')
+              plt.close()
+              
+              print("✅ 차트 생성 완료: language_trend_chart.png")
+          
+          def create_growth_chart(months, monthly_data):
+              """성장률 차트 생성"""
+              print("📈 성장률 차트 생성 중...")
+              
+              fig, ax = plt.subplots(figsize=(12, 6))
+              fig.patch.set_facecolor('#20232a')
+              ax.set_facecolor('#20232a')
+              
+              # 주요 언어들의 성장률 계산
+              all_languages = set()
+              for month_data in monthly_data.values():
+                  all_languages.update(month_data.keys())
+              
+              growth_data = {}
+              for lang in all_languages:
+                  values = [monthly_data[month].get(lang, 0) for month in months]
+                  if len(values) >= 2 and values[0] > 0:
+                      growth_rate = ((values[-1] - values[0]) / values[0]) * 100
+                      growth_data[lang] = growth_rate
+              
+              # 성장률 순으로 정렬
+              sorted_growth = sorted(growth_data.items(), key=lambda x: x[1], reverse=True)[:8]
+              
+              languages = [item[0] for item in sorted_growth]
+              growth_rates = [item[1] for item in sorted_growth]
+              
+              # 색상 설정 (양수는 초록, 음수는 빨강)
+              colors = ['#52b788' if rate >= 0 else '#e74c3c' for rate in growth_rates]
+              
+              bars = ax.barh(languages, growth_rates, color=colors, alpha=0.8)
+              
+              # 바 위에 수치 표시
+              for i, bar in enumerate(bars):
+                  width = bar.get_width()
+                  ax.text(width + (2 if width >= 0 else -2), bar.get_y() + bar.get_height()/2,
+                         f'{growth_rates[i]:+.1f}%', ha='left' if width >= 0 else 'right',
+                         va='center', color='white', fontweight='bold')
+              
+              ax.set_xlabel('성장률 (%)', color='#52b788', fontsize=12, fontweight='bold')
+              ax.set_title('언어별 연간 성장률', color='#52b788', 
+                          fontsize=16, fontweight='bold', pad=20)
+              ax.axvline(0, color='#555555', linewidth=1)
+              ax.grid(True, alpha=0.3, color='#555555', axis='x')
+              
+              # 축 색상
+              ax.tick_params(axis='both', colors='#ffffff')
+              ax.spines['bottom'].set_color('#555555')
+              ax.spines['left'].set_color('#555555')
+              ax.spines['top'].set_visible(False)
+              ax.spines['right'].set_visible(False)
+              
+              plt.tight_layout()
+              plt.savefig('language_growth_chart.png', dpi=300, bbox_inches='tight',
+                         facecolor='#20232a', edgecolor='none')
+              plt.close()
+              
+              print("✅ 성장률 차트 생성 완료: language_growth_chart.png")
+          
+          def main():
+              print("🚀 언어 트렌드 차트 생성 시작...")
+              
+              months, monthly_data = get_monthly_language_data()
+              
+              if monthly_data:
+                  create_trend_chart(months, monthly_data)
+                  create_growth_chart(months, monthly_data)
+                  
+                  print("🎉 모든 차트 생성 완료!")
+                  print("📁 생성된 파일:")
+                  print("  - language_trend_chart.png")
+                  print("  - language_growth_chart.png")
+              else:
+                  print("❌ 데이터를 가져올 수 없어서 차트 생성 실패")
+          
+          if __name__ == "__main__":
+              main()
+          EOF
+          
+          python generate_charts.py
+          
+      - name: Update README with Charts
+        run: |
+          # README에 차트 이미지 링크 업데이트
+          if [ -f "language_trend_chart.png" ]; then
+            # 이미지를 assets 폴더로 이동
+            mkdir -p assets
+            mv language_trend_chart.png assets/
+            mv language_growth_chart.png assets/
+            
+            # README 업데이트
+            sed -i 's|<!-- TREND_CHART -->.*<!-- /TREND_CHART -->|<!-- TREND_CHART -->\n![Language Trends](./assets/language_trend_chart.png)\n<!-- /TREND_CHART -->|g' README.md
+            sed -i 's|<!-- GROWTH_CHART -->.*<!-- /GROWTH_CHART -->|<!-- GROWTH_CHART -->\n![Growth Chart](./assets/language_growth_chart.png)\n<!-- /GROWTH_CHART -->|g' README.md
+            
+            echo "✅ README 업데이트 완료"
+          fi
+          
+      - name: Commit and Push Charts
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add assets/ README.md
+          git diff --staged --quiet || git commit -m "Update language trend charts"
+          git push

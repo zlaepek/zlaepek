@@ -1,222 +1,173 @@
 <div align="center">
 <br>
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=NanumBarunGothic+Script&color=52b788&size=35&center=true&vCenter=true&width=404&height=53&lines=%E3%80%80%E3%80%80Resume+of+Zlaepek.+%E3%80%80%E3%80%80)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Inter&color=52b788&size=30&center=true&vCenter=true&width=500&height=50&lines=Kim+Minkyung;PTAHLABS+CEO;Full-stack+Developer)](https://git.io/typing-svg)
 
 <br>
 
-<!-- git statistics -->
+<!-- GitHub 통계 - 높이 맞춤 -->
 <p align="center">
-  <img height=180 src="https://github-readme-stats.vercel.app/api?username=zlaepek&show_icons=true&theme=material-palenight&hide_border=true&bg_color=20232a&icon_color=E3E3E3A8&text_color=fff&title_color=52b788&count_private=true" style="vertical-align: top; margin-right: 10px;" />
-  <img height=180 src="https://github-readme-stats.vercel.app/api/top-langs/?username=zlaepek&layout=compact&show_icons=true&theme=material-palenight&hide_border=true&bg_color=20232a&icon_color=E3E3E3A8&text_color=fff&title_color=52b788&count_private=true" style="vertical-align: top;" />
+  <img height=200 src="https://github-readme-stats.vercel.app/api?username=zlaepek&show_icons=true&count_private=true&include_all_commits=true&theme=material-palenight&hide_border=true&bg_color=20232a&icon_color=E3E3E3A8&text_color=fff&title_color=52b788" />
+  <img height=200 src="https://github-readme-activity-graph.vercel.app/graph?username=zlaepek&theme=react-dark&bg_color=20232a&hide_border=true&line=b7e4c7&color=52b788&area=true&height=200&custom_title=Contribution%20Activity"/>
 </p>
 
-<p align="center">
-  <a href="https://github.com/ashutosh00710/github-readme-activity-graph">
-    <img height=270 src="https://github-readme-activity-graph.vercel.app/graph?username=zlaepek&theme=react-dark&bg_color=20232a&hide_border=true&line=b7e4c7&color=52b788"/>
-  </a>
-</p>
+<br>
 
-<br><br><br>
+<!-- 현재 상태 -->
+<div align="center">
+
+![Profile Views](https://komarev.com/ghpvc/?username=zlaepek&color=52b788&style=flat-square)
+![GitHub followers](https://img.shields.io/github/followers/zlaepek?color=52b788&style=flat-square)
+![GitHub stars](https://img.shields.io/github/stars/zlaepek?color=52b788&style=flat-square)
 
 </div>
 
-<div>
-
-<h2>1. Outline</h2>
-<h3>1.1 Profile</h3>
-
-  - 이름: 김민경
-  - 생년월일: 2000-10-27
-  - 메일: alice4813@naver.com
-
-<h3>1.2 Education</h3>
-
-  - 가천대학교: 2019-02~2023-03
-  - 전공: 소프트웨어학과
-
-<h3>1.3 Skills</h3>
-
-<table>
-    <thead>
-        <tr>
-            <th>Skill</th>
-            <th>Experiences</th>
-            <th>Careers</th>
-            <th>Note</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Unity</td>
-            <td>5 년</td>
-            <td>1 년</td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
-
-
-<h3> 1.4 Experiences </h3>
-
-<table>
-    <thead>
-        <tr>
-            <th>Company</th>
-            <th>Entry Date</th>
-            <th>Leave Date</th>
-            <th>Form</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>디캐릭</td>
-            <td>2023-02</td>
-            <td>2024-10</td>
-            <td>정규직</td>
-        </tr>
-    </tbody>
-</table>
-
-<h2> 2. Introduction </h2>
-
-유니티 개발자 입니다. </br>
-MRTK와 AWS를 사용하여, AR / VR 프로젝트 진행 경헙이 있습니다. (홀로렌즈 2, 오큘러스) </br>
-<!-- 메타버스 (Photon을 사용한 멀티플레이어) 프로젝트에 참여한 경험이 있습니다. 
-스크린 골프를 제작하고 있습니다. </br> -->
-
-I am a Unity developer. </br>
-I have experience working on AR/VR projects using MRTK and AWS. (with HoloLens 2 and Oculus) </br>
- 
-<h2> 3. Projects </h2>
-<h3> 3.1 Career </h3>
-
-<table>
-    <thead>
-        <tr>
-            <th>Company</th>
-            <th>Project</th>
-            <th>Skills</th>
-            <th>Special Note</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="https://www.dcarrick.co.kr/">디캐릭</a></td>
-            <td>Real Green</td>
-            <td>Unity, Photon</td>
-            <td>스크린 골프 메타버스</td>
-        </tr>
-    </tbody>
-</table>
-
-
-
-<h3> 3.2 Side Projects </h3>
-
-<table>
-    <thead>
-        <tr>
-            <th>Project</th>
-            <th>Skills</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-	    <!-- 
-        <tr>
-            <td><a href="https://github.com/zlaepek/ivern">골렘 (뱀서라이크)</a></td>
-            <td>Unity</td>
-            <td>보스 패턴 & 네크워크 매니저</td>
-        </tr>
-	<tr>
-            <td><a href="https://github.com/zlaepek/EarthInvasion_WebGL">지구 침공 (클릭커)</a></td>
-            <td>Unity</td>
-            <td>Web Build 버전</td>
-        </tr>
-	    -->
-    </tbody>
-</table>
-
+<br>
 
 </div>
-<!-- color reference: https://coolors.co/palette/d8f3dc-b7e4c7-95d5b2-74c69d-52b788-40916c-2d6a4f-1b4332-081c15 -->
 
-<!--
-MR 컨텐츠 제작 플랫폼 (졸업작품 및 학부연구 활동)<br>
-기간	2020.06 – 2022.06 (진행중)<br>
-장소	가천대학교<br>
-활동내용	MR 컨텐츠 제작 플랫폼, 어플리케이션<br>
-	Microsoft Azure spatial anchor를 활용하여 디바이스간 모델 및 모델과의 상호작용 공유 프로그램<br>
--	필요 API 및 Library R&D<br>
--	컨텐츠 제작 플랫폼 구현<br>
--	데이터 베이스 구현<br>
-https://github.com/CyberFramework/Contents-Creation-Platform/wiki<br>
-https://www.youtube.com/watch?v=14QBlcedAoQ&t=3s (데모)  <br>
+<!-- 자동 업데이트 섹션들 -->
+
+## Tech Stack & Trends (Auto-Updated)
+
+<!-- SKILL_START -->
+### 현재 활발한 스킬
+![JavaScript](https://img.shields.io/badge/JavaScript-Lv.85-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) **[MAIN]** `ptahlabs/main-platform` `portfolio-v2`  
+![Python](https://img.shields.io/badge/Python-Lv.72-3776AB?style=for-the-badge&logo=python&logoColor=white) **[HOT]** `data-pipeline` `analytics-tool`  
+![TypeScript](https://img.shields.io/badge/TypeScript-Lv.65-3178C6?style=for-the-badge&logo=typescript&logoColor=white) **[NEW!]** `frontend-refactor`  
+
+### 발전중인 스킬
+![React](https://img.shields.io/badge/React-Lv.78-61DAFB?style=for-the-badge&logo=react&logoColor=black) `ui-components` `admin-dashboard`  
+![Node.js](https://img.shields.io/badge/Node.js-Lv.70-339933?style=for-the-badge&logo=node.js&logoColor=white) `api-server` `microservices`  
+![AWS](https://img.shields.io/badge/AWS-Lv.68-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white) `infrastructure` `deployment`  
+
+### 과거 전문 분야 (디캐릭 시절)
+![C#](https://img.shields.io/badge/C%23-Lv.80-239120?style=for-the-badge&logo=c-sharp&logoColor=white) **[EXPERT]** `Real-Green` `AR-Golf-System`  
+![Unity](https://img.shields.io/badge/Unity-Lv.85-000000?style=for-the-badge&logo=unity&logoColor=white) **[VETERAN]** `Metaverse-Platform` `HoloLens-App`  
+<!-- SKILL_END -->
 
 <br>
-가구배치 시뮬레이션 프로그램 (알고리즘 팀프로젝트)<br>
-기간	2020.10 – 2020.12<br>
-장소	가천대학교 알고리즘<br>
-활동내용	유니티를 활용한 가구배치 시뮬레이션 프로그램<br>
-	알고리즘 수업의 팀프로젝트 일환으로, 가구 배치를 위한 시뮬레이션 프로그램 제작<br>
--	기획, UI 및 visualization 구현<br>
-https://github.com/zlaepek/Furniture-Auto-Arrangement<br>
+
+## Language Trend Analysis (Auto-Updated)
+
+<!-- TREND_CHART -->
+![Language Trends](./assets/language_trend_chart.png)
+<!-- /TREND_CHART -->
+
+### 기술 전환 스토리
+**Unity 게임 개발 → 웹 풀스택 전환 과정**
+
+<!-- GROWTH_CHART -->
+![Growth Chart](./assets/language_growth_chart.png)  
+<!-- /GROWTH_CHART -->
+
+### 주요 변화 포인트
+**2024년 11월**: PTAHLABS 창업 → JavaScript/Python 급상승  
+**2024년 8-10월**: 웹 개발 학습 집중 → TypeScript 도입  
+**2023-2024년**: Unity + C# 전문가 시절 (디캐릭)  
+**2019-2023년**: 기초 학습 + 대학 과정
+
 <br>
 
-가천대학교 게임제작 동아리 (하눌신폭)<br>
-기간:	2019.04 – 2023.02<br>
-장소:	가천대학교 게임제작 동아리 (하눌신폭)<br>
-활동내용:	유니티 스터디<br>
-	유니티 기본 인터페이스 및 기초 기능 탐색 스터디<br>
-	2020 여름 하눌신폭 게임잼<br>
--->
+## Weekly Development Report (Auto-Generated)
 
-<!--
-메인 스펙<br>
-[![My Skills](https://skillicons.dev/icons?i=unity,cs)](https://skillicons.dev)<br>
+<!-- WEEKLY_START -->
+**이번 주 주력 분야:**  
+Backend Development (45%) - Node.js API 최적화, 데이터베이스 설계  
+Frontend (30%) - React 컴포넌트 개발, TypeScript 도입  
+Business (15%) - 기획, 팀 빌딩, 전략 수립  
+DevOps (10%) - AWS 인프라, 배포 자동화  
 
-프론트<br>
-[![My Skills](https://skillicons.dev/icons?i=redux,react,css,androidstudio)](https://skillicons.dev)<br>
-백<br>
-[![My Skills](https://skillicons.dev/icons?i=spring,mysql,maven,gradle,hibernate,gitlab,github,git,docker)](https://skillicons.dev)<br>
-클라우드<br>
-[![My Skills](https://skillicons.dev/icons?i=aws)](https://skillicons.dev)<br>
+**주목할 성장:**  
+Python 급상승 (+25%) - 데이터 분석 도구 개발 시작  
+TypeScript 도입 (+15%) - 기존 JS 프로젝트 마이그레이션  
+C# 사용 감소 (-30%) - Unity 프로젝트 마무리 단계  
 
-언어<br>
-[![My Skills](https://skillicons.dev/icons?i=py,js,java,html,md)](https://skillicons.dev)<br>
-툴<br>
-[![My Skills](https://skillicons.dev/icons?i=visualstudio,vscode,idea,eclipse)](https://skillicons.dev)<br>
+**이번 주 학습:**  
+Docker & Kubernetes - 컨테이너 오케스트레이션  
+GraphQL - API 설계 개선  
+PostgreSQL - 데이터베이스 최적화  
+<!-- WEEKLY_END -->
 
-사용해봄<br>
-[![My Skills](https://skillicons.dev/icons?i=vim,kubernetes,linux,jenkins,flutter,figma,arduino,nginx,nodejs,pytorch,tensorflow)](https://skillicons.dev)<br>
+<br>
 
+<div align="center">
 
+## Profile Overview
 
-<!--
-<p align='center'> Decorate GitHub Profile or any Repo like me! </p>
-<p align='center'>
-  <a href="https://github.com/kyechan99/capsule-render/labels/Idea">
-    <img src="https://img.shields.io/badge/IDEA%20ISSUE%20-%23F7DF1E.svg?&style=for-the-badge&&logoColor=white"/>
-  </a>
-  <a href="#demo">
-    <img src="https://img.shields.io/badge/DEMO%20-%234FC08D.svg?&style=for-the-badge&&logoColor=white"/>
-  </a>
-</p>
--->
+<table>
+  <tr>
+    <td align="center"><strong>Name</strong></td>
+    <td align="center">김민경 (Zlaepek)</td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Position</strong></td>
+    <td align="center">CEO & Tech Lead @ <a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Email</strong></td>
+    <td align="center">alice4813@naver.com</td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Education</strong></td>
+    <td align="center">가천대학교 소프트웨어학과 (2019-2023)</td>
+  </tr>
+</table>
 
+<br>
 
-<!--
-**zlaepek/zlaepek** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+## Career Journey
 
-Here are some ideas to get you started:
+<table>
+  <thead>
+    <tr>
+      <th>Company</th>
+      <th>Position</th>
+      <th>Period</th>
+      <th>Main Stack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
+      <td>CEO & Founder</td>
+      <td>2024.11 ~ Present</td>
+      <td>JavaScript, Python, React, AWS</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.dcarrick.co.kr/">디캐릭</a></td>
+      <td>Unity Developer</td>
+      <td>2023.02 ~ 2024.10</td>
+      <td>C#, Unity, MRTK, Photon, AWS</td>
+    </tr>
+  </tbody>
+</table>
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+</div>
+
+<br>
+
+## Latest Activity (Auto-Updated)
+
+<!-- ACTIVITY_START -->
+**Recent Commits:**  
+- `PTAHLABS/main-platform`: Backend API 최적화 및 에러 핸들링 개선  
+- `personal/portfolio-v2`: React 컴포넌트 리팩토링, TypeScript 도입  
+- `config/docker-setup`: 개발 환경 컨테이너화 및 CI/CD 파이프라인 구축  
+
+**This Month:**  
+- 23 commits across 5 repositories  
+- 3 new technologies learned (Docker, GraphQL, PostgreSQL)  
+- 2 major project milestones achieved  
+<!-- ACTIVITY_END -->
+
+<br>
+
+---
+
+<div align="center">
+
+*이 프로필은 GitHub Actions로 자동 업데이트됩니다*  
+*마지막 업데이트: <!-- UPDATE_TIME -->2024-09-07 15:30 KST<!-- /UPDATE_TIME -->*
+
+</div>

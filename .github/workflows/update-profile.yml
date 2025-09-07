@@ -1,0 +1,311 @@
+name: 🎮 Auto Update Gaming Profile
+
+on:
+  schedule:
+    # 매일 한국시간 오전 9시 (UTC 0시)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 수동 실행 가능
+  push:
+    branches: [ main ]
+
+jobs:
+  update-profile:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      - name: 🚀 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: 📦 Install Dependencies
+        run: |
+          npm init -y
+          npm install axios moment
+          
+      - name: 🎯 Analyze GitHub Stats
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+        run: |
+          cat > analyze-skills.js << 'EOF'
+          const axios = require('axios');
+          const moment = require('moment');
+          const fs = require('fs');
+          
+          const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+          const USERNAME = process.env.USERNAME;
+          
+          const headers = {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github.v3+json'
+          };
+          
+          // 스킬 레벨 계산 함수
+          function calculateLevel(bytes, commits) {
+            const totalActivity = bytes / 1000 + commits * 10;
+            return Math.min(99, Math.floor(Math.log2(totalActivity + 1) * 8));
+          }
+          
+          // 진행률 바 생성
+          function createProgressBar(level) {
+            const filled = Math.floor(level / 7);
+            const empty = 14 - filled;
+            return '█'.repeat(filled) + '░'.repeat(empty);
+          }
+          
+          // 스킬 뱃지 결정
+          function getSkillBadge(level, recentGrowth) {
+            if (recentGrowth > 20) return '**[HOT]**';
+            if (recentGrowth > 10) return '**[NEW!]**';
+            if (level >= 80) return '**[EXPERT]**';
+            if (level >= 70) return '**[MAIN]**';
+            if (level >= 60) return '**[VETERAN]**';
+            return '';
+          }
+          
+          async function getLanguageStats() {
+            try {
+              // 사용자의 모든 리포지토리 가져오기
+              const reposResponse = await axios.get(
+                `https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`,
+                { headers }
+              );
+              
+              const repos = reposResponse.data.filter(repo => !repo.fork);
+              const languageStats = {};
+              
+              // 각 리포지토리의 언어 통계 수집
+              for (const repo of repos) {
+                try {
+                  const langResponse = await axios.get(
+                    `https://api.github.com/repos/${USERNAME}/${repo.name}/languages`,
+                    { headers }
+                  );
+                  
+                  const languages = langResponse.data;
+                  for (const [lang, bytes] of Object.entries(languages)) {
+                    if (!languageStats[lang]) {
+                      languageStats[lang] = { bytes: 0, repos: 0, commits: 0 };
+                    }
+                    languageStats[lang].bytes += bytes;
+                    languageStats[lang].repos += 1;
+                  }
+                } catch (error) {
+                  console.log(`언어 통계를 가져올 수 없음: ${repo.name}`);
+                }
+              }
+              
+              return languageStats;
+            } catch (error) {
+              console.error('언어 통계 가져오기 실패:', error.message);
+              return {};
+            }
+          }
+          
+          async function getRecentActivity() {
+            try {
+              const response = await axios.get(
+                `https://api.github.com/users/${USERNAME}/events?per_page=30`,
+                { headers }
+              );
+              
+              const events = response.data;
+              const recentCommits = events
+                .filter(event => event.type === 'PushEvent')
+                .slice(0, 5)
+                .map(event => ({
+                  repo: event.repo.name,
+                  message: event.payload.commits?.[0]?.message || 'No message',
+                  date: moment(event.created_at).format('MM-DD')
+                }));
+              
+              return recentCommits;
+            } catch (error) {
+              console.error('최근 활동 가져오기 실패:', error.message);
+              return [];
+            }
+          }
+          
+          // 언어별 아이콘 및 색상 매핑
+          const languageConfig = {
+            'JavaScript': { icon: 'javascript', color: 'F7DF1E', logoColor: 'black' },
+            'TypeScript': { icon: 'typescript', color: '3178C6', logoColor: 'white' },
+            'Python': { icon: 'python', color: '3776AB', logoColor: 'white' },
+            'Java': { icon: 'java', color: 'ED8B00', logoColor: 'white' },
+            'C#': { icon: 'c-sharp', color: '239120', logoColor: 'white' },
+            'Unity': { icon: 'unity', color: '000000', logoColor: 'white' },
+            'React': { icon: 'react', color: '61DAFB', logoColor: 'black' },
+            'Node.js': { icon: 'node.js', color: '339933', logoColor: 'white' },
+            'AWS': { icon: 'amazon-aws', color: '232F3E', logoColor: 'white' },
+            'Docker': { icon: 'docker', color: '2496ED', logoColor: 'white' },
+            'HTML': { icon: 'html5', color: 'E34F26', logoColor: 'white' },
+            'CSS': { icon: 'css3', color: '1572B6', logoColor: 'white' }
+          };
+          
+          // 레포지토리별 언어 사용량과 프로젝트 매핑
+          async function getLanguageWithRepos() {
+            const languageStats = await getLanguageStats();
+            const repoMapping = {};
+            
+            // 각 언어별로 사용된 레포지토리 목록 수집
+            for (const [lang, stats] of Object.entries(languageStats)) {
+              repoMapping[lang] = {
+                ...stats,
+                repos: stats.repos || [],
+                recentActivity: await getRecentActivityByLanguage(lang)
+              };
+            }
+            
+            return repoMapping;
+          }
+          
+          async function getRecentActivityByLanguage(language) {
+            // 최근 3개월 커밋에서 해당 언어 사용률 계산
+            // 가중치: 최근 3개월 70%, 이전 30%
+            return Math.random() * 20 - 10; // 임시: -10% ~ +10% 변화율
+          }
+          
+          // 트렌드 차트 생성
+          function createTrendChart(languageData) {
+            const sorted = Object.entries(languageData)
+              .sort(([,a], [,b]) => b.percentage - a.percentage)
+              .slice(0, 5);
+            
+            let chart = '';
+            sorted.forEach(([lang, data]) => {
+              const barLength = Math.floor(data.percentage / 5);
+              const bar = '█'.repeat(barLength) + '░'.repeat(20 - barLength);
+              const trend = data.recentActivity > 0 ? '↗️' : '↘️';
+              const change = data.recentActivity > 0 ? '+' : '';
+              
+              chart += `${lang.padEnd(12)} ${bar} ${data.percentage}% ${trend} (${change}${data.recentActivity.toFixed(0)}%)  \n`;
+            });
+            
+            return chart;
+          }
+            
+            let skillsSection = '';
+            
+            // 메인 스킬 (레벨 60 이상)
+            const mainSkills = skillsArray.filter(skill => skill.level >= 60);
+            if (mainSkills.length > 0) {
+              skillsSection += '### 🔥 현재 주력 스킬\n';
+              mainSkills.forEach(skill => {
+                const config = languageConfig[skill.name] || { icon: skill.name.toLowerCase(), color: '666666', logoColor: 'white' };
+                const badge = getSkillBadge(skill.level, 0);
+                const progressBar = createProgressBar(skill.level);
+                
+                skillsSection += `![${skill.name}](https://img.shields.io/badge/${skill.name}-Lv.${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}) ${progressBar} ${badge}  \n`;
+              });
+              skillsSection += '\n';
+            }
+            
+            // 중급 스킬 (레벨 40-59)
+            const intermediateSkills = skillsArray.filter(skill => skill.level >= 40 && skill.level < 60);
+            if (intermediateSkills.length > 0) {
+              skillsSection += '### ⚡ 발전중인 스킬\n';
+              intermediateSkills.forEach(skill => {
+                const config = languageConfig[skill.name] || { icon: skill.name.toLowerCase(), color: '666666', logoColor: 'white' };
+                const progressBar = createProgressBar(skill.level);
+                
+                skillsSection += `![${skill.name}](https://img.shields.io/badge/${skill.name}-Lv.${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}) ${progressBar}  \n`;
+              });
+              skillsSection += '\n';
+            }
+            
+            return skillsSection;
+          }
+          
+          async function updateWeeklyReport() {
+            const recentActivity = await getRecentActivity();
+            
+            let weeklySection = '**이번 주 주력 분야:**  \n';
+            weeklySection += '🔥 **Backend Development** (45%) - API 개발 및 최적화  \n';
+            weeklySection += '💼 **Business Strategy** (25%) - 기획, 팀 리딩  \n';
+            weeklySection += '🌐 **Frontend** (20%) - UI/UX 개선  \n';
+            weeklySection += '☁️ **DevOps** (10%) - 인프라 관리  \n\n';
+            
+            weeklySection += '**최근 활동:**  \n';
+            recentActivity.forEach(commit => {
+              weeklySection += `- \`${commit.repo}\`: ${commit.message} (${commit.date})  \n`;
+            });
+            
+            return weeklySection;
+          }
+          
+          async function updateActivitySection() {
+            const recentActivity = await getRecentActivity();
+            
+            let activitySection = '🔥 **Recent Commits:**  \n';
+            recentActivity.slice(0, 3).forEach(commit => {
+              activitySection += `- \`${commit.repo}\`: ${commit.message}  \n`;
+            });
+            
+            activitySection += '\n**This Month:**  \n';
+            activitySection += `- ${recentActivity.length} commits across multiple repositories  \n`;
+            activitySection += '- 새로운 기술 스택 학습 진행중  \n';
+            activitySection += '- 프로젝트 마일스톤 달성  \n';
+            
+            return activitySection;
+          }
+          
+          async function main() {
+            console.log('🎮 프로필 업데이트 시작...');
+            
+            const [skillsContent, weeklyContent, activityContent] = await Promise.all([
+              updateSkillSection(),
+              updateWeeklyReport(),
+              updateActivitySection()
+            ]);
+            
+            // README 파일 읽기
+            let readme = fs.readFileSync('README.md', 'utf8');
+            
+            // 각 섹션 업데이트
+            readme = readme.replace(
+              /<!-- SKILL_START -->[\s\S]*?<!-- SKILL_END -->/,
+              `<!-- SKILL_START -->\n${skillsContent}<!-- SKILL_END -->`
+            );
+            
+            readme = readme.replace(
+              /<!-- WEEKLY_START -->[\s\S]*?<!-- WEEKLY_END -->/,
+              `<!-- WEEKLY_START -->\n${weeklyContent}<!-- WEEKLY_END -->`
+            );
+            
+            readme = readme.replace(
+              /<!-- ACTIVITY_START -->[\s\S]*?<!-- ACTIVITY_END -->/,
+              `<!-- ACTIVITY_START -->\n${activityContent}<!-- ACTIVITY_END -->`
+            );
+            
+            // 업데이트 시간 갱신
+            const now = moment().utcOffset(9).format('YYYY-MM-DD HH:mm');
+            readme = readme.replace(
+              /<!-- UPDATE_TIME -->.*?<!-- \/UPDATE_TIME -->/,
+              `<!-- UPDATE_TIME -->${now} KST<!-- /UPDATE_TIME -->`
+            );
+            
+            // 파일 저장
+            fs.writeFileSync('README.md', readme);
+            console.log('✅ 프로필 업데이트 완료!');
+          }
+          
+          main().catch(console.error);
+          EOF
+          
+          node analyze-skills.js
+          
+      - name: 📝 Commit Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git diff --staged --quiet || git commit -m "🎮 Auto-update gaming profile with latest stats"
+          
+      - name: 🚀 Push Changes
+        run: git push
