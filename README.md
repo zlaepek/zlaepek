@@ -75,15 +75,13 @@
 **DevOps** (10%) - 인프라 관리  
 
 **최근 활동:**  
+- `zlaepek/zlaepek`: Update generate-charts.yml (09-07)  
 - `zlaepek/zlaepek`: 수정 (09-07)  
 - `zlaepek/zlaepek`: 테스트 (09-07)  
 - `wnj719/WebSite`: 배포 설정 변경
 
 url에서 readme.md가 보이는 것을 index.html로 보이게끔 변경 (08-28)  
 - `2025-Ptahlabs/WebSite`: Update README.md (08-28)  
-- `2025-Ptahlabs/WebSite`: 배포 설정 변경
-
-url에서 readme.md가 보이는 것을 index.html로 보이게끔 변경 (08-27)  
 <!-- WEEKLY_END -->
 
 <br>
@@ -148,11 +146,9 @@ url에서 readme.md가 보이는 것을 index.html로 보이게끔 변경 (08-27
 
 <!-- ACTIVITY_START -->
 **Recent Commits:**  
+- `zlaepek/zlaepek`: Update generate-charts.yml  
 - `zlaepek/zlaepek`: 수정  
 - `zlaepek/zlaepek`: 테스트  
-- `wnj719/WebSite`: 배포 설정 변경
-
-url에서 readme.md가 보이는 것을 index.html로 보이게끔 변경  
 
 **This Month:**  
 - 5 commits across multiple repositories  
@@ -167,6 +163,6 @@ url에서 readme.md가 보이는 것을 index.html로 보이게끔 변경
 <div align="center">
 
 *이 프로필은 GitHub Actions로 자동 업데이트됩니다*  
-*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 18:44 KST<!-- /UPDATE_TIME -->*
+*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 18:46 KST<!-- /UPDATE_TIME -->*
 
 </div>
