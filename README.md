@@ -168,9 +168,7 @@
 
 <!-- ACTIVITY_START -->
 **Recent Projects:**  
-- `zlaepek/zlaepek`: 매력적인 차트
-
-매력적으로 차트 디자인을 업데이트 해줬대 (5 commits)  
+- `zlaepek/zlaepek`: 수정 (5 commits)  
 
 **This Month:**  
 - 5 commits across 1 repositories  
@@ -185,6 +183,6 @@
 <div align="center">
 
 *이 프로필은 GitHub Actions로 자동 업데이트됩니다*  
-*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 23:18 KST<!-- /UPDATE_TIME -->*
+*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-08 08:50 KST<!-- /UPDATE_TIME -->*
 
 </div>
