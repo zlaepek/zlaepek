@@ -1,61 +1,93 @@
 <div align="center">
   <h1>김민경 (Zlaepek)</h1>
-  <p><strong>Full Stack Developer | CEO @ PTAHLABS</strong></p>
-</div>
-
-## Profile Overview
-
-<div align="center">
-<table width="80%" style="margin: 0 auto; border-collapse: collapse;">
-  <tr style="border: 1px solid #ddd;">
-    <td align="center" width="50%" style="padding: 12px; font-weight: bold; background-color: #f8f9fa;">Name</td>
-    <td align="center" width="50%" style="padding: 12px;">김민경 (Zlaepek)</td>
-  </tr>
-  <tr style="border: 1px solid #ddd;">
-    <td align="center" width="50%" style="padding: 12px; font-weight: bold; background-color: #f8f9fa;">Position</td>
-    <td align="center" width="50%" style="padding: 12px;">CEO & Tech Lead @ <a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
-  </tr>
-  <tr style="border: 1px solid #ddd;">
-    <td align="center" width="50%" style="padding: 12px; font-weight: bold; background-color: #f8f9fa;">Email</td>
-    <td align="center" width="50%" style="padding: 12px;">alice4813@naver.com</td>
-  </tr>
-</table>
 </div>
 
 ## Career Journey
 
 <div align="center">
-<table width="90%" style="margin: 0 auto; border-collapse: collapse;">
+<table>
   <thead>
-    <tr style="background-color: #f1f3f4;">
-      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">Organization</th>
-      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">Position</th>
-      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">Period</th>
-      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">Main Stack</th>
+    <tr>
+      <th>Organization</th>
+      <th>Position</th>
+      <th>Period</th>
+      <th>Main Stack</th>
     </tr>
   </thead>
   <tbody>
-    <tr style="border: 1px solid #ddd;">
-      <td style="padding: 10px; text-align: center;"><a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
-      <td style="padding: 10px; text-align: center;">Tech Lead</td>
-      <td style="padding: 10px; text-align: center;">2024.11 ~ Present</td>
-      <td style="padding: 10px; text-align: center;">JavaScript, Python, React, AWS</td>
+    <tr>
+      <td><a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
+      <td>Tech Lead</td>
+      <td>2024.11 ~ Present</td>
+      <td>JavaScript, Python, React, AWS</td>
     </tr>
-    <tr style="border: 1px solid #ddd;">
-      <td style="padding: 10px; text-align: center;"><a href="https://www.dcarrick.co.kr/">디캐릭</a></td>
-      <td style="padding: 10px; text-align: center;">Unity Developer</td>
-      <td style="padding: 10px; text-align: center;">2023.02 ~ 2024.10</td>
-      <td style="padding: 10px; text-align: center;">C#, Unity, MRTK, Photon, AWS</td>
+    <tr>
+      <td><a href="https://www.dcarrick.co.kr/">디캐릭</a></td>
+      <td>Unity Developer</td>
+      <td>2023.02 ~ 2024.10</td>
+      <td>C#, Unity, MRTK, Photon, AWS</td>
     </tr>
-    <tr style="border: 1px solid #ddd;">
-      <td style="padding: 10px; text-align: center;">가천대학교</td>
-      <td style="padding: 10px; text-align: center;">소프트웨어학과</td>
-      <td style="padding: 10px; text-align: center;">2019.03 ~ 2023.02</td>
-      <td style="padding: 10px; text-align: center;">Java, C, Python, Algorithm</td>
+    <tr>
+      <td>가천대학교</td>
+      <td>소프트웨어학과</td>
+      <td>2019.03 ~ 2023.02</td>
+      <td>Java, C, Python, Algorithm</td>
     </tr>
   </tbody>
 </table>
 </div>
+
+---
+
+## Current Status & Skills (Auto-Updated)
+
+<!-- SKILL_START -->
+<div align="center">
+<table>
+  <thead>
+    <tr>
+      <th>기술 스택</th>
+      <th>숙련도</th>
+      <th>랭크</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://img.shields.io/badge/C%23-Lv80-239120?style=for-the-badge&logo=c-sharp&logoColor=white" alt="C#"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-80%25-FFD700?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
+      <td><img src="https://img.shields.io/badge/%F0%9F%A5%87-EXPERT-FFD700?style=for-the-badge&logoColor=white" alt="EXPERT" height="28"/></td>
+    </tr>
+    <tr>
+      <td><img src="https://img.shields.io/badge/JavaScript-Lv50-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-50%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
+      <td><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE" height="28"/></td>
+    </tr>
+    <tr>
+      <td><img src="https://img.shields.io/badge/CSS-Lv48-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-48%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
+      <td><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE" height="28"/></td>
+    </tr>
+    <tr>
+      <td><img src="https://img.shields.io/badge/HTML-Lv42-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML"/></td>
+      <td><img src="https://img.shields.io/badge/Progress-42%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
+      <td><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE" height="28"/></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<!-- SKILL_END -->
+
+<details>
+<summary><sub>레벨 계산 방식</sub></summary>
+<sub>
+
+```
+활동점수 = (언어 바이트 수 ÷ 1,000) + (커밋 수 × 10)
+레벨 = min(99, floor(log₂(활동점수 + 1) × 8))
+```
+
+</sub>
+</details>
 
 ---
 
@@ -92,69 +124,27 @@
 
 </div>
 
----
-
-## Current Status & Skills (Auto-Updated)
-
-<!-- SKILL_START -->
-<div align="center">
-<table width="95%" style="margin: 0 auto; border-collapse: collapse;">
-  <thead>
-    <tr style="background-color: #f1f3f4;">
-      <th width="30%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">기술 스택</th>
-      <th width="45%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">숙련도</th>
-      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">랭크</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="border: 1px solid #ddd;">
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/C%23-Lv80-239120?style=for-the-badge&logo=c-sharp&logoColor=white" alt="C#"/></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-80%25-FFD700?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/%F0%9F%A5%87-EXPERT-FFD700?style=for-the-badge&logoColor=white" alt="EXPERT" height="28"/></td>
-    </tr>
-    <tr style="border: 1px solid #ddd;">
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/JavaScript-Lv50-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"/></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-50%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE" height="28"/></td>
-    </tr>
-    <tr style="border: 1px solid #ddd;">
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/CSS-Lv48-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS"/></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-48%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE" height="28"/></td>
-    </tr>
-    <tr style="border: 1px solid #ddd;">
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/HTML-Lv42-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML"/></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-42%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
-      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE" height="28"/></td>
-    </tr>
-  </tbody>
-</table>
-</div>
-<!-- SKILL_END -->
-
 <details>
-<summary><sub>레벨 계산 방식</sub></summary>
+<summary><sub>변화율 계산 방식</sub></summary>
 <sub>
 
 ```
-활동점수 = (언어 바이트 수 ÷ 1,000) + (커밋 수 × 10)
-레벨 = min(99, floor(log₂(활동점수 + 1) × 8))
+변화율 = (최근 3개월 활동 - 이전 9개월 평균) ÷ 이전 9개월 평균 × 100
+양수: 증가 추세, 음수: 감소 추세
 ```
 
 </sub>
 </details>
 
----
-
-## Language Trend Analysis (Auto-Updated)
+## 2025 Language Trend Analysis
 
 <!-- TREND_CHART -->
 ![Language Trends](./assets/language_trend_chart.png)
 <!-- /TREND_CHART -->
 
-<!-- GROWTH_CHART -->
-![Growth Chart](./assets/language_growth_chart.png)  
-<!-- /GROWTH_CHART -->
+<!-- YEARLY_CHART -->
+![Yearly Language Usage](./assets/language_yearly_chart.png)
+<!-- /YEARLY_CHART -->
 
 ---
 
@@ -185,24 +175,6 @@
 <br>
 
 
-## Weekly Development Report (Auto-Generated)
-
-<!-- WEEKLY_START -->
-**이번 주 주력 분야:**  
-**Backend Development** (45%) - API 개발 및 최적화  
-**Business Strategy** (25%) - 기획, 팀 리딩  
-**Frontend** (20%) - UI/UX 개선  
-**DevOps** (10%) - 인프라 관리  
-
-**최근 활동:**  
-- `zlaepek/zlaepek`: 내용 수정 (09-07)  
-- `zlaepek/zlaepek`: 줄수로 수정 (09-07)  
-- `zlaepek/zlaepek`: 수정 (09-07)  
-- `zlaepek/zlaepek`: 수정2 (09-07)  
-- `zlaepek/zlaepek`: 디자인 수정 (09-07)  
-<!-- WEEKLY_END -->
-
-<br>
 
 ## Latest Activity (Auto-Updated)
 

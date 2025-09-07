@@ -355,84 +355,84 @@ jobs:
               
               print("✅ 차트 생성 완료: language_trend_chart.png")
           
-          def create_growth_chart(months, monthly_data):
-              """성장률 차트 생성"""
-              print("📈 성장률 차트 생성 중...")
+          def create_yearly_chart(months, monthly_data):
+              """연도별 언어 사용량 차트 생성"""
+              print("📊 연도별 언어 사용량 차트 생성 중...")
               
-              # 최근 12개월 데이터로 성장률 계산 (Year over Year)
-              recent_months = months[-12:] if len(months) > 12 else months
-              year_ago_months = months[-24:-12] if len(months) > 24 else []
+              # 연도별로 데이터 집계
+              yearly_data = defaultdict(lambda: defaultdict(int))
               
-              fig, ax = plt.subplots(figsize=(12, 6))
+              for month, lang_data in monthly_data.items():
+                  year = month.split('-')[0]
+                  for lang, lines in lang_data.items():
+                      yearly_data[year][lang] += lines
+              
+              # 연도와 주요 언어 추출
+              years = sorted(yearly_data.keys())
+              all_languages = set()
+              for year_data in yearly_data.values():
+                  all_languages.update(year_data.keys())
+              
+              # 제외할 언어 필터링 및 모든 언어 포함
+              exclude_languages = ['ShaderLab', 'HLSL', 'Makefile', 'Batchfile', 'Shell']
+              lang_totals = defaultdict(int)
+              for year_data in yearly_data.values():
+                  for lang, lines in year_data.items():
+                      if lang not in exclude_languages:
+                          lang_totals[lang] += lines
+              
+              # 모든 언어 포함 (필터링된)
+              all_valid_languages = sorted(lang_totals.items(), key=lambda x: x[1], reverse=True)
+              top_lang_names = [lang for lang, _ in all_valid_languages]
+              
+              # 차트 설정
+              plt.style.use('dark_background')
+              fig, ax = plt.subplots(figsize=(12, 8))
               fig.patch.set_facecolor('#20232a')
               ax.set_facecolor('#20232a')
               
-              # 주요 언어들의 성장률 계산
-              all_languages = set()
-              for month_data in monthly_data.values():
-                  all_languages.update(month_data.keys())
-              
-              growth_data = {}
-              for lang in all_languages:
-                  # 최근 12개월 평균
-                  recent_values = [monthly_data.get(month, {}).get(lang, 0) for month in recent_months]
-                  recent_avg = sum(recent_values) / len(recent_values) if recent_values else 0
-                  
-                  # 1년 전 12개월 평균
-                  if year_ago_months:
-                      past_values = [monthly_data.get(month, {}).get(lang, 0) for month in year_ago_months]
-                      past_avg = sum(past_values) / len(past_values) if past_values else 0
-                  else:
-                      # 데이터가 부족하면 첫 6개월 vs 최근 6개월 비교
-                      mid_point = len(months) // 2
-                      past_values = [monthly_data.get(month, {}).get(lang, 0) for month in months[:mid_point]]
-                      past_avg = sum(past_values) / len(past_values) if past_values else 0
-                  
-                  # 성장률 계산
-                  if past_avg > 0:
-                      growth_rate = ((recent_avg - past_avg) / past_avg) * 100
-                      growth_data[lang] = growth_rate
-              
-              # 성장률 순으로 정렬
-              sorted_growth = sorted(growth_data.items(), key=lambda x: x[1], reverse=True)[:8]
-              
-              print(f"📊 계산된 성장률 데이터: {len(growth_data)}개 언어")
-              for lang, rate in sorted_growth[:3]:
-                  print(f"  - {lang}: {rate:.1f}%")
-              
               # 데이터가 없으면 차트 생성 건너뛰기
-              if not sorted_growth:
-                  print("⚠️  성장률 데이터 없음, 차트 생성 건너뜀")
+              if not years or not top_lang_names:
+                  print("⚠️  연도별 데이터 없음, 차트 생성 건너뜀")
                   plt.close()
                   return
               
-              languages = [item[0] for item in sorted_growth]
-              growth_rates = [item[1] for item in sorted_growth]
+              # 각 언어별 연도별 데이터 준비
+              x_pos = np.arange(len(years))
+              n_languages = len(top_lang_names)
+              bar_width = 0.8 / n_languages if n_languages > 0 else 0.1
               
-              # 색상 설정 (그라데이션 효과)
-              colors = []
-              for rate in growth_rates:
-                  if rate >= 30: colors.append('#FFD700')  # 금색
-                  elif rate >= 0: colors.append('#52b788')  # 초록
-                  elif rate >= -20: colors.append('#FFA500')  # 주황
-                  else: colors.append('#e74c3c')  # 빨강
+              # 더 많은 색상 팔레트 준비
+              color_palette = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57', '#FF9FF3',
+                              '#A8E6CF', '#FFD93D', '#6BCF7F', '#4D96FF', '#9B59B6', '#E67E22']
+              colors = (color_palette * ((n_languages // len(color_palette)) + 1))[:n_languages]
               
-              bars = ax.barh(languages, growth_rates, color=colors, alpha=0.9, 
-                           edgecolor='white', linewidth=0.5)
+              # 막대 그래프 생성
+              for i, lang in enumerate(top_lang_names):
+                  values = []
+                  for year in years:
+                      values.append(yearly_data[year].get(lang, 0))
+                  
+                  # 최대값으로 정규화 (가독성을 위해)
+                  max_val = max(values) if values else 1
+                  normalized_values = [v / max_val * 100 for v in values] if max_val > 0 else values
+                  
+                  ax.bar(x_pos + i * bar_width, normalized_values, bar_width, 
+                        label=lang, color=colors[i % len(colors)], alpha=0.8)
               
-              # 바 위에 수치 표시 (더 예쁘게)
-              for i, bar in enumerate(bars):
-                  width = bar.get_width()
-                  prefix = '++' if width > 20 else '+' if width >= 0 else ''
-                  ax.text(width + (3 if width >= 0 else -3), bar.get_y() + bar.get_height()/2,
-                         f'{prefix}{growth_rates[i]:+.1f}%', ha='left' if width >= 0 else 'right',
-                         va='center', color='white', fontweight='bold', fontsize=9)
-              
-              ax.set_xlabel('Growth Rate (%)', color='#52b788', fontsize=12, fontweight='bold')
-              ax.set_title('Language Growth Analysis (Year over Year)', color='#52b788', 
+              # 차트 스타일링
+              ax.set_xlabel('Year', color='#52b788', fontsize=12, fontweight='bold')
+              ax.set_ylabel('Relative Usage (%)', color='#52b788', fontsize=12, fontweight='bold')
+              ax.set_title('Yearly Language Usage Comparison', color='#52b788', 
                           fontsize=16, fontweight='bold', pad=20)
-              ax.axvline(0, color='#666666', linewidth=1.5, alpha=0.7)
-              ax.grid(True, alpha=0.2, color='#666666', axis='x', linestyle='--', linewidth=0.5)
+              ax.set_xticks(x_pos + bar_width * (len(top_lang_names) - 1) / 2)
+              ax.set_xticklabels(years, color='#ffffff')
+              
+              # 범례 및 그리드 설정
+              ax.legend(loc='upper left', frameon=True, fancybox=True, 
+                       shadow=True, ncol=2, fontsize=10, 
+                       facecolor='#2a2a2a', edgecolor='#52b788', framealpha=0.9)
+              ax.grid(True, alpha=0.2, color='#666666', linestyle='--', linewidth=0.5)
               
               # 축 색상
               ax.tick_params(axis='both', colors='#ffffff')
@@ -442,11 +442,11 @@ jobs:
               ax.spines['right'].set_visible(False)
               
               plt.tight_layout()
-              plt.savefig('language_growth_chart.png', dpi=300, bbox_inches='tight',
+              plt.savefig('language_yearly_chart.png', dpi=300, bbox_inches='tight',
                          facecolor='#20232a', edgecolor='none')
               plt.close()
               
-              print("✅ 성장률 차트 생성 완료: language_growth_chart.png")
+              print("✅ 연도별 차트 생성 완료: language_yearly_chart.png")
           
           def main():
               print("🚀 언어 트렌드 차트 생성 시작...")
@@ -455,12 +455,12 @@ jobs:
               
               if monthly_data:
                   create_trend_chart(months, monthly_data)
-                  create_growth_chart(months, monthly_data)
+                  create_yearly_chart(months, monthly_data)
                   
                   print("🎉 모든 차트 생성 완료!")
                   print("📁 생성된 파일:")
                   print("  - language_trend_chart.png")
-                  print("  - language_growth_chart.png")
+                  print("  - language_yearly_chart.png")
               else:
                   print("❌ 데이터를 가져올 수 없어서 차트 생성 실패")
           
@@ -477,11 +477,10 @@ jobs:
             # 이미지를 assets 폴더로 이동
             mkdir -p assets
             mv language_trend_chart.png assets/
-            mv language_growth_chart.png assets/
+            mv language_yearly_chart.png assets/
             
             # README 업데이트
             sed -i 's|<!-- TREND_CHART -->.*<!-- /TREND_CHART -->|<!-- TREND_CHART -->\n![Language Trends](./assets/language_trend_chart.png)\n<!-- /TREND_CHART -->|g' README.md
-            sed -i 's|<!-- GROWTH_CHART -->.*<!-- /GROWTH_CHART -->|<!-- GROWTH_CHART -->\n![Growth Chart](./assets/language_growth_chart.png)\n<!-- /GROWTH_CHART -->|g' README.md
             
             echo "✅ README 업데이트 완료"
           fi

@@ -222,12 +222,12 @@ jobs:
             if (skillsArray.length > 0) {
               // 테이블 시작
               skillsSection += '<div align="center">\n';
-              skillsSection += '<table width="95%" style="margin: 0 auto; border-collapse: collapse;">\n';
+              skillsSection += '<table>\n';
               skillsSection += '  <thead>\n';
-              skillsSection += '    <tr style="background-color: #f1f3f4;">\n';
-              skillsSection += '      <th width="30%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">기술 스택</th>\n';
-              skillsSection += '      <th width="45%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">숙련도</th>\n';
-              skillsSection += '      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">랭크</th>\n';
+              skillsSection += '    <tr>\n';
+              skillsSection += '      <th>기술 스택</th>\n';
+              skillsSection += '      <th>숙련도</th>\n';
+              skillsSection += '      <th>랭크</th>\n';
               skillsSection += '    </tr>\n';
               skillsSection += '  </thead>\n';
               skillsSection += '  <tbody>\n';
@@ -245,10 +245,10 @@ jobs:
                 const progressPercent = Math.min(100, skill.level);
                 const progressColor = skill.level >= 70 ? 'FFD700' : skill.level >= 50 ? 'CD7F32' : 'C0C0C0';
                 
-                skillsSection += '    <tr style="border: 1px solid #ddd;">\n';
-                skillsSection += `      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/${encodedName}-Lv${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}" alt="${skill.name}"/></td>\n`;
-                skillsSection += `      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-${progressPercent}%25-${progressColor}?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>\n`;
-                skillsSection += `      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/${encodedIcon}-${encodedRankText}-${rankBadge.color}?style=for-the-badge&logoColor=white" alt="${rankBadge.text}" height="28"/></td>\n`;
+                skillsSection += '    <tr>\n';
+                skillsSection += `      <td><img src="https://img.shields.io/badge/${encodedName}-Lv${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}" alt="${skill.name}"/></td>\n`;
+                skillsSection += `      <td><img src="https://img.shields.io/badge/Progress-${progressPercent}%25-${progressColor}?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>\n`;
+                skillsSection += `      <td><img src="https://img.shields.io/badge/${encodedIcon}-${encodedRankText}-${rankBadge.color}?style=for-the-badge&logoColor=white" alt="${rankBadge.text}" height="28"/></td>\n`;
                 skillsSection += '    </tr>\n';
               });
               
@@ -261,22 +261,6 @@ jobs:
             return skillsSection;
           }
           
-          async function updateWeeklyReport() {
-            const recentActivity = await getRecentActivity();
-            
-            let weeklySection = '**이번 주 주력 분야:**  \n';
-            weeklySection += '**Backend Development** (45%) - API 개발 및 최적화  \n';
-            weeklySection += '**Business Strategy** (25%) - 기획, 팀 리딩  \n';
-            weeklySection += '**Frontend** (20%) - UI/UX 개선  \n';
-            weeklySection += '**DevOps** (10%) - 인프라 관리  \n\n';
-            
-            weeklySection += '**최근 활동:**  \n';
-            recentActivity.forEach(commit => {
-              weeklySection += `- \`${commit.repo}\`: ${commit.message} (${commit.date})  \n`;
-            });
-            
-            return weeklySection;
-          }
           
           async function updateActivitySection() {
             const recentActivity = await getRecentActivity();
@@ -366,9 +350,8 @@ jobs:
           async function main() {
             console.log('프로필 업데이트 시작...');
             
-            const [skillsContent, weeklyContent, activityContent, trendContent] = await Promise.all([
+            const [skillsContent, activityContent, trendContent] = await Promise.all([
               updateSkillSection(),
-              updateWeeklyReport(),
               updateActivitySection(),
               updateTechStackTrendTable()
             ]);
@@ -387,10 +370,6 @@ jobs:
               `<!-- SKILL_START -->\n${skillsContent}<!-- SKILL_END -->`
             );
             
-            readme = readme.replace(
-              /<!-- WEEKLY_START -->[\s\S]*?<!-- WEEKLY_END -->/,
-              `<!-- WEEKLY_START -->\n${weeklyContent}<!-- WEEKLY_END -->`
-            );
             
             readme = readme.replace(
               /<!-- ACTIVITY_START -->[\s\S]*?<!-- ACTIVITY_END -->/,
