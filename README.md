@@ -1,11 +1,9 @@
 <div align="center">
-  <h1>🚀 김민경 (Zlaepek)</h1>
+  <h1>김민경 (Zlaepek)</h1>
   <p><strong>Full Stack Developer | CEO @ PTAHLABS</strong></p>
 </div>
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-
-## 👨‍💻 Profile Overview
+## Profile Overview
 
 <div align="center">
 <table width="80%" style="margin: 0 auto; border-collapse: collapse;">
@@ -24,7 +22,7 @@
 </table>
 </div>
 
-## 🚀 Career Journey
+## Career Journey
 
 <div align="center">
 <table width="90%" style="margin: 0 auto; border-collapse: collapse;">
@@ -61,9 +59,7 @@
 
 ---
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-
-## 📊 2025 기술 스택 변화 추이 (Auto-Updated)
+## 2025 기술 스택 변화 추이 (Auto-Updated)
 
 <div align="center">
 
@@ -98,9 +94,7 @@
 
 ---
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-
-## 🎯 Current Status & Skills (Auto-Updated)
+## Current Status & Skills (Auto-Updated)
 
 <!-- SKILL_START -->
 <div align="center">
@@ -153,30 +147,19 @@
 
 ---
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-
-## 📈 Language Trend Analysis (Auto-Updated)
+## Language Trend Analysis (Auto-Updated)
 
 <!-- TREND_CHART -->
 ![Language Trends](./assets/language_trend_chart.png)
 <!-- /TREND_CHART -->
 
-### 기술 전환 스토리
-**Unity 게임 개발 → 웹 풀스택 전환 과정**
-
 <!-- GROWTH_CHART -->
 ![Growth Chart](./assets/language_growth_chart.png)  
 <!-- /GROWTH_CHART -->
 
-### 주요 변화 포인트
-**2024년 11월**: PTAHLABS 창업 → JavaScript/Python 급상승  
-**2024년 8-10월**: 웹 개발 학습 집중 → TypeScript 도입  
-**2023-2024년**: Unity + C# 전문가 시절 (디캐릭)  
-**2019-2023년**: 기초 학습 + 대학 과정
-
 ---
 
-## 📈 GitHub Analytics
+## GitHub Analytics
 
 <div align="center">
 
@@ -189,7 +172,7 @@
 <img src="https://github-readme-streak-stats.herokuapp.com/?user=zlaepek&theme=github-dark-blue&hide_border=true&background=0D1117&ring=52b788&fire=52b788&currStreakLabel=52b788"/>
 
 <!-- 활동 그래프 -->
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=zlaepek&theme=github-compact&bg_color=0D1117&hide_border=true&line=52b788&color=52b788&area=true&custom_title=📊%20Contribution%20Activity"/>
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=zlaepek&theme=github-compact&bg_color=0D1117&hide_border=true&line=52b788&color=52b788&area=true&custom_title=Contribution%20Activity"/>
 
 <br/>
 
@@ -203,9 +186,7 @@
 <br>
 
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
-
-## 📅 Weekly Development Report (Auto-Generated)
+## Weekly Development Report (Auto-Generated)
 
 <!-- WEEKLY_START -->
 **이번 주 주력 분야:**  
@@ -224,7 +205,7 @@
 
 <br>
 
-## ⚡ Latest Activity (Auto-Updated)
+## Latest Activity (Auto-Updated)
 
 <!-- ACTIVITY_START -->
 **Recent Commits:**  

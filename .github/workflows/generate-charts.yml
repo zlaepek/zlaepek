@@ -318,7 +318,7 @@ jobs:
               
               ax.set_xticklabels(month_labels, color='#ffffff', fontsize=9, rotation=45)
               ax.set_ylabel('Usage (%)', color='#52b788', fontsize=12, fontweight='bold')
-              ax.set_title('📊 Programming Language Trends Over Time', color='#52b788', 
+              ax.set_title('Programming Language Trends Over Time', color='#52b788', 
                           fontsize=16, fontweight='bold', pad=20)
               
               # 그리드 및 범례 개선
@@ -384,13 +384,13 @@ jobs:
               # 바 위에 수치 표시 (더 예쁘게)
               for i, bar in enumerate(bars):
                   width = bar.get_width()
-                  icon = '🚀' if width > 20 else '📈' if width >= 0 else '📉'
+                  prefix = '++' if width > 20 else '+' if width >= 0 else ''
                   ax.text(width + (3 if width >= 0 else -3), bar.get_y() + bar.get_height()/2,
-                         f'{icon} {growth_rates[i]:+.1f}%', ha='left' if width >= 0 else 'right',
+                         f'{prefix}{growth_rates[i]:+.1f}%', ha='left' if width >= 0 else 'right',
                          va='center', color='white', fontweight='bold', fontsize=9)
               
               ax.set_xlabel('Growth Rate (%)', color='#52b788', fontsize=12, fontweight='bold')
-              ax.set_title('📈 Language Growth Analysis (Year over Year)', color='#52b788', 
+              ax.set_title('Language Growth Analysis (Year over Year)', color='#52b788', 
                           fontsize=16, fontweight='bold', pad=20)
               ax.axvline(0, color='#666666', linewidth=1.5, alpha=0.7)
               ax.grid(True, alpha=0.2, color='#666666', axis='x', linestyle='--', linewidth=0.5)
