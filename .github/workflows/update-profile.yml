@@ -221,13 +221,14 @@ jobs:
             
             if (skillsArray.length > 0) {
               // 테이블 시작
-              skillsSection += '<table width="100%">\n';
+              skillsSection += '<div align="center">\n';
+              skillsSection += '<table width="95%" style="margin: 0 auto; border-collapse: collapse;">\n';
               skillsSection += '  <thead>\n';
-              skillsSection += '    <tr>\n';
-              skillsSection += '      <th align="center" width="25%">기술 스택</th>\n';
-              skillsSection += '      <th align="center" width="15%">레벨</th>\n';
-              skillsSection += '      <th align="center" width="35%">숙련도</th>\n';
-              skillsSection += '      <th align="center" width="25%">랭크</th>\n';
+              skillsSection += '    <tr style="background-color: #f1f3f4;">\n';
+              skillsSection += '      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">기술 스택</th>\n';
+              skillsSection += '      <th width="15%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">레벨</th>\n';
+              skillsSection += '      <th width="35%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">숙련도</th>\n';
+              skillsSection += '      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">랭크</th>\n';
               skillsSection += '    </tr>\n';
               skillsSection += '  </thead>\n';
               skillsSection += '  <tbody>\n';
@@ -244,17 +245,18 @@ jobs:
                 const encodedRankText = encodeURIComponent(rankBadge.text);
                 const encodedIcon = encodeURIComponent(rankBadge.icon);
                 
-                skillsSection += '    <tr>\n';
-                skillsSection += `      <td align="center">![${skill.name}](https://img.shields.io/badge/${encodedName}-${encodedSkillLevel}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor})</td>\n`;
-                skillsSection += `      <td align="center">**${skill.level}**</td>\n`;
-                skillsSection += `      <td align="center">${progressBar}</td>\n`;
-                skillsSection += `      <td align="center">![${rankBadge.text}](https://img.shields.io/badge/${encodedIcon}-${encodedRankText}-${rankBadge.color}?style=for-the-badge&logoColor=white)</td>\n`;
+                skillsSection += '    <tr style="border: 1px solid #ddd;">\n';
+                skillsSection += `      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/${encodedName}-${encodedSkillLevel}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}" alt="${skill.name}"/></td>\n`;
+                skillsSection += `      <td style="padding: 10px; text-align: center;"><strong>${skill.level}</strong></td>\n`;
+                skillsSection += `      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-${skill.level}%25-${getRankBadge(skill.level).color}?style=flat&logo=chartdotjs&logoColor=white" alt="Progress"/></td>\n`;
+                skillsSection += `      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/${encodedIcon}-${encodedRankText}-${rankBadge.color}?style=for-the-badge&logoColor=white" alt="${rankBadge.text}"/></td>\n`;
                 skillsSection += '    </tr>\n';
               });
               
               // 테이블 끝
               skillsSection += '  </tbody>\n';
               skillsSection += '</table>\n';
+              skillsSection += '</div>\n';
             }
             
             return skillsSection;

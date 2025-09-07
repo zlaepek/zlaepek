@@ -1,54 +1,58 @@
 ## Profile Overview
 
-<table width="100%">
-  <tr>
-    <td align="center" width="50%"><strong>Name</strong></td>
-    <td align="center" width="50%">김민경 (Zlaepek)</td>
+<div align="center">
+<table width="80%" style="margin: 0 auto; border-collapse: collapse;">
+  <tr style="border: 1px solid #ddd;">
+    <td align="center" width="50%" style="padding: 12px; font-weight: bold; background-color: #f8f9fa;">Name</td>
+    <td align="center" width="50%" style="padding: 12px;">김민경 (Zlaepek)</td>
   </tr>
-  <tr>
-    <td align="center" width="50%"><strong>Position</strong></td>
-    <td align="center" width="50%">CEO & Tech Lead @ <a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
+  <tr style="border: 1px solid #ddd;">
+    <td align="center" width="50%" style="padding: 12px; font-weight: bold; background-color: #f8f9fa;">Position</td>
+    <td align="center" width="50%" style="padding: 12px;">CEO & Tech Lead @ <a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
   </tr>
-  <tr>
-    <td align="center" width="50%"><strong>Email</strong></td>
-    <td align="center" width="50%">alice4813@naver.com</td>
+  <tr style="border: 1px solid #ddd;">
+    <td align="center" width="50%" style="padding: 12px; font-weight: bold; background-color: #f8f9fa;">Email</td>
+    <td align="center" width="50%" style="padding: 12px;">alice4813@naver.com</td>
   </tr>
 </table>
+</div>
 
 <br>
 
 ## Career Journey
 
-<table width="100%">
+<div align="center">
+<table width="90%" style="margin: 0 auto; border-collapse: collapse;">
   <thead>
-    <tr>
-      <th width="25%">Organization</th>
-      <th width="25%">Position</th>
-      <th width="25%">Period</th>
-      <th width="25%">Main Stack</th>
+    <tr style="background-color: #f1f3f4;">
+      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">Organization</th>
+      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">Position</th>
+      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">Period</th>
+      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">Main Stack</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
-      <td>CEO & Founder</td>
-      <td>2024.11 ~ Present</td>
-      <td>JavaScript, Python, React, AWS</td>
+    <tr style="border: 1px solid #ddd;">
+      <td style="padding: 10px; text-align: center;"><a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
+      <td style="padding: 10px; text-align: center;">CEO & Founder</td>
+      <td style="padding: 10px; text-align: center;">2024.11 ~ Present</td>
+      <td style="padding: 10px; text-align: center;">JavaScript, Python, React, AWS</td>
     </tr>
-    <tr>
-      <td><a href="https://www.dcarrick.co.kr/">디캐릭</a></td>
-      <td>Unity Developer</td>
-      <td>2023.02 ~ 2024.10</td>
-      <td>C#, Unity, MRTK, Photon, AWS</td>
+    <tr style="border: 1px solid #ddd;">
+      <td style="padding: 10px; text-align: center;"><a href="https://www.dcarrick.co.kr/">디캐릭</a></td>
+      <td style="padding: 10px; text-align: center;">Unity Developer</td>
+      <td style="padding: 10px; text-align: center;">2023.02 ~ 2024.10</td>
+      <td style="padding: 10px; text-align: center;">C#, Unity, MRTK, Photon, AWS</td>
     </tr>
-    <tr>
-      <td>가천대학교</td>
-      <td>소프트웨어학과</td>
-      <td>2019.03 ~ 2023.02</td>
-      <td>Java, C, Python, Algorithm</td>
+    <tr style="border: 1px solid #ddd;">
+      <td style="padding: 10px; text-align: center;">가천대학교</td>
+      <td style="padding: 10px; text-align: center;">소프트웨어학과</td>
+      <td style="padding: 10px; text-align: center;">2019.03 ~ 2023.02</td>
+      <td style="padding: 10px; text-align: center;">Java, C, Python, Algorithm</td>
     </tr>
   </tbody>
 </table>
+</div>
 
 ---
 
@@ -90,42 +94,44 @@
 ## Current Status & Skills (Auto-Updated)
 
 <!-- SKILL_START -->
-<table width="100%">
+<div align="center">
+<table width="95%" style="margin: 0 auto; border-collapse: collapse;">
   <thead>
-    <tr>
-      <th align="center" width="25%">기술 스택</th>
-      <th align="center" width="15%">레벨</th>
-      <th align="center" width="35%">숙련도</th>
-      <th align="center" width="25%">랭크</th>
+    <tr style="background-color: #f1f3f4;">
+      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">기술 스택</th>
+      <th width="15%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">레벨</th>
+      <th width="35%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">숙련도</th>
+      <th width="25%" style="padding: 12px; border: 1px solid #ddd; text-align: center;">랭크</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td align="center">![C#](https://img.shields.io/badge/C%23-Expert-239120?style=for-the-badge&logo=c-sharp&logoColor=white)</td>
-      <td align="center">**80**</td>
-      <td align="center">![Progress](https://img.shields.io/badge/Progress-80%25-FFD700?style=flat&logo=chartdotjs&logoColor=white)</td>
-      <td align="center">![Expert](https://img.shields.io/badge/🥇-EXPERT-FFD700?style=for-the-badge&logoColor=white)</td>
+    <tr style="border: 1px solid #ddd;">
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/C%23-Expert-239120?style=for-the-badge&logo=c-sharp&logoColor=white" alt="C#"/></td>
+      <td style="padding: 10px; text-align: center;"><strong>80</strong></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-80%25-FFD700?style=flat&logo=chartdotjs&logoColor=white" alt="Progress"/></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/🥇-EXPERT-FFD700?style=for-the-badge&logoColor=white" alt="Expert"/></td>
     </tr>
-    <tr>
-      <td align="center">![JavaScript](https://img.shields.io/badge/JavaScript-Advanced-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)</td>
-      <td align="center">**50**</td>
-      <td align="center">![Progress](https://img.shields.io/badge/Progress-50%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white)</td>
-      <td align="center">![Advanced](https://img.shields.io/badge/🥈-ADVANCED-C0C0C0?style=for-the-badge&logoColor=white)</td>
+    <tr style="border: 1px solid #ddd;">
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/JavaScript-Advanced-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"/></td>
+      <td style="padding: 10px; text-align: center;"><strong>50</strong></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-50%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white" alt="Progress"/></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/🥈-ADVANCED-C0C0C0?style=for-the-badge&logoColor=white" alt="Advanced"/></td>
     </tr>
-    <tr>
-      <td align="center">![CSS](https://img.shields.io/badge/CSS-Advanced-1572B6?style=for-the-badge&logo=css3&logoColor=white)</td>
-      <td align="center">**48**</td>
-      <td align="center">![Progress](https://img.shields.io/badge/Progress-48%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white)</td>
-      <td align="center">![Advanced](https://img.shields.io/badge/🥈-ADVANCED-C0C0C0?style=for-the-badge&logoColor=white)</td>
+    <tr style="border: 1px solid #ddd;">
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/CSS-Advanced-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS"/></td>
+      <td style="padding: 10px; text-align: center;"><strong>48</strong></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-48%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white" alt="Progress"/></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/🥈-ADVANCED-C0C0C0?style=for-the-badge&logoColor=white" alt="Advanced"/></td>
     </tr>
-    <tr>
-      <td align="center">![HTML](https://img.shields.io/badge/HTML-Intermediate-E34F26?style=for-the-badge&logo=html5&logoColor=white)</td>
-      <td align="center">**42**</td>
-      <td align="center">![Progress](https://img.shields.io/badge/Progress-48%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white)</td>
-      <td align="center">![Intermediate](https://img.shields.io/badge/🥉-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white)</td>
+    <tr style="border: 1px solid #ddd;">
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/HTML-Intermediate-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML"/></td>
+      <td style="padding: 10px; text-align: center;"><strong>42</strong></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/Progress-42%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white" alt="Progress"/></td>
+      <td style="padding: 10px; text-align: center;"><img src="https://img.shields.io/badge/🥉-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="Intermediate"/></td>
     </tr>
   </tbody>
 </table>
+</div>
 
 <!-- SKILL_END -->
 

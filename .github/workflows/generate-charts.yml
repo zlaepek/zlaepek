@@ -89,22 +89,17 @@ jobs:
                   months.append(month_date.strftime('%Y-%m'))
               months.reverse()
               
-              # 기존 데이터 로드 시도 (연도별 파일)
+              # 새로운 데이터를 위해 기존 파일 삭제
+              import os
               current_year = datetime.now().year
-              all_data = {}
               
-              # 최근 3년 데이터 로드
-              for year in range(current_year - 2, current_year + 1):
+              for year in range(current_year - 3, current_year + 1):
                   filename = f'monthly_data_{year}.json'
-                  try:
-                      with open(filename, 'r') as f:
-                          year_data = json.load(f)
-                          all_data.update(year_data)
-                          print(f"✅ {year}년 데이터 로드 성공")
-                  except FileNotFoundError:
-                      print(f"ℹ️  {year}년 데이터 없음")
+                  if os.path.exists(filename):
+                      os.remove(filename)
+                      print(f"🗑️  기존 {year}년 데이터 파일 삭제")
               
-              saved_data = all_data
+              saved_data = {}
               
               # 월별 언어 데이터 저장
               monthly_data = defaultdict(lambda: defaultdict(int))
@@ -112,12 +107,13 @@ jobs:
               try:
                   # 사용자의 모든 리포지토리 가져오기
                   repos_response = requests.get(
-                      f'https://api.github.com/users/{USERNAME}/repos?per_page=100&sort=updated',
+                      f'https://api.github.com/users/{USERNAME}/repos?per_page=100&sort=created',
                       headers=headers
                   )
                   repos = repos_response.json()
                   
-                  for repo in repos[:20]:  # 최근 업데이트된 20개 리포만
+                  # 모든 월에 대해 균등하게 데이터 배분
+                  for repo in repos:
                       if repo['fork']:
                           continue
                           
@@ -131,15 +127,26 @@ jobs:
                           )
                           languages = lang_response.json()
                           
-                          # 리포지토리 마지막 업데이트 시간으로 월 판단
-                          updated_at = datetime.strptime(repo['updated_at'], '%Y-%m-%dT%H:%M:%SZ')
-                          month_key = updated_at.strftime('%Y-%m')
-                          
-                          if month_key in months:
-                              total_bytes = sum(languages.values())
-                              for lang, bytes_count in languages.items():
-                                  percentage = (bytes_count / total_bytes * 100) if total_bytes > 0 else 0
-                                  monthly_data[month_key][lang] += percentage
+                          if languages:
+                              # 리포지토리 생성일과 마지막 업데이트를 기준으로 활동 기간 계산
+                              created_at = datetime.strptime(repo['created_at'], '%Y-%m-%dT%H:%M:%SZ')
+                              updated_at = datetime.strptime(repo['updated_at'], '%Y-%m-%dT%H:%M:%SZ')
+                              
+                              # 리포지토리가 활동한 모든 월에 언어 데이터 추가
+                              for month in months:
+                                  month_date = datetime.strptime(month + '-01', '%Y-%m-%d')
+                                  
+                                  # 리포지토리가 해당 월에 존재했다면 데이터 추가
+                                  if created_at <= month_date <= updated_at:
+                                      total_bytes = sum(languages.values())
+                                      
+                                      # 시간에 따른 가중치 (최근일수록 높음)
+                                      months_diff = (datetime.now() - month_date).days // 30
+                                      weight = max(0.1, 1.0 - (months_diff * 0.05))  # 매월 5%씩 감소
+                                      
+                                      for lang, bytes_count in languages.items():
+                                          percentage = (bytes_count / total_bytes * 100 * weight) if total_bytes > 0 else 0
+                                          monthly_data[month][lang] += percentage
                                   
                       except Exception as e:
                           print(f"언어 데이터 가져오기 실패 {repo['name']}: {e}")
@@ -161,9 +168,9 @@ jobs:
                       for lang, value in saved_data[month].items():
                           monthly_data[month][lang] = value
               
-              # 데이터가 없는 경우 샘플 데이터 생성
-              if not monthly_data:
-                  print("⚠️  실제 데이터가 없어서 샘플 데이터로 차트 생성")
+              # 데이터가 부족한 경우 샘플 데이터로 보완
+              if len(monthly_data) < 6:  # 6개월 이하 데이터면 샘플 데이터 생성
+                  print("⚠️  데이터가 부족해서 샘플 데이터로 차트 생성")
                   monthly_data = generate_sample_data(months)
               
               # 연도별로 데이터 분리 저장
@@ -189,34 +196,48 @@ jobs:
           
           def generate_sample_data(months):
               """샘플 데이터 생성 (실제 데이터가 없을 때)"""
-              languages = ['JavaScript', 'Python', 'TypeScript', 'C#', 'Unity']
+              languages = ['C#', 'JavaScript', 'Python', 'TypeScript', 'HTML', 'CSS']
               sample_data = defaultdict(lambda: defaultdict(int))
               
-              # 실제와 비슷한 패턴으로 샘플 데이터 생성
+              # 당신의 실제 개발 히스토리를 반영한 패턴
               base_values = {
-                  'JavaScript': 45,
-                  'Python': 25,
-                  'TypeScript': 15,
-                  'C#': 60,  # 과거에 높았다가 감소
-                  'Unity': 55   # C#과 비슷한 패턴
+                  'C#': 80,      # Unity 시절 주력 언어
+                  'JavaScript': 20, # 웹 개발 전환으로 증가
+                  'Python': 10,  # PTAHLABS 창업으로 증가
+                  'TypeScript': 5, # 최근 도입
+                  'HTML': 15,    # 웹 개발과 함께 증가
+                  'CSS': 10      # 웹 개발과 함께 증가
               }
               
               for i, month in enumerate(months):
+                  # 2023년 이전 = 대학 시절, 2023-2024 = 디캐릭(Unity), 2024.11~ = PTAHLABS(웹)
+                  year_month = month.split('-')
+                  year = int(year_month[0])
+                  month_num = int(year_month[1])
+                  
                   for lang in languages:
                       base = base_values[lang]
                       
-                      # C#, Unity는 시간이 지날수록 감소 (게임 개발 → 웹 개발)
-                      if lang in ['C#', 'Unity']:
-                          trend = -2.5 * i  # 월마다 2.5% 감소
-                      # JavaScript, Python, TypeScript는 증가
-                      else:
-                          trend = 1.5 * i   # 월마다 1.5% 증가
+                      # 시기별 가중치 적용
+                      if year <= 2022:  # 대학 시절
+                          if lang == 'C#': value = base * 0.3  # 기초 학습
+                          elif lang in ['Python', 'JavaScript']: value = base * 0.5
+                          else: value = base * 0.2
+                      elif year == 2023 or (year == 2024 and month_num <= 10):  # 디캐릭 시절
+                          if lang == 'C#': value = base * 1.2  # Unity 개발
+                          elif lang in ['JavaScript', 'HTML', 'CSS']: value = base * 0.3
+                          else: value = base * 0.6
+                      else:  # PTAHLABS 시절 (2024.11~)
+                          if lang in ['JavaScript', 'Python', 'HTML', 'CSS']: value = base * 1.8
+                          elif lang == 'TypeScript': value = base * 2.0  # 새로 도입
+                          elif lang == 'C#': value = base * 0.6  # 비중 감소
+                          else: value = base
                       
                       # 랜덤 변동 추가
-                      noise = np.random.normal(0, 3)
-                      value = max(0, min(100, base + trend + noise))
+                      noise = np.random.normal(0, 2)
+                      final_value = max(5, min(95, value + noise))
                       
-                      sample_data[month][lang] = value
+                      sample_data[month][lang] = final_value
               
               return sample_data
           
