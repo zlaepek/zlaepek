@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>김민경 (Zlaepek)</h1>
+  <h1>김민경's git stat</h1>
 </div>
 
 ## Career Journey
@@ -110,13 +110,13 @@
       <td align="center"><img src="https://img.shields.io/badge/%EA%B2%8C%EC%9E%84%EA%B0%9C%EB%B0%9C-E74C3C?style=for-the-badge&logo=unity&logoColor=white"/></td>
       <td align="center"><span style="color: #e74c3c; font-weight: bold;">-32%</span></td>
       <td align="center">C#, Unity</td>
-      <td align="left">PTAHLABS 게임, VR/AR 프로젝트</td>
+      <td align="left">PTAHLABS 전시 프로젝트</td>
     </tr>
     <tr>
       <td align="center"><img src="https://img.shields.io/badge/%EC%9B%B9%EA%B0%9C%EB%B0%9C-4A90E2?style=for-the-badge&logo=javascript&logoColor=white"/></td>
       <td align="center"><span style="color: #52b788; font-weight: bold;">+45%</span></td>
       <td align="center">JavaScript, HTML, CSS, React</td>
-      <td align="left">PTAHLABS 웹사이트, 프로필 자동화</td>
+      <td align="left">PTAHLABS 웹사이트, 웹사이트, 배포 자동화</td>
     </tr>
   </tbody>
 </table>

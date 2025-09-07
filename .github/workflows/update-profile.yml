@@ -246,7 +246,7 @@ jobs:
                 const progressColor = skill.level >= 70 ? 'FFD700' : skill.level >= 50 ? 'CD7F32' : 'C0C0C0';
                 
                 skillsSection += '    <tr>\n';
-                skillsSection += `      <td><img src="https://img.shields.io/badge/${encodedName}-Lv${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}" alt="${skill.name}"/></td>\n`;
+                skillsSection += `      <td><img src="https://img.shields.io/badge/${encodedName}-${getSkillLevel(skill.level)}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}" alt="${skill.name}"/></td>\n`;
                 skillsSection += `      <td><img src="https://img.shields.io/badge/Progress-${progressPercent}%25-${progressColor}?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>\n`;
                 skillsSection += `      <td><img src="https://img.shields.io/badge/${encodedIcon}-${encodedRankText}-${rankBadge.color}?style=for-the-badge&logoColor=white" alt="${rankBadge.text}" height="28"/></td>\n`;
                 skillsSection += '    </tr>\n';
@@ -299,10 +299,10 @@ jobs:
             
             // 언어들을 분야별로 그룹화
             const techStacks = {
-              웹개발: { languages: ['JavaScript', 'HTML', 'CSS', 'React'], total: 0, growth: 45, logo: 'javascript', color: '4A90E2' },
-              백엔드: { languages: ['Python', 'Java', 'Node.js'], total: 0, growth: 38, logo: 'python', color: 'F4A261' },
-              TypeScript: { languages: ['TypeScript'], total: 0, growth: 28, logo: 'typescript', color: '3178C6' },
-              게임개발: { languages: ['C#', 'Unity'], total: 0, growth: -32, logo: 'unity', color: 'E74C3C' }
+              웹개발: { languages: ['JavaScript', 'HTML', 'CSS', 'React'], total: 0, growth: 45, logo: 'javascript', color: 'FFD700' },
+              백엔드: { languages: ['Python', 'Java', 'Node.js'], total: 0, growth: 38, logo: 'python', color: '9B59B6' },
+              TypeScript: { languages: ['TypeScript'], total: 0, growth: 28, logo: 'typescript', color: '32CD32' },
+              게임개발: { languages: ['C#', 'Unity', 'C++'], total: 0, growth: -32, logo: 'unity', color: '4A90E2' }
             };
             
             // 각 분야별 사용량 계산
