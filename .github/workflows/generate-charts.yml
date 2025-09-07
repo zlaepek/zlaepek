@@ -254,18 +254,28 @@ jobs:
                          marker='o', linewidth=2.5, markersize=6,
                          label=lang, color=color, alpha=0.9)
               
+              # 월 이름을 영어로 변환
+              month_names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+              
               # 차트 스타일링
               ax.set_xticks(range(len(months)))
-              ax.set_xticklabels([month.split('-')[1] + '월' for month in months], 
-                               color='#ffffff', fontsize=10)
+              month_labels = []
+              for month in months:
+                  year, month_num = month.split('-')
+                  month_name = month_names[int(month_num) - 1]
+                  month_labels.append(f'{month_name} {year[2:]}')
+              
+              ax.set_xticklabels(month_labels, color='#ffffff', fontsize=10, rotation=45)
               ax.set_ylabel('Usage (%)', color='#52b788', fontsize=12, fontweight='bold')
-              ax.set_title('Monthly Programming Language Trends', color='#52b788', 
+              ax.set_title('📊 Programming Language Trends Over Time', color='#52b788', 
                           fontsize=16, fontweight='bold', pad=20)
               
-              # 그리드 및 범례
-              ax.grid(True, alpha=0.3, color='#555555')
+              # 그리드 및 범례 개선
+              ax.grid(True, alpha=0.2, color='#666666', linestyle='--', linewidth=0.5)
               ax.legend(loc='upper left', frameon=True, fancybox=True, 
-                       shadow=True, ncol=1, fontsize=10)
+                       shadow=True, ncol=1, fontsize=10, 
+                       facecolor='#2a2a2a', edgecolor='#52b788', framealpha=0.9)
               
               # 축 색상
               ax.tick_params(axis='y', colors='#ffffff')
@@ -310,23 +320,30 @@ jobs:
               languages = [item[0] for item in sorted_growth]
               growth_rates = [item[1] for item in sorted_growth]
               
-              # 색상 설정 (양수는 초록, 음수는 빨강)
-              colors = ['#52b788' if rate >= 0 else '#e74c3c' for rate in growth_rates]
+              # 색상 설정 (그라데이션 효과)
+              colors = []
+              for rate in growth_rates:
+                  if rate >= 30: colors.append('#FFD700')  # 금색
+                  elif rate >= 0: colors.append('#52b788')  # 초록
+                  elif rate >= -20: colors.append('#FFA500')  # 주황
+                  else: colors.append('#e74c3c')  # 빨강
               
-              bars = ax.barh(languages, growth_rates, color=colors, alpha=0.8)
+              bars = ax.barh(languages, growth_rates, color=colors, alpha=0.9, 
+                           edgecolor='white', linewidth=0.5)
               
-              # 바 위에 수치 표시
+              # 바 위에 수치 표시 (더 예쁘게)
               for i, bar in enumerate(bars):
                   width = bar.get_width()
-                  ax.text(width + (2 if width >= 0 else -2), bar.get_y() + bar.get_height()/2,
-                         f'{growth_rates[i]:+.1f}%', ha='left' if width >= 0 else 'right',
-                         va='center', color='white', fontweight='bold')
+                  icon = '🚀' if width > 20 else '📈' if width >= 0 else '📉'
+                  ax.text(width + (3 if width >= 0 else -3), bar.get_y() + bar.get_height()/2,
+                         f'{icon} {growth_rates[i]:+.1f}%', ha='left' if width >= 0 else 'right',
+                         va='center', color='white', fontweight='bold', fontsize=9)
               
               ax.set_xlabel('Growth Rate (%)', color='#52b788', fontsize=12, fontweight='bold')
-              ax.set_title('Annual Language Growth Rate', color='#52b788', 
+              ax.set_title('📈 Language Growth Analysis (Year over Year)', color='#52b788', 
                           fontsize=16, fontweight='bold', pad=20)
-              ax.axvline(0, color='#555555', linewidth=1)
-              ax.grid(True, alpha=0.3, color='#555555', axis='x')
+              ax.axvline(0, color='#666666', linewidth=1.5, alpha=0.7)
+              ax.grid(True, alpha=0.2, color='#666666', axis='x', linestyle='--', linewidth=0.5)
               
               # 축 색상
               ax.tick_params(axis='both', colors='#ffffff')

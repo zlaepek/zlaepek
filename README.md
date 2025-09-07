@@ -1,21 +1,17 @@
 ## Profile Overview
 
-<table>
+<table width="100%">
   <tr>
-    <td align="center"><strong>Name</strong></td>
-    <td align="center">김민경 (Zlaepek)</td>
+    <td align="center" width="50%"><strong>Name</strong></td>
+    <td align="center" width="50%">김민경 (Zlaepek)</td>
   </tr>
   <tr>
-    <td align="center"><strong>Position</strong></td>
-    <td align="center">CEO & Tech Lead @ <a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
+    <td align="center" width="50%"><strong>Position</strong></td>
+    <td align="center" width="50%">CEO & Tech Lead @ <a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
   </tr>
   <tr>
-    <td align="center"><strong>Email</strong></td>
-    <td align="center">alice4813@naver.com</td>
-  </tr>
-  <tr>
-    <td align="center"><strong>Education</strong></td>
-    <td align="center">가천대학교 소프트웨어학과 (2019-2023)</td>
+    <td align="center" width="50%"><strong>Email</strong></td>
+    <td align="center" width="50%">alice4813@naver.com</td>
   </tr>
 </table>
 
@@ -23,13 +19,13 @@
 
 ## Career Journey
 
-<table>
+<table width="100%">
   <thead>
     <tr>
-      <th>Company</th>
-      <th>Position</th>
-      <th>Period</th>
-      <th>Main Stack</th>
+      <th width="25%">Organization</th>
+      <th width="25%">Position</th>
+      <th width="25%">Period</th>
+      <th width="25%">Main Stack</th>
     </tr>
   </thead>
   <tbody>
@@ -45,6 +41,12 @@
       <td>2023.02 ~ 2024.10</td>
       <td>C#, Unity, MRTK, Photon, AWS</td>
     </tr>
+    <tr>
+      <td>가천대학교</td>
+      <td>소프트웨어학과</td>
+      <td>2019.03 ~ 2023.02</td>
+      <td>Java, C, Python, Algorithm</td>
+    </tr>
   </tbody>
 </table>
 
@@ -55,19 +57,31 @@
 <div align="center">
 
 <!-- TREND_START -->
-<table>\n  <thead>\n    <tr>\n      <th align="center" width="120">📈 분야</th>\n      <th align="center" width="80">변화율</th>\n      <th align="center" width="200">주요 기술</th>\n      <th align="center" width="300">현재 상황</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td align="center"><img src="https://img.shields.io/badge/%EA%B2%8C%EC%9E%84%EA%B0%9C%EB%B0%9C-E74C3C?style=for-the-badge&logo=unity&logoColor=white"/></td>\n      <td align="center"><span style="color: #e74c3c; font-weight: bold;">-32%</span></td>\n      <td align="center">C#, Unity</td>\n      <td align="left">PTAHLABS에서도 활용, 비중 감소</td>\n    </tr>\n    <tr>\n      <td align="center"><img src="https://img.shields.io/badge/%EC%9B%B9%EA%B0%9C%EB%B0%9C-4A90E2?style=for-the-badge&logo=javascript&logoColor=white"/></td>\n      <td align="center"><span style="color: #52b788; font-weight: bold;">+45%</span></td>\n      <td align="center">JavaScript, HTML, CSS, React</td>\n      <td align="left">React, Node.js 집중 학습 중</td>\n    </tr>\n  </tbody>\n</table>
+<table>
+  <thead>
+    <tr>
+      <th align="center" width="120">분야</th>
+      <th align="center" width="80">변화율</th>
+      <th align="center" width="200">주요 기술</th>
+      <th align="center" width="300">현재 상황</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><img src="https://img.shields.io/badge/%EA%B2%8C%EC%9E%84%EA%B0%9C%EB%B0%9C-E74C3C?style=for-the-badge&logo=unity&logoColor=white"/></td>
+      <td align="center"><span style="color: #e74c3c; font-weight: bold;">-32%</span></td>
+      <td align="center">C#, Unity</td>
+      <td align="left">PTAHLABS에서도 활용, 비중 감소</td>
+    </tr>
+    <tr>
+      <td align="center"><img src="https://img.shields.io/badge/%EC%9B%B9%EA%B0%9C%EB%B0%9C-4A90E2?style=for-the-badge&logo=javascript&logoColor=white"/></td>
+      <td align="center"><span style="color: #52b788; font-weight: bold;">+45%</span></td>
+      <td align="center">JavaScript, HTML, CSS, React</td>
+      <td align="left">React, Node.js 집중 학습 중</td>
+    </tr>
+  </tbody>
+</table>
 <!-- TREND_END -->
-
-### 증가하는 기술들
-**웹 풀스택 전환**으로 JavaScript 생태계 집중 학습
-- React Hook, Context API 마스터
-- Node.js Express 백엔드 구축
-- TypeScript 마이그레이션 진행
-
-### 비중이 줄어드는 기술들  
-**게임 개발**에서 **비즈니스 플랫폼 개발**로 방향 전환
-- Unity는 PTAHLABS 특수 프로젝트에서만 사용
-- C# 경험을 .NET Core 백엔드로 확장 예정
 
 </div>
 
@@ -76,13 +90,42 @@
 ## Current Status & Skills (Auto-Updated)
 
 <!-- SKILL_START -->
-### 주력 스킬
-![C#](https://img.shields.io/badge/C%23-Lv.80-239120?style=for-the-badge&logo=c-sharp&logoColor=white) ███████████░░░ **[EXPERT]**
-
-### 발전중인 스킬
-![JavaScript](https://img.shields.io/badge/JavaScript-Lv.50-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ███████░░░░░░░
-![CSS](https://img.shields.io/badge/CSS-Lv.48-1572B6?style=for-the-badge&logo=css3&logoColor=white) ██████░░░░░░░░
-![HTML](https://img.shields.io/badge/HTML-Lv.42-E34F26?style=for-the-badge&logo=html5&logoColor=white) ██████░░░░░░░░
+<table width="100%">
+  <thead>
+    <tr>
+      <th align="center" width="25%">기술 스택</th>
+      <th align="center" width="15%">레벨</th>
+      <th align="center" width="35%">숙련도</th>
+      <th align="center" width="25%">랭크</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">![C#](https://img.shields.io/badge/C%23-Expert-239120?style=for-the-badge&logo=c-sharp&logoColor=white)</td>
+      <td align="center">**80**</td>
+      <td align="center">![Progress](https://img.shields.io/badge/Progress-80%25-FFD700?style=flat&logo=chartdotjs&logoColor=white)</td>
+      <td align="center">![Expert](https://img.shields.io/badge/🥇-EXPERT-FFD700?style=for-the-badge&logoColor=white)</td>
+    </tr>
+    <tr>
+      <td align="center">![JavaScript](https://img.shields.io/badge/JavaScript-Advanced-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)</td>
+      <td align="center">**50**</td>
+      <td align="center">![Progress](https://img.shields.io/badge/Progress-50%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white)</td>
+      <td align="center">![Advanced](https://img.shields.io/badge/🥈-ADVANCED-C0C0C0?style=for-the-badge&logoColor=white)</td>
+    </tr>
+    <tr>
+      <td align="center">![CSS](https://img.shields.io/badge/CSS-Advanced-1572B6?style=for-the-badge&logo=css3&logoColor=white)</td>
+      <td align="center">**48**</td>
+      <td align="center">![Progress](https://img.shields.io/badge/Progress-48%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white)</td>
+      <td align="center">![Advanced](https://img.shields.io/badge/🥈-ADVANCED-C0C0C0?style=for-the-badge&logoColor=white)</td>
+    </tr>
+    <tr>
+      <td align="center">![HTML](https://img.shields.io/badge/HTML-Intermediate-E34F26?style=for-the-badge&logo=html5&logoColor=white)</td>
+      <td align="center">**42**</td>
+      <td align="center">![Progress](https://img.shields.io/badge/Progress-48%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white)</td>
+      <td align="center">![Intermediate](https://img.shields.io/badge/🥉-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white)</td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- SKILL_END -->
 
@@ -94,9 +137,26 @@
 레벨 = min(99, floor(log₂(활동점수 + 1) × 8))
 ```
 
-**예시:**
-- JavaScript 500KB + 20커밋 = 500 + 200 = 700점 → **레벨 76**
-- Python 100KB + 5커밋 = 100 + 50 = 150점 → **레벨 58**
+---
+
+## Language Trend Analysis (Auto-Updated)
+
+<!-- TREND_CHART -->
+![Language Trends](./assets/language_trend_chart.png)
+<!-- /TREND_CHART -->
+
+### 기술 전환 스토리
+**Unity 게임 개발 → 웹 풀스택 전환 과정**
+
+<!-- GROWTH_CHART -->
+![Growth Chart](./assets/language_growth_chart.png)  
+<!-- /GROWTH_CHART -->
+
+### 주요 변화 포인트
+**2024년 11월**: PTAHLABS 창업 → JavaScript/Python 급상승  
+**2024년 8-10월**: 웹 개발 학습 집중 → TypeScript 도입  
+**2023-2024년**: Unity + C# 전문가 시절 (디캐릭)  
+**2019-2023년**: 기초 학습 + 대학 과정
 
 ---
 
@@ -119,27 +179,6 @@
 
 <br>
 
-
-## Language Trend Analysis (Auto-Updated)
-
-<!-- TREND_CHART -->
-![Language Trends](./assets/language_trend_chart.png)
-<!-- /TREND_CHART -->
-
-### 기술 전환 스토리
-**Unity 게임 개발 → 웹 풀스택 전환 과정**
-
-<!-- GROWTH_CHART -->
-![Growth Chart](./assets/language_growth_chart.png)  
-<!-- /GROWTH_CHART -->
-
-### 주요 변화 포인트
-**2024년 11월**: PTAHLABS 창업 → JavaScript/Python 급상승  
-**2024년 8-10월**: 웹 개발 학습 집중 → TypeScript 도입  
-**2023-2024년**: Unity + C# 전문가 시절 (디캐릭)  
-**2019-2023년**: 기초 학습 + 대학 과정
-
-<br>
 
 ## Weekly Development Report (Auto-Generated)
 

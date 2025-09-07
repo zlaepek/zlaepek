@@ -55,21 +55,48 @@ jobs:
             return Math.min(99, Math.floor(Math.log2(totalActivity + 1) * 8));
           }
           
-          // 진행률 바 생성
+          // 진행률 바 생성 (shields.io 스타일)
           function createProgressBar(level) {
-            const filled = Math.floor(level / 7);
-            const empty = 14 - filled;
-            return '█'.repeat(filled) + '░'.repeat(empty);
+            const percentage = Math.min(100, level);
+            let color = '90EE90'; // 기본 초록
+            
+            if (percentage >= 80) color = 'FFD700'; // 금색
+            else if (percentage >= 60) color = 'C0C0C0'; // 은색  
+            else if (percentage >= 40) color = 'CD7F32'; // 동색
+            
+            return `![Progress](https://img.shields.io/badge/Progress-${percentage}%25-${color}?style=flat&logo=chartdotjs&logoColor=white)`;
           }
           
-          // 스킬 뱃지 결정
-          function getSkillBadge(level, recentGrowth) {
-            if (recentGrowth > 20) return '**[HOT]**';
-            if (recentGrowth > 10) return '**[NEW!]**';
-            if (level >= 80) return '**[EXPERT]**';
-            if (level >= 70) return '**[MAIN]**';
-            if (level >= 60) return '**[VETERAN]**';
-            return '';
+          // 랭크 뱃지 결정
+          function getRankBadge(level) {
+            if (level >= 80) return {
+              text: 'EXPERT',
+              icon: '🥇',
+              color: 'FFD700'
+            };
+            if (level >= 60) return {
+              text: 'ADVANCED', 
+              icon: '🥈',
+              color: 'C0C0C0'
+            };
+            if (level >= 40) return {
+              text: 'INTERMEDIATE',
+              icon: '🥉', 
+              color: 'CD7F32'
+            };
+            return {
+              text: 'BEGINNER',
+              icon: '🏅',
+              color: '90EE90'
+            };
+          }
+          
+          // 스킬 레벨에 따른 텍스트 결정
+          function getSkillLevel(level) {
+            if (level >= 80) return 'Expert';
+            if (level >= 60) return 'Advanced';
+            if (level >= 40) return 'Intermediate';
+            return 'Beginner';
           }
           
           async function getLanguageStats() {
@@ -187,37 +214,47 @@ jobs:
                 bytes: stats.bytes,
                 repos: stats.repos
               }))
-              .sort((a, b) => b.level - a.level);
+              .sort((a, b) => b.level - a.level)
+              .slice(0, 8); // 상위 8개만 표시
             
             let skillsSection = '';
             
-            // 메인 스킬 (레벨 60 이상)
-            const mainSkills = skillsArray.filter(skill => skill.level >= 60);
-            if (mainSkills.length > 0) {
-              skillsSection += '### 주력 스킬\n';
-              mainSkills.forEach(skill => {
-                const config = languageConfig[skill.name] || { icon: skill.name.toLowerCase(), color: '666666', logoColor: 'white' };
-                const badge = getSkillBadge(skill.level, 0);
-                const progressBar = createProgressBar(skill.level);
-                
-                const encodedName = encodeURIComponent(skill.name);
-                skillsSection += `![${skill.name}](https://img.shields.io/badge/${encodedName}-Lv.${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}) ${progressBar} ${badge}\n`;
-              });
-              skillsSection += '\n';
-            }
-            
-            // 중급 스킬 (레벨 40-59)
-            const intermediateSkills = skillsArray.filter(skill => skill.level >= 40 && skill.level < 60);
-            if (intermediateSkills.length > 0) {
-              skillsSection += '### 발전중인 스킬\n';
-              intermediateSkills.forEach(skill => {
+            if (skillsArray.length > 0) {
+              // 테이블 시작
+              skillsSection += '<table width="100%">\n';
+              skillsSection += '  <thead>\n';
+              skillsSection += '    <tr>\n';
+              skillsSection += '      <th align="center" width="25%">기술 스택</th>\n';
+              skillsSection += '      <th align="center" width="15%">레벨</th>\n';
+              skillsSection += '      <th align="center" width="35%">숙련도</th>\n';
+              skillsSection += '      <th align="center" width="25%">랭크</th>\n';
+              skillsSection += '    </tr>\n';
+              skillsSection += '  </thead>\n';
+              skillsSection += '  <tbody>\n';
+              
+              // 각 스킬을 테이블 행으로 추가
+              skillsArray.forEach(skill => {
                 const config = languageConfig[skill.name] || { icon: skill.name.toLowerCase(), color: '666666', logoColor: 'white' };
                 const progressBar = createProgressBar(skill.level);
+                const rankBadge = getRankBadge(skill.level);
+                const skillLevel = getSkillLevel(skill.level);
                 
                 const encodedName = encodeURIComponent(skill.name);
-                skillsSection += `![${skill.name}](https://img.shields.io/badge/${encodedName}-Lv.${skill.level}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}) ${progressBar}\n`;
+                const encodedSkillLevel = encodeURIComponent(skillLevel);
+                const encodedRankText = encodeURIComponent(rankBadge.text);
+                const encodedIcon = encodeURIComponent(rankBadge.icon);
+                
+                skillsSection += '    <tr>\n';
+                skillsSection += `      <td align="center">![${skill.name}](https://img.shields.io/badge/${encodedName}-${encodedSkillLevel}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor})</td>\n`;
+                skillsSection += `      <td align="center">**${skill.level}**</td>\n`;
+                skillsSection += `      <td align="center">${progressBar}</td>\n`;
+                skillsSection += `      <td align="center">![${rankBadge.text}](https://img.shields.io/badge/${encodedIcon}-${encodedRankText}-${rankBadge.color}?style=for-the-badge&logoColor=white)</td>\n`;
+                skillsSection += '    </tr>\n';
               });
-              skillsSection += '\n';
+              
+              // 테이블 끝
+              skillsSection += '  </tbody>\n';
+              skillsSection += '</table>\n';
             }
             
             return skillsSection;
@@ -280,16 +317,16 @@ jobs:
             });
             
             // 테이블 생성
-            let tableContent = '<table>\\n';
-            tableContent += '  <thead>\\n';
-            tableContent += '    <tr>\\n';
-            tableContent += '      <th align="center" width="120">📈 분야</th>\\n';
-            tableContent += '      <th align="center" width="80">변화율</th>\\n';
-            tableContent += '      <th align="center" width="200">주요 기술</th>\\n';
-            tableContent += '      <th align="center" width="300">현재 상황</th>\\n';
-            tableContent += '    </tr>\\n';
-            tableContent += '  </thead>\\n';
-            tableContent += '  <tbody>\\n';
+            let tableContent = '<table>\n';
+            tableContent += '  <thead>\n';
+            tableContent += '    <tr>\n';
+            tableContent += '      <th align="center" width="120">분야</th>\n';
+            tableContent += '      <th align="center" width="80">변화율</th>\n';
+            tableContent += '      <th align="center" width="200">주요 기술</th>\n';
+            tableContent += '      <th align="center" width="300">현재 상황</th>\n';
+            tableContent += '    </tr>\n';
+            tableContent += '  </thead>\n';
+            tableContent += '  <tbody>\n';
             
             // 사용량 순으로 정렬
             const sortedStacks = Object.entries(techStacks)
@@ -301,15 +338,15 @@ jobs:
               const growthSign = stack.growth > 0 ? '+' : '';
               const description = getTechStackDescription(name);
               
-              tableContent += '    <tr>\\n';
-              tableContent += `      <td align="center"><img src="https://img.shields.io/badge/${encodeURIComponent(name)}-${stack.color}?style=for-the-badge&logo=${stack.logo}&logoColor=white"/></td>\\n`;
-              tableContent += `      <td align="center"><span style="color: ${growthColor}; font-weight: bold;">${growthSign}${stack.growth}%</span></td>\\n`;
-              tableContent += `      <td align="center">${stack.languages.join(', ')}</td>\\n`;
-              tableContent += `      <td align="left">${description}</td>\\n`;
-              tableContent += '    </tr>\\n';
+              tableContent += '    <tr>\n';
+              tableContent += `      <td align="center"><img src="https://img.shields.io/badge/${encodeURIComponent(name)}-${stack.color}?style=for-the-badge&logo=${stack.logo}&logoColor=white"/></td>\n`;
+              tableContent += `      <td align="center"><span style="color: ${growthColor}; font-weight: bold;">${growthSign}${stack.growth}%</span></td>\n`;
+              tableContent += `      <td align="center">${stack.languages.join(', ')}</td>\n`;
+              tableContent += `      <td align="left">${description}</td>\n`;
+              tableContent += '    </tr>\n';
             });
             
-            tableContent += '  </tbody>\\n';
+            tableContent += '  </tbody>\n';
             tableContent += '</table>';
             
             return tableContent;
