@@ -197,10 +197,10 @@
 
 **최근 활동:**  
 - `zlaepek/zlaepek`: 수정 (09-07)  
+- `zlaepek/zlaepek`: 수정2 (09-07)  
+- `zlaepek/zlaepek`: 디자인 수정 (09-07)  
+- `zlaepek/zlaepek`: 수정 (09-07)  
 - `zlaepek/zlaepek`: 레이아웃 수정 2 (09-07)  
-- `zlaepek/zlaepek`: 레이아웃 수정 (09-07)  
-- `zlaepek/zlaepek`: 테스트 (09-07)  
-- `zlaepek/zlaepek`: 테스트 (09-07)  
 <!-- WEEKLY_END -->
 
 <br>
@@ -210,8 +210,8 @@
 <!-- ACTIVITY_START -->
 **Recent Commits:**  
 - `zlaepek/zlaepek`: 수정  
-- `zlaepek/zlaepek`: 레이아웃 수정 2  
-- `zlaepek/zlaepek`: 레이아웃 수정  
+- `zlaepek/zlaepek`: 수정2  
+- `zlaepek/zlaepek`: 디자인 수정  
 
 **This Month:**  
 - 5 commits across multiple repositories  
@@ -226,6 +226,6 @@
 <div align="center">
 
 *이 프로필은 GitHub Actions로 자동 업데이트됩니다*  
-*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 20:37 KST<!-- /UPDATE_TIME -->*
+*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 20:57 KST<!-- /UPDATE_TIME -->*
 
 </div>
