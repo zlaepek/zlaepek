@@ -290,14 +290,14 @@ jobs:
               # 평균 사용률로 정렬해서 상위 5개 언어만
               lang_averages = {}
               for lang in all_languages:
-                  values = [display_data[month].get(lang, 0) for month in display_months]
+                  values = [display_data.get(month, {}).get(lang, 0) for month in display_months]
                   lang_averages[lang] = sum(values) / len(values) if values else 0
               
               top_languages = sorted(lang_averages.items(), key=lambda x: x[1], reverse=True)[:5]
               
               # 각 언어별 선 그래프
               for lang, _ in top_languages:
-                  values = [display_data[month].get(lang, 0) for month in display_months]
+                  values = [display_data.get(month, {}).get(lang, 0) for month in display_months]
                   color = language_colors.get(lang, '#ffffff')
                   
                   ax.plot(range(len(display_months)), values, 
