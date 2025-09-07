@@ -144,7 +144,13 @@ jobs:
                                   
                                   # 리포지토리가 해당 월에 존재했다면 데이터 추가
                                   if created_at <= month_date <= updated_at:
+                                      # 제외할 언어들
+                                      exclude_languages = ['ShaderLab', 'HLSL', 'Makefile', 'Batchfile', 'Shell']
+                                      
                                       for lang, bytes_count in languages.items():
+                                          # 제외 언어는 건너뛰기
+                                          if lang in exclude_languages:
+                                              continue
                                           # 대략적인 줄 수로 변환 (평균 50 바이트 = 1줄)
                                           lines_estimate = bytes_count // 50
                                           monthly_data[month][lang] += lines_estimate
@@ -169,10 +175,9 @@ jobs:
                       for lang, value in saved_data[month].items():
                           monthly_data[month][lang] = value
               
-              # 데이터가 부족한 경우 샘플 데이터로 보완
-              if len(monthly_data) < 6:  # 6개월 이하 데이터면 샘플 데이터 생성
-                  print("⚠️  데이터가 부족해서 샘플 데이터로 차트 생성")
-                  monthly_data = generate_sample_data(months)
+              # 데이터가 부족한 경우 경고만 표시
+              if len(monthly_data) < 6:  # 6개월 이하 데이터면 경고
+                  print("⚠️  실제 데이터가 부족합니다 (6개월 미만)")
               
               # 연도별로 데이터 분리 저장
               try:
@@ -354,6 +359,10 @@ jobs:
               """성장률 차트 생성"""
               print("📈 성장률 차트 생성 중...")
               
+              # 최근 12개월 데이터로 성장률 계산 (Year over Year)
+              recent_months = months[-12:] if len(months) > 12 else months
+              year_ago_months = months[-24:-12] if len(months) > 24 else []
+              
               fig, ax = plt.subplots(figsize=(12, 6))
               fig.patch.set_facecolor('#20232a')
               ax.set_facecolor('#20232a')
@@ -365,13 +374,37 @@ jobs:
               
               growth_data = {}
               for lang in all_languages:
-                  values = [monthly_data[month].get(lang, 0) for month in months]
-                  if len(values) >= 2 and values[0] > 0:
-                      growth_rate = ((values[-1] - values[0]) / values[0]) * 100
+                  # 최근 12개월 평균
+                  recent_values = [monthly_data.get(month, {}).get(lang, 0) for month in recent_months]
+                  recent_avg = sum(recent_values) / len(recent_values) if recent_values else 0
+                  
+                  # 1년 전 12개월 평균
+                  if year_ago_months:
+                      past_values = [monthly_data.get(month, {}).get(lang, 0) for month in year_ago_months]
+                      past_avg = sum(past_values) / len(past_values) if past_values else 0
+                  else:
+                      # 데이터가 부족하면 첫 6개월 vs 최근 6개월 비교
+                      mid_point = len(months) // 2
+                      past_values = [monthly_data.get(month, {}).get(lang, 0) for month in months[:mid_point]]
+                      past_avg = sum(past_values) / len(past_values) if past_values else 0
+                  
+                  # 성장률 계산
+                  if past_avg > 0:
+                      growth_rate = ((recent_avg - past_avg) / past_avg) * 100
                       growth_data[lang] = growth_rate
               
               # 성장률 순으로 정렬
               sorted_growth = sorted(growth_data.items(), key=lambda x: x[1], reverse=True)[:8]
+              
+              print(f"📊 계산된 성장률 데이터: {len(growth_data)}개 언어")
+              for lang, rate in sorted_growth[:3]:
+                  print(f"  - {lang}: {rate:.1f}%")
+              
+              # 데이터가 없으면 차트 생성 건너뛰기
+              if not sorted_growth:
+                  print("⚠️  성장률 데이터 없음, 차트 생성 건너뜀")
+                  plt.close()
+                  return
               
               languages = [item[0] for item in sorted_growth]
               growth_rates = [item[1] for item in sorted_growth]

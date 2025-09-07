@@ -37,7 +37,7 @@
   <tbody>
     <tr style="border: 1px solid #ddd;">
       <td style="padding: 10px; text-align: center;"><a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
-      <td style="padding: 10px; text-align: center;">CEO & Founder</td>
+      <td style="padding: 10px; text-align: center;">Tech Lead</td>
       <td style="padding: 10px; text-align: center;">2024.11 ~ Present</td>
       <td style="padding: 10px; text-align: center;">JavaScript, Python, React, AWS</td>
     </tr>
@@ -137,13 +137,17 @@
 </div>
 <!-- SKILL_END -->
 
-### 레벨 계산 방식
-스킬 레벨은 **실제 GitHub 데이터**를 기반으로 자동 계산됩니다:
+<details>
+<summary><sub>레벨 계산 방식</sub></summary>
+<sub>
 
 ```
 활동점수 = (언어 바이트 수 ÷ 1,000) + (커밋 수 × 10)
 레벨 = min(99, floor(log₂(활동점수 + 1) × 8))
 ```
+
+</sub>
+</details>
 
 ---
 
