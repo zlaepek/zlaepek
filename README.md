@@ -180,9 +180,9 @@
 
 <!-- ACTIVITY_START -->
 **Recent Commits:**  
+- `zlaepek/zlaepek`: 레이아웃 수정 3  
 - `zlaepek/zlaepek`: 내용 수정  
 - `zlaepek/zlaepek`: 줄수로 수정  
-- `zlaepek/zlaepek`: 수정  
 
 **This Month:**  
 - 5 commits across multiple repositories  
@@ -197,6 +197,6 @@
 <div align="center">
 
 *이 프로필은 GitHub Actions로 자동 업데이트됩니다*  
-*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 21:21 KST<!-- /UPDATE_TIME -->*
+*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-07 21:37 KST<!-- /UPDATE_TIME -->*
 
 </div>
