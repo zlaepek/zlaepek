@@ -265,13 +265,28 @@ jobs:
           async function updateActivitySection() {
             const recentActivity = await getRecentActivity();
             
-            let activitySection = '**Recent Commits:**  \n';
-            recentActivity.slice(0, 3).forEach(commit => {
-              activitySection += `- \`${commit.repo}\`: ${commit.message}  \n`;
+            // 프로젝트별로 그룹화
+            const projectGroups = {};
+            recentActivity.forEach(commit => {
+              if (!projectGroups[commit.repo]) {
+                projectGroups[commit.repo] = [];
+              }
+              projectGroups[commit.repo].push(commit);
+            });
+            
+            let activitySection = '**Recent Projects:**  \n';
+            
+            // 각 프로젝트당 최신 커밋 1개씩 표시 (최대 5개 프로젝트)
+            const projects = Object.keys(projectGroups).slice(0, 5);
+            projects.forEach(project => {
+              const latestCommit = projectGroups[project][0]; // 가장 최신 커밋
+              const commitCount = projectGroups[project].length;
+              activitySection += `- \`${project}\`: ${latestCommit.message} (${commitCount} commits)  \n`;
             });
             
             activitySection += '\n**This Month:**  \n';
-            activitySection += `- ${recentActivity.length} commits across multiple repositories  \n`;
+            const uniqueRepos = new Set(recentActivity.map(commit => commit.repo)).size;
+            activitySection += `- ${recentActivity.length} commits across ${uniqueRepos} repositories  \n`;
             activitySection += '- 새로운 기술 스택 학습 진행중  \n';
             activitySection += '- 프로젝트 마일스톤 달성  \n';
             

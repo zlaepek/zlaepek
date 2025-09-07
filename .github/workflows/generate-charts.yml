@@ -58,20 +58,27 @@ jobs:
               'Accept': 'application/vnd.github.v3+json'
           }
           
-          # 언어별 색상 매핑
+          # 언어별 색상 매핑 (기술 스택별 통일)
           language_colors = {
-              'JavaScript': '#f7df1e',
-              'TypeScript': '#3178c6',
-              'Python': '#3776ab',
-              'Java': '#ed8b00',
-              'C#': '#239120',
-              'Unity': '#000000',
-              'HTML': '#e34f26',
-              'CSS': '#1572b6',
-              'React': '#61dafb',
+              # 웹개발 (노란색 계열)
+              'JavaScript': '#F7DF1E',
+              'TypeScript': '#FFC107',
+              'HTML': '#FFD54F', 
+              'CSS': '#FFEB3B',
+              'React': '#FFF176',
+              
+              # 게임개발 (하늘색 계열)
+              'C#': '#4A90E2',
+              'Unity': '#5DADE2',
+              
+              # 백엔드 (보라색 계열)
+              'Python': '#9B59B6',
+              'Java': '#8E44AD',
+              'PHP': '#7B68EE',
+              'Go': '#6A5ACD',
+              
+              # 기타
               'Vue': '#4fc08d',
-              'PHP': '#777bb4',
-              'Go': '#00add8',
               'Rust': '#dea584',
               'Swift': '#fa7343',
               'Kotlin': '#7f52ff'
@@ -270,8 +277,8 @@ jobs:
               """언어 트렌드 차트 생성"""
               print("🎨 트렌드 차트 생성 중...")
               
-              # 최근 24개월만 표시 (너무 많으면 읽기 어려움)
-              display_months = months[-24:] if len(months) > 24 else months
+              # 2025년 데이터만 표시
+              display_months = [month for month in months if month.startswith('2025')]
               display_data = {month: monthly_data[month] for month in display_months if month in monthly_data}
               
               # 스타일 설정
@@ -295,23 +302,12 @@ jobs:
               
               top_languages = sorted(lang_averages.items(), key=lambda x: x[1], reverse=True)[:5]
               
-              # 각 언어별 선 그래프
+              # 각 언어별 선 그래프 (실제 줄 수)
               for lang, _ in top_languages:
                   line_values = [display_data.get(month, {}).get(lang, 0) for month in display_months]
                   
-                  # 각 월의 총 줄 수 계산해서 백분율로 변환
-                  percentage_values = []
-                  for i, month in enumerate(display_months):
-                      month_data = display_data.get(month, {})
-                      total_lines = sum(month_data.values()) if month_data else 0
-                      if total_lines > 0:
-                          percentage = (line_values[i] / total_lines) * 100
-                      else:
-                          percentage = 0
-                      percentage_values.append(percentage)
-                  
                   color = language_colors.get(lang, '#ffffff')
-                  ax.plot(range(len(display_months)), percentage_values, 
+                  ax.plot(range(len(display_months)), line_values, 
                          marker='o', linewidth=2.5, markersize=6,
                          label=lang, color=color, alpha=0.9)
               
@@ -328,8 +324,8 @@ jobs:
                   month_labels.append(f'{month_name} {year[2:]}')
               
               ax.set_xticklabels(month_labels, color='#ffffff', fontsize=9, rotation=45)
-              ax.set_ylabel('Usage (%)', color='#52b788', fontsize=12, fontweight='bold')
-              ax.set_title('Programming Language Trends Over Time', color='#52b788', 
+              ax.set_ylabel('Lines of Code', color='#52b788', fontsize=12, fontweight='bold')
+              ax.set_title('2025 Programming Language Usage (Lines)', color='#52b788', 
                           fontsize=16, fontweight='bold', pad=20)
               
               # 그리드 및 범례 개선
@@ -345,8 +341,14 @@ jobs:
               ax.spines['top'].set_visible(False)
               ax.spines['right'].set_visible(False)
               
-              # Y축 범위 설정
-              ax.set_ylim(0, 100)
+              # Y축 범위 자동 설정 (데이터에 따라)
+              if display_data:
+                  all_values = []
+                  for month_data in display_data.values():
+                      all_values.extend(month_data.values())
+                  if all_values:
+                      max_val = max(all_values)
+                      ax.set_ylim(0, max_val * 1.1)  # 10% 여유 공간
               
               plt.tight_layout()
               plt.savefig('language_trend_chart.png', dpi=300, bbox_inches='tight', 
@@ -397,36 +399,63 @@ jobs:
                   plt.close()
                   return
               
-              # 각 언어별 연도별 데이터 준비
+              # 기술 스택별 분류
+              game_langs = ['C#', 'Unity', 'UnityScript']
+              web_langs = ['JavaScript', 'TypeScript', 'HTML', 'CSS', 'React', 'Vue', 'Angular']
+              
+              # 연도별 기술 스택 합계 계산
               x_pos = np.arange(len(years))
-              n_languages = len(top_lang_names)
-              bar_width = 0.8 / n_languages if n_languages > 0 else 0.1
+              game_totals = []
+              web_totals = []
+              other_totals = []
               
-              # 더 많은 색상 팔레트 준비
-              color_palette = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57', '#FF9FF3',
-                              '#A8E6CF', '#FFD93D', '#6BCF7F', '#4D96FF', '#9B59B6', '#E67E22']
-              colors = (color_palette * ((n_languages // len(color_palette)) + 1))[:n_languages]
+              for year in years:
+                  year_data = yearly_data[year]
+                  
+                  # 각 카테고리별 합계
+                  game_sum = sum(year_data.get(lang, 0) for lang in game_langs)
+                  web_sum = sum(year_data.get(lang, 0) for lang in web_langs)
+                  other_sum = sum(lines for lang, lines in year_data.items() 
+                                if lang not in game_langs and lang not in web_langs)
+                  
+                  total_lines = game_sum + web_sum + other_sum
+                  
+                  # 퍼센트 계산
+                  if total_lines > 0:
+                      game_totals.append((game_sum / total_lines) * 100)
+                      web_totals.append((web_sum / total_lines) * 100)
+                      other_totals.append((other_sum / total_lines) * 100)
+                  else:
+                      game_totals.append(0)
+                      web_totals.append(0)
+                      other_totals.append(0)
               
-              # 막대 그래프 생성
-              for i, lang in enumerate(top_lang_names):
-                  values = []
-                  for year in years:
-                      values.append(yearly_data[year].get(lang, 0))
-                  
-                  # 최대값으로 정규화 (가독성을 위해)
-                  max_val = max(values) if values else 1
-                  normalized_values = [v / max_val * 100 for v in values] if max_val > 0 else values
-                  
-                  ax.bar(x_pos + i * bar_width, normalized_values, bar_width, 
-                        label=lang, color=colors[i % len(colors)], alpha=0.8)
+              # 스택 바 차트 생성
+              bar_width = 0.6
+              
+              # 게임개발 (하늘색)
+              bars1 = ax.bar(x_pos, game_totals, bar_width, label='게임개발', 
+                           color='#4A90E2', alpha=0.9)
+              
+              # 웹개발 (노란색) - 게임개발 위에 쌓기
+              bars2 = ax.bar(x_pos, web_totals, bar_width, bottom=game_totals, 
+                           label='웹개발', color='#F7DF1E', alpha=0.9)
+              
+              # 나머지 (보라색) - 게임+웹 위에 쌓기
+              bottom_values = [g + w for g, w in zip(game_totals, web_totals)]
+              bars3 = ax.bar(x_pos, other_totals, bar_width, bottom=bottom_values, 
+                           label='기타', color='#9B59B6', alpha=0.9)
               
               # 차트 스타일링
               ax.set_xlabel('Year', color='#52b788', fontsize=12, fontweight='bold')
-              ax.set_ylabel('Relative Usage (%)', color='#52b788', fontsize=12, fontweight='bold')
-              ax.set_title('Yearly Language Usage Comparison', color='#52b788', 
+              ax.set_ylabel('Percentage (%)', color='#52b788', fontsize=12, fontweight='bold')
+              ax.set_title('Tech Stack Distribution by Year', color='#52b788', 
                           fontsize=16, fontweight='bold', pad=20)
-              ax.set_xticks(x_pos + bar_width * (len(top_lang_names) - 1) / 2)
+              ax.set_xticks(x_pos)
               ax.set_xticklabels(years, color='#ffffff')
+              
+              # Y축 0-100% 고정
+              ax.set_ylim(0, 100)
               
               # 범례 및 그리드 설정
               ax.legend(loc='upper left', frameon=True, fancybox=True, 
