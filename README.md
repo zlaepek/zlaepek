@@ -183,6 +183,6 @@
 <div align="center">
 
 *이 프로필은 GitHub Actions로 자동 업데이트됩니다*  
-*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-20 10:48 KST<!-- /UPDATE_TIME -->*
+*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-21 08:50 KST<!-- /UPDATE_TIME -->*
 
 </div>
