@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/github/followers/zlaepek?color=7469B6&style=for-the-badge&logo=github&label=FOLLOWERS"/>
 <img src="https://img.shields.io/github/stars/zlaepek?color=7469B6&style=for-the-badge&logo=github&label=STARS"/>
 
-<sub>*Auto-updated: <!-- UPDATE_TIME -->2025-09-30 15:09 KST<!-- /UPDATE_TIME -->*</sub>
+<sub>*Auto-updated: <!-- UPDATE_TIME -->2025-10-01 08:50 KST<!-- /UPDATE_TIME -->*</sub>
 
 </div>
 
@@ -60,9 +60,14 @@
   </thead>
   <tbody>
     <tr>
+      <td>2025-Ptahlabs/WebSite</td>
+      <td>GitHub Actions</td>
+      <td>디테일 수정 (1 commits)</td>
+    </tr>
+    <tr>
       <td>zlaepek/zlaepek</td>
       <td>GitHub Actions</td>
-      <td>수정 (5 commits)</td>
+      <td>수정 (4 commits)</td>
     </tr>
   </tbody>
 </table>
