@@ -102,7 +102,11 @@
 
 <details>
 <summary><sub style="font-size: 10px;">레벨 계산 방식</sub></summary>
-<sub style="font-size: 9px;">🥇80%+ 🥈60-79% 🥉40-59% 🏅<40%</sub>
+<sub style="font-size: 9px;">
+🥇 Master 80%+ | 🥈 Pro 60-79% | 🥉 Learning 40-59% | 🏅 Starter <40%<br>
+<code>활동점수 = (언어 줄 수 ÷ 100) + (커밋 수 × 10)</code><br>
+<code>레벨 = min(99, floor(log₂(활동점수 + 1) × 8))</code>
+</sub>
 </details>
 
 </td>
@@ -141,7 +145,10 @@
 
 <details>
 <summary><sub style="font-size: 10px;">변화율 계산 방식</sub></summary>
-<sub style="font-size: 9px;">최근 3개월 vs 이전 9개월 평균 비교</sub>
+<sub style="font-size: 9px;">
+<code>변화율 = (최근 3개월 활동 - 이전 9개월 평균) ÷ 이전 9개월 평균 × 100</code><br>
+양수: 증가 추세 | 음수: 감소 추세
+</sub>
 </details>
 
 </td>
