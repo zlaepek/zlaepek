@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/github/followers/zlaepek?color=7469B6&style=for-the-badge&logo=github&label=FOLLOWERS"/>
 <img src="https://img.shields.io/github/stars/zlaepek?color=7469B6&style=for-the-badge&logo=github&label=STARS"/>
 
-<sub>*Auto-updated: <!-- UPDATE_TIME -->2025-09-30 14:42 KST<!-- /UPDATE_TIME -->*</sub>
+<sub>*Auto-updated: <!-- UPDATE_TIME -->2025-09-30 14:53 KST<!-- /UPDATE_TIME -->*</sub>
 
 </div>
 
@@ -50,13 +50,13 @@
 ### 📌 Recent Activity
 
 <!-- ACTIVITY_START -->
-**Recent Projects:**
-- `zlaepek/zlaepek`: 수정 (5 commits)
+**Recent Projects:**  
+- `zlaepek/zlaepek`: 수정 (5 commits)  
 
-**This Month:**
-- 5 commits across 1 repositories
-- 새로운 기술 스택 학습 진행중
-- 프로젝트 마일스톤 달성
+**This Month:**  
+- 5 commits across 1 repositories  
+- 새로운 기술 스택 학습 진행중  
+- 프로젝트 마일스톤 달성  
 <!-- ACTIVITY_END -->
 
 </td>
@@ -96,10 +96,8 @@
 <table>
   <thead>
     <tr>
-      <th align="center" width="120">분야</th>
-      <th align="center" width="80">변화율</th>
-      <th align="center" width="200">주요 기술</th>
-      <th align="center" width="300">주요 프로젝트</th>
+      <th>Field</th>
+      <th>Growth</th>
     </tr>
   </thead>
   <tbody>
