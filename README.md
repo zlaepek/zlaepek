@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/github/followers/zlaepek?color=7469B6&style=for-the-badge&logo=github&label=FOLLOWERS"/>
 <img src="https://img.shields.io/github/stars/zlaepek?color=7469B6&style=for-the-badge&logo=github&label=STARS"/>
 
-<sub>*Auto-updated: <!-- UPDATE_TIME -->2025-09-30 14:53 KST<!-- /UPDATE_TIME -->*</sub>
+<sub>*Auto-updated: <!-- UPDATE_TIME -->2025-09-30 15:09 KST<!-- /UPDATE_TIME -->*</sub>
 
 </div>
 
@@ -50,13 +50,22 @@
 ### 📌 Recent Activity
 
 <!-- ACTIVITY_START -->
-**Recent Projects:**  
-- `zlaepek/zlaepek`: 수정 (5 commits)  
-
-**This Month:**  
-- 5 commits across 1 repositories  
-- 새로운 기술 스택 학습 진행중  
-- 프로젝트 마일스톤 달성  
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Stack</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>zlaepek/zlaepek</td>
+      <td>GitHub Actions</td>
+      <td>수정 (5 commits)</td>
+    </tr>
+  </tbody>
+</table>
 <!-- ACTIVITY_END -->
 
 </td>
@@ -67,6 +76,24 @@
 ### 🛠️ Skills Overview
 
 <!-- SKILL_START -->
+<table>
+  <thead>
+    <tr>
+      <th>기술 스택</th>
+      <th>숙련도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://img.shields.io/badge/C%23-7469B6?style=flat&logo=c-sharp&logoColor=white"/></td>
+      <td>🥈 62%</td>
+    </tr>
+    <tr>
+      <td><img src="https://img.shields.io/badge/JavaScript-FF69B4?style=flat&logo=javascript&logoColor=white"/></td>
+      <td>🥉 45%</td>
+    </tr>
+  </tbody>
+</table>
 <!-- SKILL_END -->
 
 <!-- YEARLY_CHART -->
@@ -92,6 +119,18 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td><img src="https://img.shields.io/badge/%EC%9B%B9%EA%B0%9C%EB%B0%9C-FF69B4?style=flat&logo=react&logoColor=white"/></td>
+      <td>+50%</td>
+    </tr>
+    <tr>
+      <td><img src="https://img.shields.io/badge/%EB%B0%B1%EC%97%94%EB%93%9C-4A90E2?style=flat&logo=server&logoColor=white"/></td>
+      <td>+38%</td>
+    </tr>
+    <tr>
+      <td><img src="https://img.shields.io/badge/%EA%B2%8C%EC%9E%84%EA%B0%9C%EB%B0%9C-7469B6?style=flat&logo=unity&logoColor=white"/></td>
+      <td>-32%</td>
+    </tr>
   </tbody>
 </table>
 <!-- TREND_END -->
