@@ -7,10 +7,17 @@ on:
     # 매일 오전 8시 45분 (차트를 먼저 생성)
     - cron: '45 23 * * *'
   workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/generate-charts.yml'
+      - 'monthly_data_*.json'
 
 jobs:
   generate-charts:
     runs-on: ubuntu-latest
+    # GitHub Action이 만든 커밋은 제외
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') && github.event.head_commit.author.email != 'action@github.com' }}
     permissions:
       contents: write
       
@@ -425,7 +432,8 @@ jobs:
               x_pos = np.arange(len(years))
               bar_height = 0.12  # 막대 높이
 
-              # 언어별로 가로 막대 차트 생성
+              # 언어별로 세로 막대 차트 생성 (연도별 그룹화)
+              bar_width = 0.12
               for lang_idx, lang in enumerate(top_lang_names):
                   values = []
 
@@ -437,28 +445,23 @@ jobs:
                   # 분야별 색상 설정
                   if lang in game_langs:
                       color = language_colors.get(lang, '#7469B6')
-                      category = 'Game'
                   elif lang in web_langs:
                       color = language_colors.get(lang, '#FF69B4')
-                      category = 'Frontend'
                   elif lang in backend_langs:
                       color = language_colors.get(lang, '#4A90E2')
-                      category = 'Backend'
                   else:
                       color = language_colors.get(lang, '#95A5A6')
-                      category = 'Other'
 
-                  # Y 위치 계산 (언어별로 나누어서 배치)
-                  y_positions = lang_idx * (bar_height + 0.02)
+                  # X 위치 계산 (언어별로 오프셋 적용)
+                  x_positions = x_pos + lang_idx * bar_width - bar_width * (len(top_lang_names) - 1) / 2
 
-                  # 가로 막대 차트 생성
-                  bars = ax.barh([y_positions] * len(years), values, bar_height,
-                                left=x_pos, color=color, alpha=0.8,
-                                label=f'{category}: {lang}', edgecolor='none')
+                  # 세로 막대 차트 생성
+                  bars = ax.bar(x_positions, values, bar_width,
+                               color=color, alpha=0.8, label=lang, edgecolor='none')
 
-              # 차트 스타일링 (가로형)
+              # 차트 스타일링 (세로형)
               ax.set_xlabel('Years', color='#AD88C6', fontsize=16, fontweight='bold', labelpad=20)
-              ax.set_ylabel('Programming Languages', color='#AD88C6', fontsize=16, fontweight='bold', labelpad=20)
+              ax.set_ylabel('Lines of Code', color='#AD88C6', fontsize=16, fontweight='bold', labelpad=20)
               ax.set_title('Yearly Language Usage by Technology Stack', color='#f0f6fc',
                           fontsize=22, fontweight='bold', pad=40)
 
@@ -466,18 +469,22 @@ jobs:
               ax.set_xticks(x_pos)
               ax.set_xticklabels(years, color='#f0f6fc', fontsize=14, fontweight='600')
 
-              # Y축 설정 (언어 이름)
-              y_ticks = [i * (bar_height + 0.02) for i in range(len(top_lang_names))]
-              ax.set_yticks(y_ticks)
+              # Y축 자동 조정
+              max_values = []
+              for lang in top_lang_names:
+                  for year in years:
+                      max_values.append(yearly_data[year].get(lang, 0))
+              if max_values:
+                  ax.set_ylim(0, max(max_values) * 1.15)
 
-              # 언어 이름만 표시 (분류 접두사 제거)
-              ax.set_yticklabels(top_lang_names, color='#f0f6fc', fontsize=12, fontweight='600')
-
-              # 범례 제거 (Y축 레이블에 정보가 있음)
-              # ax.legend()는 제거
+              # 범례 설정 (언어별)
+              ax.legend(loc='upper left', frameon=True, fancybox=True,
+                       shadow=False, ncol=2, fontsize=10,
+                       facecolor='#21262d', edgecolor='#7c3aed', framealpha=0.95,
+                       borderpad=1, columnspacing=1.5)
 
               # 그리드 설정
-              ax.grid(True, alpha=0.15, color='#30363d', linestyle='-', linewidth=1, axis='x')
+              ax.grid(True, alpha=0.15, color='#30363d', linestyle='-', linewidth=1, axis='y')
 
               # 축 색상 및 스타일
               ax.tick_params(axis='both', colors='#f0f6fc', labelsize=12)
@@ -538,5 +545,5 @@ jobs:
           git config --local user.name "GitHub Action"
           git pull origin main
           git add assets/ README.md monthly_data_*.json
-          git diff --staged --quiet || git commit -m "Update language trend charts"
+          git diff --staged --quiet || git commit -m "Update language trend charts [skip ci]"
           git push

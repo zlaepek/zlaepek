@@ -215,7 +215,7 @@ jobs:
 
             // 언어별 통계를 레벨로 변환 (제외할 언어 필터링)
             const excludeLanguages = ['ShaderLab', 'HLSL', 'Makefile', 'Batchfile', 'Shell'];
-            const skillsArray = Object.entries(languageStats)
+            let skillsArray = Object.entries(languageStats)
               .filter(([name]) => !excludeLanguages.includes(name))
               .map(([name, stats]) => ({
                 name,
@@ -225,6 +225,14 @@ jobs:
               }))
               .sort((a, b) => b.level - a.level)
               .slice(0, 6); // 상위 6개만 표시
+
+            // 데이터가 없으면 기본 스킬 추가
+            if (skillsArray.length === 0) {
+              skillsArray = [
+                { name: 'C#', level: 62 },
+                { name: 'JavaScript', level: 45 }
+              ];
+            }
 
             let skillsSection = '';
 
@@ -310,7 +318,7 @@ jobs:
           
           async function updateActivitySection() {
             const recentActivity = await getRecentActivity();
-            
+
             // 프로젝트별로 그룹화
             const projectGroups = {};
             recentActivity.forEach(commit => {
@@ -319,23 +327,52 @@ jobs:
               }
               projectGroups[commit.repo].push(commit);
             });
-            
-            let activitySection = '**Recent Projects:**  \n';
-            
-            // 각 프로젝트당 최신 커밋 1개씩 표시 (최대 5개 프로젝트)
-            const projects = Object.keys(projectGroups).slice(0, 5);
-            projects.forEach(project => {
-              const latestCommit = projectGroups[project][0]; // 가장 최신 커밋
-              const commitCount = projectGroups[project].length;
-              activitySection += `- \`${project}\`: ${latestCommit.message} (${commitCount} commits)  \n`;
-            });
-            
-            activitySection += '\n**This Month:**  \n';
-            const uniqueRepos = new Set(recentActivity.map(commit => commit.repo)).size;
-            activitySection += `- ${recentActivity.length} commits across ${uniqueRepos} repositories  \n`;
-            activitySection += '- 새로운 기술 스택 학습 진행중  \n';
-            activitySection += '- 프로젝트 마일스톤 달성  \n';
-            
+
+            let activitySection = '<table>\n';
+            activitySection += '  <thead>\n';
+            activitySection += '    <tr>\n';
+            activitySection += '      <th>Project</th>\n';
+            activitySection += '      <th>Stack</th>\n';
+            activitySection += '      <th>Details</th>\n';
+            activitySection += '    </tr>\n';
+            activitySection += '  </thead>\n';
+            activitySection += '  <tbody>\n';
+
+            // 기본 프로젝트 활동 표시
+            if (Object.keys(projectGroups).length > 0) {
+              // 실제 프로젝트가 있으면 표시
+              const projects = Object.keys(projectGroups).slice(0, 3);
+              projects.forEach(project => {
+                const latestCommit = projectGroups[project][0];
+                const commitCount = projectGroups[project].length;
+                activitySection += '    <tr>\n';
+                activitySection += `      <td>${project}</td>\n`;
+                activitySection += `      <td>GitHub Actions</td>\n`;
+                activitySection += `      <td>${latestCommit.message} (${commitCount} commits)</td>\n`;
+                activitySection += '    </tr>\n';
+              });
+            } else {
+              // 기본 활동 표시
+              activitySection += '    <tr>\n';
+              activitySection += '      <td>zlaepek</td>\n';
+              activitySection += '      <td>GitHub Actions</td>\n';
+              activitySection += '      <td>프로필 자동화</td>\n';
+              activitySection += '    </tr>\n';
+              activitySection += '    <tr>\n';
+              activitySection += '      <td>Portfolio</td>\n';
+              activitySection += '      <td>React</td>\n';
+              activitySection += '      <td>포트폴리오 개발</td>\n';
+              activitySection += '    </tr>\n';
+              activitySection += '    <tr>\n';
+              activitySection += '      <td>API Server</td>\n';
+              activitySection += '      <td>Node.js</td>\n';
+              activitySection += '      <td>REST API 구축</td>\n';
+              activitySection += '    </tr>\n';
+            }
+
+            activitySection += '  </tbody>\n';
+            activitySection += '</table>\n';
+
             return activitySection;
           }
           
@@ -371,10 +408,9 @@ jobs:
             tableContent += '  </thead>\n';
             tableContent += '  <tbody>\n';
 
-            // 사용량 순으로 정렬
+            // 모든 기술 스택 표시 (사용량 관계없이)
             const sortedStacks = Object.entries(techStacks)
-              .filter(([_, stack]) => stack.total > 0)
-              .sort(([,a], [,b]) => b.total - a.total);
+              .sort(([,a], [,b]) => b.growth - a.growth); // 성장률 순으로 정렬
 
             sortedStacks.forEach(([name, stack]) => {
               const growthSign = stack.growth > 0 ? '+' : '';
@@ -453,5 +489,5 @@ jobs:
           git config --local user.name "GitHub Action"
           git pull origin main
           git add README.md
-          git diff --staged --quiet || git commit -m "Auto-update profile with latest stats"
+          git diff --staged --quiet || git commit -m "Auto-update profile with latest stats [skip ci]"
           git push

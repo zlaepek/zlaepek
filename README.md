@@ -74,17 +74,8 @@
 <!-- /YEARLY_CHART -->
 
 <details>
-<summary><sub>레벨 계산 방식</sub></summary>
-
-<sub>
-🥇 Master 80%+ | 🥈 Pro 60-79% | 🥉 Learning 40-59% | 🏅 Starter <40%
-
-```
-활동점수 = (언어 줄 수 ÷ 100) + (커밋 수 × 10)
-레벨 = min(99, floor(log₂(활동점수 + 1) × 8))
-```
-</sub>
-
+<summary><sub style="font-size: 10px;">레벨 계산 방식</sub></summary>
+<sub style="font-size: 9px;">🥇80%+ 🥈60-79% 🥉40-59% 🏅<40%</sub>
 </details>
 
 </td>
@@ -110,15 +101,8 @@
 <!-- /TREND_CHART -->
 
 <details>
-<summary><sub>변화율 계산 방식</sub></summary>
-<sub>
-
-```
-변화율 = (최근 3개월 활동 - 이전 9개월 평균) ÷ 이전 9개월 평균 × 100
-양수: 증가 추세, 음수: 감소 추세
-```
-
-</sub>
+<summary><sub style="font-size: 10px;">변화율 계산 방식</sub></summary>
+<sub style="font-size: 9px;">최근 3개월 vs 이전 9개월 평균 비교</sub>
 </details>
 
 </td>
@@ -127,7 +111,7 @@
 
 ---
 
-## 📊 GitHub Analytics
+## GitHub Analytics
 
 <table width="100%">
 <tr>
