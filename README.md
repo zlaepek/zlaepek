@@ -13,7 +13,7 @@
 
 <table width="100%">
 <tr>
-<td valign="top" width="33%">
+<td valign="top" width="50%">
 
 ### 💼 Career Journey
 
@@ -44,20 +44,25 @@
   </tbody>
 </table>
 
+</td>
+<td valign="top" width="50%">
+
 ### 📌 Recent Activity
 
 <!-- ACTIVITY_START -->
-**Recent Projects:**  
-- `zlaepek/zlaepek`: 수정 (5 commits)  
+**Recent Projects:**
+- `zlaepek/zlaepek`: 수정 (5 commits)
 
-**This Month:**  
-- 5 commits across 1 repositories  
-- 새로운 기술 스택 학습 진행중  
-- 프로젝트 마일스톤 달성  
+**This Month:**
+- 5 commits across 1 repositories
+- 새로운 기술 스택 학습 진행중
+- 프로젝트 마일스톤 달성
 <!-- ACTIVITY_END -->
 
 </td>
-<td valign="top" width="34%">
+</tr>
+<tr>
+<td valign="top" width="50%">
 
 ### 🛠️ Skills Overview
 
@@ -70,25 +75,20 @@
 
 <details>
 <summary><sub>레벨 계산 방식</sub></summary>
+
 <sub>
-
-**랭크 기준**
-
-- 🥇 Master: 80% 이상
-- 🥈 Pro: 60% ~ 79%
-- 🥉 Learning: 40% ~ 59%
-- 🏅 Starter: 40% 미만
+🥇 Master 80%+ | 🥈 Pro 60-79% | 🥉 Learning 40-59% | 🏅 Starter <40%
 
 ```
 활동점수 = (언어 줄 수 ÷ 100) + (커밋 수 × 10)
 레벨 = min(99, floor(log₂(활동점수 + 1) × 8))
 ```
-
 </sub>
+
 </details>
 
 </td>
-<td valign="top" width="33%">
+<td valign="top" width="50%">
 
 ### 📈 My Tech Focus 2025
 
@@ -157,9 +157,4 @@
 </tr>
 </table>
 
-<div align="center">
-
-![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=zlaepek&theme=github-compact&bg_color=0D1117&hide_border=true&line=7469B6&color=7469B6&area=true&height=200)
-
-</div>
 

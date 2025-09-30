@@ -212,7 +212,7 @@ jobs:
           
           async function updateSkillSection() {
             const languageStats = await getLanguageStats();
-            
+
             // 언어별 통계를 레벨로 변환 (제외할 언어 필터링)
             const excludeLanguages = ['ShaderLab', 'HLSL', 'Makefile', 'Batchfile', 'Shell'];
             const skillsArray = Object.entries(languageStats)
@@ -224,13 +224,12 @@ jobs:
                 repos: stats.repos
               }))
               .sort((a, b) => b.level - a.level)
-              .slice(0, 8); // 상위 8개만 표시
-            
+              .slice(0, 6); // 상위 6개만 표시
+
             let skillsSection = '';
-            
+
             if (skillsArray.length > 0) {
               // 테이블 시작
-              skillsSection += '<div align="center">\n';
               skillsSection += '<table>\n';
               skillsSection += '  <thead>\n';
               skillsSection += '    <tr>\n';
@@ -239,24 +238,73 @@ jobs:
               skillsSection += '    </tr>\n';
               skillsSection += '  </thead>\n';
               skillsSection += '  <tbody>\n';
-              
-              // 각 스킬을 테이블 행으로 추가 (새로운 형식)
+
+              // 각 스킬을 테이블 행으로 추가 (배지 형식)
               skillsArray.forEach(skill => {
                 const rankBadge = getRankBadge(skill.level);
+                const badgeColor = getLanguageBadgeColor(skill.name);
+                const logoName = getLanguageLogo(skill.name);
 
                 skillsSection += '    <tr>\n';
-                skillsSection += `      <td>${skill.name}</td>\n`;
+                skillsSection += `      <td><img src="https://img.shields.io/badge/${encodeURIComponent(skill.name)}-${badgeColor}?style=flat&logo=${logoName}&logoColor=white"/></td>\n`;
                 skillsSection += `      <td>${rankBadge.icon} ${skill.level}%</td>\n`;
                 skillsSection += '    </tr>\n';
               });
-              
+
               // 테이블 끝
               skillsSection += '  </tbody>\n';
               skillsSection += '</table>\n';
-              skillsSection += '</div>\n';
             }
-            
+
             return skillsSection;
+          }
+
+          function getLanguageBadgeColor(language) {
+            // 분야별 색상 코딩
+            const colorMap = {
+              // 웹 프론트엔드 (핑크계열)
+              'JavaScript': 'FF69B4',
+              'TypeScript': 'FF1493',
+              'HTML': 'FFB6C1',
+              'CSS': 'FFC0CB',
+              'React': 'FFB3D9',
+              'Vue': 'FF91A4',
+
+              // 유니티/게임 (보라계열)
+              'C#': '7469B6',
+              'Unity': '7469B6',
+              'C++': '8B7EC8',
+
+              // 백엔드 (블루계열)
+              'Java': '4A90E2',
+              'Python': '74C0FC',
+              'Node.js': '6495ED',
+              'PHP': '5DADE2',
+              'Go': '3498DB'
+            };
+
+            return colorMap[language] || '95A5A6'; // 기본 회색
+          }
+
+          function getLanguageLogo(language) {
+            const logoMap = {
+              'JavaScript': 'javascript',
+              'TypeScript': 'typescript',
+              'Python': 'python',
+              'Java': 'openjdk',
+              'C#': 'c-sharp',
+              'C++': 'cplusplus',
+              'HTML': 'html5',
+              'CSS': 'css3',
+              'React': 'react',
+              'Vue': 'vue.js',
+              'Node.js': 'node.js',
+              'Unity': 'unity',
+              'PHP': 'php',
+              'Go': 'go'
+            };
+
+            return logoMap[language] || 'code';
           }
           
           
@@ -294,15 +342,14 @@ jobs:
           async function updateTechStackTrendTable() {
             const languageStats = await getLanguageStats();
             const excludeLanguages = ['ShaderLab', 'HLSL', 'Makefile', 'Batchfile', 'Shell'];
-            
+
             // 언어들을 분야별로 그룹화
             const techStacks = {
-              웹개발: { languages: ['JavaScript', 'HTML', 'CSS', 'React'], total: 0, growth: 45, logo: 'javascript', color: 'FFD700' },
-              백엔드: { languages: ['Python', 'Java', 'Node.js'], total: 0, growth: 38, logo: 'python', color: '9B59B6' },
-              TypeScript: { languages: ['TypeScript'], total: 0, growth: 28, logo: 'typescript', color: '32CD32' },
-              게임개발: { languages: ['C#', 'Unity', 'C++'], total: 0, growth: -32, logo: 'unity', color: '4A90E2' }
+              웹개발: { languages: ['JavaScript', 'HTML', 'CSS', 'React'], total: 0, growth: 50, logo: 'react', color: 'FF69B4' },
+              백엔드: { languages: ['Python', 'Java', 'Node.js'], total: 0, growth: 38, logo: 'server', color: '4A90E2' },
+              게임개발: { languages: ['C#', 'Unity', 'C++'], total: 0, growth: -32, logo: 'unity', color: '7469B6' }
             };
-            
+
             // 각 분야별 사용량 계산
             Object.entries(languageStats).forEach(([lang, stats]) => {
               if (!excludeLanguages.includes(lang)) {
@@ -313,40 +360,34 @@ jobs:
                 });
               }
             });
-            
+
             // 테이블 생성
             let tableContent = '<table>\n';
             tableContent += '  <thead>\n';
             tableContent += '    <tr>\n';
-            tableContent += '      <th align="center" width="120">분야</th>\n';
-            tableContent += '      <th align="center" width="80">변화율</th>\n';
-            tableContent += '      <th align="center" width="200">주요 기술</th>\n';
-            tableContent += '      <th align="center" width="300">주요 프로젝트</th>\n';
+            tableContent += '      <th>Field</th>\n';
+            tableContent += '      <th>Growth</th>\n';
             tableContent += '    </tr>\n';
             tableContent += '  </thead>\n';
             tableContent += '  <tbody>\n';
-            
+
             // 사용량 순으로 정렬
             const sortedStacks = Object.entries(techStacks)
               .filter(([_, stack]) => stack.total > 0)
               .sort(([,a], [,b]) => b.total - a.total);
-              
+
             sortedStacks.forEach(([name, stack]) => {
-              const growthColor = stack.growth > 0 ? '#52b788' : '#e74c3c';
               const growthSign = stack.growth > 0 ? '+' : '';
-              const description = getTechStackDescription(name);
-              
+
               tableContent += '    <tr>\n';
-              tableContent += `      <td align="center"><img src="https://img.shields.io/badge/${encodeURIComponent(name)}-${stack.color}?style=for-the-badge&logo=${stack.logo}&logoColor=white"/></td>\n`;
-              tableContent += `      <td align="center"><span style="color: ${growthColor}; font-weight: bold;">${growthSign}${stack.growth}%</span></td>\n`;
-              tableContent += `      <td align="center">${stack.languages.join(', ')}</td>\n`;
-              tableContent += `      <td align="left">${description}</td>\n`;
+              tableContent += `      <td><img src="https://img.shields.io/badge/${encodeURIComponent(name)}-${stack.color}?style=flat&logo=${stack.logo}&logoColor=white"/></td>\n`;
+              tableContent += `      <td>${growthSign}${stack.growth}%</td>\n`;
               tableContent += '    </tr>\n';
             });
-            
+
             tableContent += '  </tbody>\n';
             tableContent += '</table>';
-            
+
             return tableContent;
           }
           
