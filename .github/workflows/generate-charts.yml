@@ -62,29 +62,34 @@ jobs:
               'Accept': 'application/vnd.github.v3+json'
           }
           
-          # 언어별 색상 매핑 (카테고리별 색상 통일)
+          # 언어별 색상 매핑 (새로운 분야별 색상 코딩)
           language_colors = {
-              # 웹개발 (노란색, 라임색, 녹색 계열)
-              'JavaScript': '#FFD700',  # 골드
-              'TypeScript': '#32CD32',  # 라임그린
-              'HTML': '#ADFF2F',        # 그린옐로우
-              'CSS': '#FFFF00',         # 옐로우
-              'React': '#9ACD32',       # 옐로우그린
-              'Vue': '#7FFF00',         # 차터리우스
-              
-              # 게임개발 (파란색 계열)
-              'C#': '#4169E1',          # 로얄블루
-              'Unity': '#1E90FF',       # 도지블루
-              'C++': '#0000CD',         # 미디엄블루
-              
-              # 백엔드/기타 (보라색 계열)
-              'Python': '#9932CC',      # 다크오키드
-              'Java': '#8A2BE2',        # 블루바이올렛
-              'PHP': '#9370DB',         # 미디엄퍼플
-              'Go': '#8B008B',          # 다크마젠타
-              'Rust': '#BA55D3',        # 미디엄오키드
-              'Swift': '#DA70D6',       # 오키드
-              'Kotlin': '#DDA0DD'       # 플럼
+              # 웹 프론트엔드 (핑크계열)
+              'JavaScript': '#FF69B4',  # 핫핑크
+              'TypeScript': '#FF1493',  # 딥핑크
+              'React': '#FFB3D9',       # 라이트핑크
+              'HTML': '#FFB6C1',        # 라이트핑크
+              'CSS': '#FFC0CB',         # 핑크
+              'Vue': '#FF91A4',         # 핑크 계열
+
+              # 유니티/게임 (보라계열 - 메인)
+              'C#': '#7469B6',          # 메인 보라
+              'Unity': '#7469B6',       # 메인 보라
+              'C++': '#8B7EC8',         # 라이트 보라
+
+              # 백엔드 (블루계열)
+              'Java': '#4A90E2',        # 진한 파랑
+              'Python': '#74C0FC',      # 밝은 파랑
+              'Node.js': '#6495ED',     # 코른플라워 블루
+              'AWS': '#87CEEB',         # 스카이 블루
+              'PHP': '#5DADE2',         # 라이트 블루
+              'Go': '#3498DB',          # 도지 블루
+
+              # DevOps/기타
+              'Docker': '#2496ED',      # 도커 블루
+              'Rust': '#FF6B35',        # 러스트 오렌지
+              'Swift': '#FA7343',       # 스위프트 오렌지
+              'Kotlin': '#7F52FF'       # 코틀린 퍼플
           }
           
           def get_monthly_language_data():
@@ -300,34 +305,45 @@ jobs:
               # 각 분야별로 그룹화하여 그래프 그리기
               plotted_languages = []
               
-              # 게임개발 언어들 (파란색 계열)
-              for lang, _ in top_languages:
-                  if lang in game_langs:
-                      line_values = [display_data.get(month, {}).get(lang, 0) for month in display_months]
-                      color = language_colors.get(lang, '#4169E1')
-                      ax.plot(range(len(display_months)), line_values, 
-                             marker='s', linewidth=3, markersize=8,
-                             label=f'🎮 {lang}', color=color, alpha=0.9, linestyle='-')
-                      plotted_languages.append(lang)
-              
-              # 웹개발 언어들 (노란색, 녹색 계열)  
+              # 웹 프론트엔드 언어들 (핑크 계열)
               for lang, _ in top_languages:
                   if lang in web_langs:
                       line_values = [display_data.get(month, {}).get(lang, 0) for month in display_months]
-                      color = language_colors.get(lang, '#FFD700')
-                      ax.plot(range(len(display_months)), line_values, 
-                             marker='^', linewidth=3, markersize=8,
-                             label=f'🌐 {lang}', color=color, alpha=0.9, linestyle='-')
+                      color = language_colors.get(lang, '#FF69B4')
+                      ax.plot(range(len(display_months)), line_values,
+                             marker='o', linewidth=3, markersize=8,
+                             label=f'Frontend: {lang}', color=color, alpha=0.9, linestyle='-')
                       plotted_languages.append(lang)
-              
-              # 나머지 언어들 (보라색 계열)
+
+              # 게임개발 언어들 (보라 계열)
+              for lang, _ in top_languages:
+                  if lang in game_langs:
+                      line_values = [display_data.get(month, {}).get(lang, 0) for month in display_months]
+                      color = language_colors.get(lang, '#7469B6')
+                      ax.plot(range(len(display_months)), line_values,
+                             marker='s', linewidth=3, markersize=8,
+                             label=f'Game: {lang}', color=color, alpha=0.9, linestyle='-')
+                      plotted_languages.append(lang)
+
+              # 백엔드 언어들 (블루 계열)
+              backend_langs = ['Python', 'Java', 'Node.js', 'AWS']
+              for lang, _ in top_languages:
+                  if lang in backend_langs:
+                      line_values = [display_data.get(month, {}).get(lang, 0) for month in display_months]
+                      color = language_colors.get(lang, '#4A90E2')
+                      ax.plot(range(len(display_months)), line_values,
+                             marker='^', linewidth=3, markersize=8,
+                             label=f'Backend: {lang}', color=color, alpha=0.9, linestyle='-')
+                      plotted_languages.append(lang)
+
+              # 나머지 언어들
               for lang, _ in top_languages:
                   if lang not in plotted_languages:
                       line_values = [display_data.get(month, {}).get(lang, 0) for month in display_months]
-                      color = language_colors.get(lang, '#9932CC')
-                      ax.plot(range(len(display_months)), line_values, 
-                             marker='o', linewidth=3, markersize=8,
-                             label=f'⚙️ {lang}', color=color, alpha=0.9, linestyle='--')
+                      color = language_colors.get(lang, '#95A5A6')
+                      ax.plot(range(len(display_months)), line_values,
+                             marker='D', linewidth=3, markersize=8,
+                             label=f'Other: {lang}', color=color, alpha=0.9, linestyle='--')
               
               # 월 이름을 영어로 변환
               month_names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -340,11 +356,11 @@ jobs:
                   year, month_num = month.split('-')
                   month_name = month_names[int(month_num) - 1]
                   month_labels.append(f'{month_name} {year[2:]}')
-              
-              ax.set_xticklabels(month_labels, color='#f0f6fc', fontsize=11, rotation=45, fontweight='500')
-              ax.set_ylabel('Lines of Code', color='#7c3aed', fontsize=14, fontweight='bold', labelpad=15)
-              ax.set_title('2025 Programming Language Usage Trends', color='#f0f6fc', 
-                          fontsize=20, fontweight='bold', pad=30)
+
+              ax.set_xticklabels(month_labels, color='#f0f6fc', fontsize=14, rotation=45, fontweight='600')
+              ax.set_ylabel('Lines of Code', color='#AD88C6', fontsize=16, fontweight='bold', labelpad=20)
+              ax.set_title('2025 Programming Language Usage Trends', color='#f0f6fc',
+                          fontsize=22, fontweight='bold', pad=40)
               
               # 개선된 그리드와 범례
               ax.grid(True, alpha=0.15, color='#30363d', linestyle='-', linewidth=1)
@@ -354,8 +370,8 @@ jobs:
                        borderpad=1.5, columnspacing=2)
               
               # 축 색상 및 스타일
-              ax.tick_params(axis='y', colors='#f0f6fc', labelsize=10)
-              ax.tick_params(axis='x', colors='#f0f6fc', labelsize=10)
+              ax.tick_params(axis='y', colors='#f0f6fc', labelsize=12)
+              ax.tick_params(axis='x', colors='#f0f6fc', labelsize=12)
               ax.spines['bottom'].set_color('#30363d')
               ax.spines['left'].set_color('#30363d')
               ax.spines['top'].set_visible(False)
@@ -372,144 +388,142 @@ jobs:
                       max_val = max(all_values)
                       ax.set_ylim(0, max_val * 1.1)  # 10% 여유 공간
               
-              plt.tight_layout(pad=2.0)
-              plt.savefig('language_trend_chart.png', dpi=300, bbox_inches='tight', 
+              plt.tight_layout(pad=3.5)
+              plt.savefig('language_trend_chart.png', dpi=300, bbox_inches='tight',
                          facecolor='#0d1117', edgecolor='none')
               plt.close()
               
               print("✅ 차트 생성 완료: language_trend_chart.png")
           
           def create_yearly_chart(months, monthly_data):
-              """연도별 언어 사용량 차트 생성"""
+              """연도별 언어 사용량 차트 생성 (세로형, 언어별 그룹화)"""
               print("📊 연도별 언어 사용량 차트 생성 중...")
-              
+
               # 연도별로 데이터 집계
               yearly_data = defaultdict(lambda: defaultdict(int))
-              
+
               for month, lang_data in monthly_data.items():
                   year = month.split('-')[0]
                   for lang, lines in lang_data.items():
                       yearly_data[year][lang] += lines
-              
+
               # 연도와 주요 언어 추출
               years = sorted(yearly_data.keys())
               all_languages = set()
               for year_data in yearly_data.values():
                   all_languages.update(year_data.keys())
-              
-              # 제외할 언어 필터링 및 모든 언어 포함
+
+              # 제외할 언어 필터링
               exclude_languages = ['ShaderLab', 'HLSL', 'Makefile', 'Batchfile', 'Shell']
               lang_totals = defaultdict(int)
               for year_data in yearly_data.values():
                   for lang, lines in year_data.items():
                       if lang not in exclude_languages:
                           lang_totals[lang] += lines
-              
-              # 모든 언어 포함 (필터링된)
-              all_valid_languages = sorted(lang_totals.items(), key=lambda x: x[1], reverse=True)
-              top_lang_names = [lang for lang, _ in all_valid_languages]
-              
-              # 차트 설정 (모던 디자인, 가로형)
+
+              # 상위 언어만 선택 (총 사용량 기준)
+              top_languages = sorted(lang_totals.items(), key=lambda x: x[1], reverse=True)[:8]
+              top_lang_names = [lang for lang, _ in top_languages]
+
+              # 차트 설정 (세로형)
               plt.style.use('dark_background')
-              fig, ax = plt.subplots(figsize=(12, 10))  # 세로를 더 길게
+              fig, ax = plt.subplots(figsize=(14, 10))
               fig.patch.set_facecolor('#0d1117')
               ax.set_facecolor('#161b22')
-              
+
               # 데이터가 없으면 차트 생성 건너뛰기
               if not years or not top_lang_names:
                   print("⚠️  연도별 데이터 없음, 차트 생성 건너뜀")
                   plt.close()
                   return
-              
-              # 언어별 각 연도 데이터로 가로 바 차트 생성  
-              y_pos = np.arange(len(top_lang_names))
-              
-              # 기술 스택별 분류
+
+              # 분야별 언어 분류
               game_langs = ['C#', 'Unity', 'UnityScript', 'C++']
               web_langs = ['JavaScript', 'TypeScript', 'HTML', 'CSS', 'React', 'Vue', 'Angular']
-              
-              plotted_languages = []
-              bar_height = 0.8 / max(1, len(years))
-              
-              # 연도별로 가로 바 생성 (각 언어마다 연도별 바)
+              backend_langs = ['Python', 'Java', 'Node.js', 'AWS']
+
+              # 언어별 x 위치 설정
+              x_pos = np.arange(len(top_lang_names))
+              bar_width = 0.15  # 바 너비
+
+              # 연도별로 세로 바 차트 생성
               for year_idx, year in enumerate(years):
-                  y_positions = []
                   values = []
                   colors = []
-                  labels = []
-                  
-                  for lang_idx, lang in enumerate(top_lang_names):
+
+                  for lang in top_lang_names:
                       value = yearly_data[year].get(lang, 0)
-                      
-                      # 값이 0인 언어는 스킵
-                      if value == 0:
-                          continue
-                      
-                      y_positions.append(lang_idx + year_idx * bar_height - bar_height * (len(years) - 1) / 2)
                       values.append(value)
-                      
-                      # 분야별 스타일 설정
+
+                      # 분야별 색상 설정
                       if lang in game_langs:
-                          color = language_colors.get(lang, '#4169E1')
+                          color = language_colors.get(lang, '#7469B6')
                       elif lang in web_langs:
-                          color = language_colors.get(lang, '#FFD700')
+                          color = language_colors.get(lang, '#FF69B4')
+                      elif lang in backend_langs:
+                          color = language_colors.get(lang, '#4A90E2')
                       else:
-                          color = language_colors.get(lang, '#9932CC')
+                          color = language_colors.get(lang, '#95A5A6')
                       colors.append(color)
-                      
-                      # 첫 번째 연도에서만 언어 라벨 추가
-                      if year_idx == 0:
-                          labels.append(lang)
-                  
-                  if values:  # 값이 있는 경우에만 바 생성
-                      bars = ax.barh(y_positions, values, bar_height * 0.8,
-                                   color=colors, alpha=0.8, label=year)
-                      
-                      # 각 언어를 plotted_languages에 추가 (첫 번째 연도에서만)
-                      if year_idx == 0:
-                          for lang_idx, lang in enumerate(top_lang_names):
-                              if yearly_data[year].get(lang, 0) > 0:
-                                  plotted_languages.append(lang)
-              
-              # 차트 스타일링 (개선된 디자인 - 가로형)
-              ax.set_xlabel('Lines of Code', color='#7c3aed', fontsize=14, fontweight='bold', labelpad=15)
-              ax.set_ylabel('Programming Languages', color='#7c3aed', fontsize=14, fontweight='bold', labelpad=15)
-              ax.set_title('Yearly Language Usage (All Languages)', color='#f0f6fc', 
-                          fontsize=20, fontweight='bold', pad=30)
-              ax.set_yticks(y_pos)
-              ax.set_yticklabels(top_lang_names, color='#f0f6fc', fontsize=12, fontweight='500')
-              
-              # X축 자동 조정 (가로형 차트이므로 X축이 값 범위)
-              if plotted_languages:
-                  max_values = []
-                  for lang in plotted_languages:
-                      values = [yearly_data[year].get(lang, 0) for year in years]
-                      max_values.extend(values)
-                  if max_values:
-                      ax.set_xlim(0, max(max_values) * 1.1)
-              
+
+                  # 각 연도별 바 생성 (언어별로 그룹화)
+                  x_positions = x_pos + year_idx * bar_width - bar_width * (len(years) - 1) / 2
+                  bars = ax.bar(x_positions, values, bar_width,
+                               color=colors, alpha=0.8, label=year, edgecolor='none')
+
+              # 차트 스타일링 (세로형)
+              ax.set_xlabel('Programming Languages', color='#AD88C6', fontsize=16, fontweight='bold', labelpad=20)
+              ax.set_ylabel('Lines of Code', color='#AD88C6', fontsize=16, fontweight='bold', labelpad=20)
+              ax.set_title('Yearly Language Usage by Technology Stack', color='#f0f6fc',
+                          fontsize=22, fontweight='bold', pad=40)
+
+              # X축 설정 (언어 이름)
+              ax.set_xticks(x_pos)
+
+              # 분야별로 라벨링
+              formatted_labels = []
+              for lang in top_lang_names:
+                  if lang in game_langs:
+                      formatted_labels.append(f'Game: {lang}')
+                  elif lang in web_langs:
+                      formatted_labels.append(f'Frontend: {lang}')
+                  elif lang in backend_langs:
+                      formatted_labels.append(f'Backend: {lang}')
+                  else:
+                      formatted_labels.append(f'Other: {lang}')
+
+              ax.set_xticklabels(formatted_labels, color='#f0f6fc', fontsize=12, fontweight='600', rotation=45, ha='right')
+
+              # Y축 자동 조정
+              max_values = []
+              for lang in top_lang_names:
+                  for year in years:
+                      max_values.append(yearly_data[year].get(lang, 0))
+              if max_values:
+                  ax.set_ylim(0, max(max_values) * 1.15)
+
               # 개선된 범례 및 그리드 (연도별 범례)
-              legend_cols = min(len(years), 4)  # 연도 수에 맞춰 컬럼 수 설정
-              ax.legend(loc='upper right', frameon=True, fancybox=True, 
-                       shadow=False, ncol=legend_cols, fontsize=10, 
+              legend_cols = min(len(years), 4)
+              ax.legend(loc='upper left', frameon=True, fancybox=True,
+                       shadow=False, ncol=legend_cols, fontsize=11,
                        facecolor='#21262d', edgecolor='#7c3aed', framealpha=0.95,
-                       borderpad=1, columnspacing=1.5)
-              ax.grid(True, alpha=0.15, color='#30363d', linestyle='-', linewidth=1)
-              
+                       borderpad=1.2, columnspacing=1.8)
+              ax.grid(True, alpha=0.15, color='#30363d', linestyle='-', linewidth=1, axis='y')
+
               # 축 색상 및 스타일
-              ax.tick_params(axis='both', colors='#f0f6fc', labelsize=11)
+              ax.tick_params(axis='both', colors='#f0f6fc', labelsize=12)
               ax.spines['bottom'].set_color('#30363d')
               ax.spines['left'].set_color('#30363d')
               ax.spines['top'].set_visible(False)
               ax.spines['right'].set_visible(False)
               ax.spines['bottom'].set_linewidth(2)
               ax.spines['left'].set_linewidth(2)
-              
-              plt.tight_layout(pad=2.0)
+
+              plt.tight_layout(pad=3.5)
               plt.savefig('language_yearly_chart.png', dpi=300, bbox_inches='tight',
                          facecolor='#0d1117', edgecolor='none')
               plt.close()
-              
+
               print("✅ 연도별 차트 생성 완료: language_yearly_chart.png")
           
           def main():

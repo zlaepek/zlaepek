@@ -2,8 +2,8 @@ name: Auto Update Profile
 
 on:
   schedule:
-    # 매일 한국시간 오전 9시 (UTC 0시)
-    - cron: '0 0 * * *'
+    # 매월 1일 한국시간 오전 9시 (UTC 0시)
+    - cron: '0 0 1 * *'
   workflow_dispatch: # 수동 실행 가능
   workflow_run:
     workflows: ["Generate Language Trend Charts"]
@@ -70,40 +70,40 @@ jobs:
           // 랭크 뱃지 결정
           function getRankBadge(level) {
             if (level >= 80) return {
-              text: 'EXPERT',
+              text: 'MASTER',
               icon: '🥇',
               color: 'FFD700'
             };
             if (level >= 60) return {
-              text: 'ADVANCED', 
+              text: 'PRO',
               icon: '🥈',
               color: 'C0C0C0'
             };
             if (level >= 40) return {
-              text: 'INTERMEDIATE',
-              icon: '🥉', 
+              text: 'LEARNING',
+              icon: '🥉',
               color: 'CD7F32'
             };
             return {
-              text: 'BEGINNER',
+              text: 'STARTER',
               icon: '🏅',
               color: '90EE90'
             };
           }
-          
+
           // 스킬 레벨에 따른 텍스트 결정
           function getSkillLevel(level) {
-            if (level >= 80) return 'Expert';
-            if (level >= 60) return 'Advanced';
-            if (level >= 40) return 'Intermediate';
-            return 'Beginner';
+            if (level >= 80) return 'Master';
+            if (level >= 60) return 'Pro';
+            if (level >= 40) return 'Learning';
+            return 'Starter';
           }
           
           async function getLanguageStats() {
             try {
-              // 사용자의 모든 리포지토리 가져오기
+              // 사용자의 모든 리포지토리 가져오기 (비공개 포함)
               const reposResponse = await axios.get(
-                `https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`,
+                `https://api.github.com/user/repos?per_page=100&sort=updated&type=all`,
                 { headers }
               );
               
@@ -164,20 +164,27 @@ jobs:
             }
           }
           
-          // 언어별 아이콘 및 색상 매핑
+          // 언어별 아이콘 및 색상 매핑 (분야별 색상 코딩)
           const languageConfig = {
-            'JavaScript': { icon: 'javascript', color: 'F7DF1E', logoColor: 'black' },
-            'TypeScript': { icon: 'typescript', color: '3178C6', logoColor: 'white' },
-            'Python': { icon: 'python', color: '3776AB', logoColor: 'white' },
-            'Java': { icon: 'java', color: 'ED8B00', logoColor: 'white' },
-            'C#': { icon: 'c-sharp', color: '239120', logoColor: 'white' },
-            'Unity': { icon: 'unity', color: '000000', logoColor: 'white' },
-            'React': { icon: 'react', color: '61DAFB', logoColor: 'black' },
-            'Node.js': { icon: 'node.js', color: '339933', logoColor: 'white' },
-            'AWS': { icon: 'amazon-aws', color: '232F3E', logoColor: 'white' },
-            'Docker': { icon: 'docker', color: '2496ED', logoColor: 'white' },
-            'HTML': { icon: 'html5', color: 'E34F26', logoColor: 'white' },
-            'CSS': { icon: 'css3', color: '1572B6', logoColor: 'white' }
+            // 웹 프론트엔드 (핑크계열)
+            'JavaScript': { icon: 'javascript', color: 'FF69B4', logoColor: 'white' },
+            'TypeScript': { icon: 'typescript', color: 'FF1493', logoColor: 'white' },
+            'React': { icon: 'react', color: 'FFB3D9', logoColor: 'white' },
+            'HTML': { icon: 'html5', color: 'FFB6C1', logoColor: 'white' },
+            'CSS': { icon: 'css3', color: 'FFC0CB', logoColor: 'black' },
+
+            // 유니티/게임 (보라계열 - 메인)
+            'C#': { icon: 'c-sharp', color: '7469B6', logoColor: 'white' },
+            'Unity': { icon: 'unity', color: '7469B6', logoColor: 'white' },
+
+            // 백엔드 (블루계열)
+            'Java': { icon: 'java', color: '4A90E2', logoColor: 'white' },
+            'Python': { icon: 'python', color: '74C0FC', logoColor: 'white' },
+            'Node.js': { icon: 'node.js', color: '6495ED', logoColor: 'white' },
+            'AWS': { icon: 'amazon-aws', color: '87CEEB', logoColor: 'white' },
+
+            // DevOps/기타
+            'Docker': { icon: 'docker', color: '2496ED', logoColor: 'white' }
           };
           
           // 레포지토리별 언어 사용량과 프로젝트 매핑
@@ -229,28 +236,17 @@ jobs:
               skillsSection += '    <tr>\n';
               skillsSection += '      <th>기술 스택</th>\n';
               skillsSection += '      <th>숙련도</th>\n';
-              skillsSection += '      <th>랭크</th>\n';
               skillsSection += '    </tr>\n';
               skillsSection += '  </thead>\n';
               skillsSection += '  <tbody>\n';
               
-              // 각 스킬을 테이블 행으로 추가
+              // 각 스킬을 테이블 행으로 추가 (새로운 형식)
               skillsArray.forEach(skill => {
-                const config = languageConfig[skill.name] || { icon: skill.name.toLowerCase(), color: '666666', logoColor: 'white' };
                 const rankBadge = getRankBadge(skill.level);
-                
-                const encodedName = encodeURIComponent(skill.name);
-                const encodedRankText = encodeURIComponent(rankBadge.text);
-                const encodedIcon = encodeURIComponent(rankBadge.icon);
-                
-                // 프로그레스 바 생성 (0-99 레벨을 0-100% 로 변환)
-                const progressPercent = Math.min(100, skill.level);
-                const progressColor = skill.level >= 70 ? 'FFD700' : skill.level >= 50 ? 'CD7F32' : 'C0C0C0';
-                
+
                 skillsSection += '    <tr>\n';
-                skillsSection += `      <td><img src="https://img.shields.io/badge/${encodedName}-${getSkillLevel(skill.level)}-${config.color}?style=for-the-badge&logo=${config.icon}&logoColor=${config.logoColor}" alt="${skill.name}"/></td>\n`;
-                skillsSection += `      <td><img src="https://img.shields.io/badge/Progress-${progressPercent}%25-${progressColor}?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>\n`;
-                skillsSection += `      <td><img src="https://img.shields.io/badge/${encodedIcon}-${encodedRankText}-${rankBadge.color}?style=for-the-badge&logoColor=white" alt="${rankBadge.text}" height="28"/></td>\n`;
+                skillsSection += `      <td>${skill.name}</td>\n`;
+                skillsSection += `      <td>${rankBadge.icon} ${skill.level}%</td>\n`;
                 skillsSection += '    </tr>\n';
               });
               

@@ -1,85 +1,136 @@
 <div align="center">
-  <h1>김민경's git stat</h1>
+
+# MinKyung Kim
+**Software Developer**
+
+<img src="https://komarev.com/ghpvc/?username=zlaepek&color=7469B6&style=for-the-badge&label=PROFILE+VIEWS"/>
+<img src="https://img.shields.io/github/followers/zlaepek?color=7469B6&style=for-the-badge&logo=github&label=FOLLOWERS"/>
+<img src="https://img.shields.io/github/stars/zlaepek?color=7469B6&style=for-the-badge&logo=github&label=STARS"/>
+
+<sub>*Auto-updated: <!-- UPDATE_TIME -->2025-09-30<!-- /UPDATE_TIME -->*</sub>
+
 </div>
 
-## Career Journey
+<table width="100%">
+<tr>
+<td valign="top" width="33%">
 
-<div align="center">
+### 💼 Career Journey
+
 <table>
   <thead>
     <tr>
       <th>Organization</th>
       <th>Position</th>
       <th>Period</th>
-      <th>Main Stack</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td><a href="https://ptahlabs.co.kr/">PTAHLABS</a></td>
       <td>Tech Lead</td>
-      <td>2024.11 ~ Present</td>
-      <td>JavaScript, Python, React, AWS</td>
+      <td>2024.11~</td>
     </tr>
     <tr>
       <td><a href="https://www.dcarrick.co.kr/">디캐릭</a></td>
-      <td>Unity Developer</td>
-      <td>2023.02 ~ 2024.10</td>
-      <td>C#, Unity, MRTK, Photon, AWS</td>
+      <td>Unity Dev</td>
+      <td>2023.02~2024.10</td>
     </tr>
     <tr>
       <td>가천대학교</td>
       <td>소프트웨어학과</td>
-      <td>2019.03 ~ 2023.02</td>
-      <td>Java, C, Python, Algorithm</td>
+      <td>2019.03~2023.02</td>
     </tr>
   </tbody>
 </table>
-</div>
 
----
+### 📌 Recent Activity
 
-## Current Status & Skills (Auto-Updated)
+<!-- ACTIVITY_START -->
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Stack</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>zlaepek</td>
+      <td>GitHub Actions</td>
+      <td>프로필 자동화</td>
+    </tr>
+    <tr>
+      <td>Portfolio</td>
+      <td>React</td>
+      <td>포트폴리오 개발</td>
+    </tr>
+    <tr>
+      <td>API Server</td>
+      <td>Node.js</td>
+      <td>REST API 구축</td>
+    </tr>
+  </tbody>
+</table>
+<!-- ACTIVITY_END -->
+
+</td>
+<td valign="top" width="34%">
+
+### 🛠️ Skills Overview
 
 <!-- SKILL_START -->
-<div align="center">
 <table>
   <thead>
     <tr>
       <th>기술 스택</th>
       <th>숙련도</th>
-      <th>랭크</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><img src="https://img.shields.io/badge/C%23-Advanced-239120?style=for-the-badge&logo=c-sharp&logoColor=white" alt="C#"/></td>
-      <td><img src="https://img.shields.io/badge/Progress-62%25-CD7F32?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
-      <td><img src="https://img.shields.io/badge/%F0%9F%A5%88-ADVANCED-C0C0C0?style=for-the-badge&logoColor=white" alt="ADVANCED" height="28"/></td>
+      <td><img src="https://img.shields.io/badge/C%23-7469B6?style=flat&logo=c-sharp&logoColor=white"/></td>
+      <td>🥈 62%</td>
     </tr>
     <tr>
-      <td><img src="https://img.shields.io/badge/CSS-Intermediate-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS"/></td>
-      <td><img src="https://img.shields.io/badge/Progress-41%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
-      <td><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE" height="28"/></td>
+      <td><img src="https://img.shields.io/badge/JavaScript-FF69B4?style=flat&logo=javascript&logoColor=white"/></td>
+      <td>🥉 45%</td>
     </tr>
     <tr>
-      <td><img src="https://img.shields.io/badge/JavaScript-Intermediate-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"/></td>
-      <td><img src="https://img.shields.io/badge/Progress-40%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
-      <td><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE" height="28"/></td>
+      <td><img src="https://img.shields.io/badge/CSS-FFC0CB?style=flat&logo=css3&logoColor=black"/></td>
+      <td>🥉 41%</td>
     </tr>
     <tr>
-      <td><img src="https://img.shields.io/badge/HTML-Intermediate-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML"/></td>
-      <td><img src="https://img.shields.io/badge/Progress-40%25-C0C0C0?style=flat&logo=chartdotjs&logoColor=white" alt="Progress" height="20"/></td>
-      <td><img src="https://img.shields.io/badge/%F0%9F%A5%89-INTERMEDIATE-CD7F32?style=for-the-badge&logoColor=white" alt="INTERMEDIATE" height="28"/></td>
+      <td><img src="https://img.shields.io/badge/HTML-FFB6C1?style=flat&logo=html5&logoColor=white"/></td>
+      <td>🥉 40%</td>
+    </tr>
+    <tr>
+      <td><img src="https://img.shields.io/badge/Python-74C0FC?style=flat&logo=python&logoColor=white"/></td>
+      <td>🏅 25%</td>
+    </tr>
+    <tr>
+      <td><img src="https://img.shields.io/badge/Java-4A90E2?style=flat&logo=openjdk&logoColor=white"/></td>
+      <td>🏅 35%</td>
     </tr>
   </tbody>
 </table>
-</div>
 <!-- SKILL_END -->
+
+<!-- YEARLY_CHART -->
+![Yearly Usage](./assets/language_yearly_chart.png)
+<!-- /YEARLY_CHART -->
 
 <details>
 <summary><sub>레벨 계산 방식</sub></summary>
 <sub>
+
+**랭크 기준**
+
+- 🥇 Master: 80% 이상
+- 🥈 Pro: 60% ~ 79%
+- 🥉 Learning: 40% ~ 59%
+- 🏅 Starter: 40% 미만
 
 ```
 활동점수 = (언어 줄 수 ÷ 100) + (커밋 수 × 10)
@@ -89,28 +140,39 @@
 </sub>
 </details>
 
----
+</td>
+<td valign="top" width="33%">
 
-## 2025 기술 스택 변화 추이 (Auto-Updated)
-
-<div align="center">
+### 📈 My Tech Focus 2025
 
 <!-- TREND_START -->
 <table>
   <thead>
     <tr>
-      <th align="center" width="120">분야</th>
-      <th align="center" width="80">변화율</th>
-      <th align="center" width="200">주요 기술</th>
-      <th align="center" width="300">주요 프로젝트</th>
+      <th>Field</th>
+      <th>Growth</th>
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td><img src="https://img.shields.io/badge/웹개발-FF69B4?style=flat&logo=react&logoColor=white"/></td>
+      <td>+50%</td>
+    </tr>
+    <tr>
+      <td><img src="https://img.shields.io/badge/백엔드-4A90E2?style=flat&logo=server&logoColor=white"/></td>
+      <td>+38%</td>
+    </tr>
+    <tr>
+      <td><img src="https://img.shields.io/badge/게임개발-7469B6?style=flat&logo=unity&logoColor=white"/></td>
+      <td>-32%</td>
+    </tr>
   </tbody>
 </table>
 <!-- TREND_END -->
 
-</div>
+<!-- TREND_CHART -->
+![Language Trends](./assets/language_trend_chart.png)
+<!-- /TREND_CHART -->
 
 <details>
 <summary><sub>변화율 계산 방식</sub></summary>
@@ -124,65 +186,43 @@
 </sub>
 </details>
 
-## 2025 Language Trend Analysis
-
-<!-- TREND_CHART -->
-![Language Trends](./assets/language_trend_chart.png)
-<!-- /TREND_CHART -->
-
-<!-- YEARLY_CHART -->
-![Yearly Language Usage](./assets/language_yearly_chart.png)
-<!-- /YEARLY_CHART -->
+</td>
+</tr>
+</table>
 
 ---
 
-## GitHub Analytics
+## 📊 GitHub Analytics
+
+<table width="100%">
+<tr>
+<td valign="top" width="33%">
+
+**Profile Stats**
+
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=zlaepek&show_icons=true&count_private=true&include_all_commits=true&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=7469B6&icon_color=7469B6&text_color=c9d1d9&card_width=280&hide_title=true)
+
+</td>
+<td valign="top" width="34%">
+
+**Language Distribution**
+
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=zlaepek&layout=compact&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=7469B6&text_color=c9d1d9&card_width=280&hide_title=true)
+
+</td>
+<td valign="top" width="33%">
+
+**Contribution Streak**
+
+![Streak Stats](https://github-readme-streak-stats.herokuapp.com/?user=zlaepek&theme=github-dark-blue&hide_border=true&background=0D1117&ring=7469B6&fire=7469B6&currStreakLabel=7469B6)
+
+</td>
+</tr>
+</table>
 
 <div align="center">
 
-<!-- GitHub 통계 카드들 -->
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=zlaepek&show_icons=true&count_private=true&include_all_commits=true&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=52b788&icon_color=52b788&text_color=c9d1d9"/>
-
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=zlaepek&layout=compact&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=52b788&text_color=c9d1d9"/>
-
-<!-- 연속 커밋 통계 -->
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=zlaepek&theme=github-dark-blue&hide_border=true&background=0D1117&ring=52b788&fire=52b788&currStreakLabel=52b788"/>
-
-<!-- 활동 그래프 -->
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=zlaepek&theme=github-compact&bg_color=0D1117&hide_border=true&line=52b788&color=52b788&area=true&custom_title=Contribution%20Activity"/>
-
-<br/>
-
-<!-- 프로필 뱃지들 -->
-<img src="https://komarev.com/ghpvc/?username=zlaepek&color=52b788&style=for-the-badge&label=PROFILE+VIEWS"/>
-<img src="https://img.shields.io/github/followers/zlaepek?color=52b788&style=for-the-badge&logo=github&label=FOLLOWERS"/>
-<img src="https://img.shields.io/github/stars/zlaepek?color=52b788&style=for-the-badge&logo=github&label=STARS"/>
+![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=zlaepek&theme=github-compact&bg_color=0D1117&hide_border=true&line=7469B6&color=7469B6&area=true&height=200)
 
 </div>
 
-<br>
-
-
-
-## Latest Activity (Auto-Updated)
-
-<!-- ACTIVITY_START -->
-**Recent Projects:**  
-- `zlaepek/zlaepek`: 수정 (5 commits)  
-
-**This Month:**  
-- 5 commits across 1 repositories  
-- 새로운 기술 스택 학습 진행중  
-- 프로젝트 마일스톤 달성  
-<!-- ACTIVITY_END -->
-
-<br>
-
----
-
-<div align="center">
-
-*이 프로필은 GitHub Actions로 자동 업데이트됩니다*  
-*마지막 업데이트: <!-- UPDATE_TIME -->2025-09-30 10:50 KST<!-- /UPDATE_TIME -->*
-
-</div>
