@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/github/followers/zlaepek?color=7469B6&style=for-the-badge&logo=github&label=FOLLOWERS"/>
 <img src="https://img.shields.io/github/stars/zlaepek?color=7469B6&style=for-the-badge&logo=github&label=STARS"/>
 
-<sub>*Auto-updated: <!-- UPDATE_TIME -->2025-09-30<!-- /UPDATE_TIME -->*</sub>
+<sub>*Auto-updated: <!-- UPDATE_TIME -->2025-09-30 14:42 KST<!-- /UPDATE_TIME -->*</sub>
 
 </div>
 
@@ -47,32 +47,13 @@
 ### 📌 Recent Activity
 
 <!-- ACTIVITY_START -->
-<table>
-  <thead>
-    <tr>
-      <th>Project</th>
-      <th>Stack</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>zlaepek</td>
-      <td>GitHub Actions</td>
-      <td>프로필 자동화</td>
-    </tr>
-    <tr>
-      <td>Portfolio</td>
-      <td>React</td>
-      <td>포트폴리오 개발</td>
-    </tr>
-    <tr>
-      <td>API Server</td>
-      <td>Node.js</td>
-      <td>REST API 구축</td>
-    </tr>
-  </tbody>
-</table>
+**Recent Projects:**  
+- `zlaepek/zlaepek`: 수정 (5 commits)  
+
+**This Month:**  
+- 5 commits across 1 repositories  
+- 새로운 기술 스택 학습 진행중  
+- 프로젝트 마일스톤 달성  
 <!-- ACTIVITY_END -->
 
 </td>
@@ -81,40 +62,6 @@
 ### 🛠️ Skills Overview
 
 <!-- SKILL_START -->
-<table>
-  <thead>
-    <tr>
-      <th>기술 스택</th>
-      <th>숙련도</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><img src="https://img.shields.io/badge/C%23-7469B6?style=flat&logo=c-sharp&logoColor=white"/></td>
-      <td>🥈 62%</td>
-    </tr>
-    <tr>
-      <td><img src="https://img.shields.io/badge/JavaScript-FF69B4?style=flat&logo=javascript&logoColor=white"/></td>
-      <td>🥉 45%</td>
-    </tr>
-    <tr>
-      <td><img src="https://img.shields.io/badge/CSS-FFC0CB?style=flat&logo=css3&logoColor=black"/></td>
-      <td>🥉 41%</td>
-    </tr>
-    <tr>
-      <td><img src="https://img.shields.io/badge/HTML-FFB6C1?style=flat&logo=html5&logoColor=white"/></td>
-      <td>🥉 40%</td>
-    </tr>
-    <tr>
-      <td><img src="https://img.shields.io/badge/Python-74C0FC?style=flat&logo=python&logoColor=white"/></td>
-      <td>🏅 25%</td>
-    </tr>
-    <tr>
-      <td><img src="https://img.shields.io/badge/Java-4A90E2?style=flat&logo=openjdk&logoColor=white"/></td>
-      <td>🏅 35%</td>
-    </tr>
-  </tbody>
-</table>
 <!-- SKILL_END -->
 
 <!-- YEARLY_CHART -->
@@ -149,23 +96,13 @@
 <table>
   <thead>
     <tr>
-      <th>Field</th>
-      <th>Growth</th>
+      <th align="center" width="120">분야</th>
+      <th align="center" width="80">변화율</th>
+      <th align="center" width="200">주요 기술</th>
+      <th align="center" width="300">주요 프로젝트</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><img src="https://img.shields.io/badge/웹개발-FF69B4?style=flat&logo=react&logoColor=white"/></td>
-      <td>+50%</td>
-    </tr>
-    <tr>
-      <td><img src="https://img.shields.io/badge/백엔드-4A90E2?style=flat&logo=server&logoColor=white"/></td>
-      <td>+38%</td>
-    </tr>
-    <tr>
-      <td><img src="https://img.shields.io/badge/게임개발-7469B6?style=flat&logo=unity&logoColor=white"/></td>
-      <td>-32%</td>
-    </tr>
   </tbody>
 </table>
 <!-- TREND_END -->
