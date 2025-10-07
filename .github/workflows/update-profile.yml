@@ -245,8 +245,8 @@ jobs:
               skillsSection += '<table width="100%">\n';
               skillsSection += '  <thead>\n';
               skillsSection += '    <tr>\n';
-              skillsSection += '      <th>기술 스택</th>\n';
-              skillsSection += '      <th>숙련도</th>\n';
+              skillsSection += '      <th width="70%">기술 스택</th>\n';
+              skillsSection += '      <th width="30%">숙련도</th>\n';
               skillsSection += '    </tr>\n';
               skillsSection += '  </thead>\n';
               skillsSection += '  <tbody>\n';
@@ -373,9 +373,9 @@ jobs:
               let activitySection = '<table width="100%">\n';
               activitySection += '  <thead>\n';
               activitySection += '    <tr>\n';
-              activitySection += '      <th>Project</th>\n';
-              activitySection += '      <th>Stack</th>\n';
-              activitySection += '      <th>Details</th>\n';
+              activitySection += '      <th width="30%">Project</th>\n';
+              activitySection += '      <th width="25%">Stack</th>\n';
+              activitySection += '      <th width="45%">Details</th>\n';
               activitySection += '    </tr>\n';
               activitySection += '  </thead>\n';
               activitySection += '  <tbody>\n';
@@ -429,8 +429,8 @@ jobs:
             let tableContent = '<table width="100%">\n';
             tableContent += '  <thead>\n';
             tableContent += '    <tr>\n';
-            tableContent += '      <th>Field</th>\n';
-            tableContent += '      <th>Growth</th>\n';
+            tableContent += '      <th width="70%">Field</th>\n';
+            tableContent += '      <th width="30%">Growth</th>\n';
             tableContent += '    </tr>\n';
             tableContent += '  </thead>\n';
             tableContent += '  <tbody>\n';

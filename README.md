@@ -16,9 +16,9 @@
 <table width="100%">
   <thead>
     <tr>
-      <th>Organization</th>
-      <th>Position</th>
-      <th>Period</th>
+      <th width="50%">Organization</th>
+      <th width="25%">Position</th>
+      <th width="25%">Period</th>
     </tr>
   </thead>
   <tbody>
@@ -48,9 +48,9 @@
 <table width="100%">
   <thead>
     <tr>
-      <th>Project</th>
-      <th>Stack</th>
-      <th>Details</th>
+      <th width="30%">Project</th>
+      <th width="25%">Stack</th>
+      <th width="45%">Details</th>
     </tr>
   </thead>
   <tbody>
@@ -81,8 +81,8 @@
 <table width="100%">
   <thead>
     <tr>
-      <th>기술 스택</th>
-      <th>숙련도</th>
+      <th width="70%">기술 스택</th>
+      <th width="30%">숙련도</th>
     </tr>
   </thead>
   <tbody>
@@ -119,8 +119,8 @@
 <table width="100%">
   <thead>
     <tr>
-      <th>Field</th>
-      <th>Growth</th>
+      <th width="70%">Field</th>
+      <th width="30%">Growth</th>
     </tr>
   </thead>
   <tbody>
