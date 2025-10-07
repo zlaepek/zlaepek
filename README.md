@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/github/followers/zlaepek?color=7469B6&style=for-the-badge&logo=github&label=FOLLOWERS"/>
 <img src="https://img.shields.io/github/stars/zlaepek?color=7469B6&style=for-the-badge&logo=github&label=STARS"/>
 
-<sub>*Auto-updated: <!-- UPDATE_TIME -->2025-10-07 16:11 KST<!-- /UPDATE_TIME -->*</sub>
+<sub>*Auto-updated: <!-- UPDATE_TIME -->2025-10-07 17:03 KST<!-- /UPDATE_TIME -->*</sub>
 
 </div>
 
@@ -66,7 +66,7 @@
     </tr>
     <tr>
       <td><a href="https://github.com/zlaepek">포트폴리오</a></td>
-      <td>GitHub Pages</td>
+      <td>GitHub Pages, GitHub Actions</td>
       <td>개인 포트폴리오 사이트 개선</td>
     </tr>
   </tbody>
