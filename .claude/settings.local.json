@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh:*)",
+      "Bash(winget install:*)",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" auth status)",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" run list --limit 5)",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" run list --limit 1000 --json databaseId --jq '.[5:] | .[].databaseId')",
+      "Bash(ForEach-Object { \"C:\\Program Files\\GitHub CLI\\gh.exe\" run delete $_ })",
+      "Bash(while read id)",
+      "Bash(do \"C:\\Program Files\\GitHub CLI\\gh.exe\" run delete \"$id\")",
+      "Bash(done)",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" run list --limit 10 --json databaseId -q '.[].databaseId')",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" run list --limit 100 --json databaseId -q '.[5:] | .[].databaseId')",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

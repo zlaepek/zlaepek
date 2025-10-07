@@ -1,0 +1,519 @@
+name: Auto Update Profile
+
+on:
+  schedule:
+    # 매월 1일 한국시간 오전 9시 (UTC 0시)
+    - cron: '0 0 1 * *'
+  workflow_dispatch: # 수동 실행 가능
+  workflow_run:
+    workflows: ["Generate Language Trend Charts"]
+    types:
+      - completed
+  push:
+    branches: [ main ]
+    paths:
+      - 'activity.json'
+
+jobs:
+  update-profile:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Install Dependencies
+        run: |
+          npm init -y
+          npm install axios moment
+          
+      - name: Analyze GitHub Stats
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+        run: |
+          cat > analyze-skills.js << 'EOF'
+          const axios = require('axios');
+          const moment = require('moment');
+          const fs = require('fs');
+          
+          const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+          const USERNAME = process.env.USERNAME;
+          
+          const headers = {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github.v3+json'
+          };
+          
+          // 스킬 레벨 계산 함수
+          function calculateLevel(lines, commits) {
+            const totalActivity = lines / 100 + commits * 10;
+            return Math.min(99, Math.floor(Math.log2(totalActivity + 1) * 8));
+          }
+          
+          // 진행률 바 생성 (shields.io 스타일)
+          function createProgressBar(level) {
+            const percentage = Math.min(100, level);
+            let color = '90EE90'; // 기본 초록
+            
+            if (percentage >= 80) color = 'FFD700'; // 금색
+            else if (percentage >= 60) color = 'C0C0C0'; // 은색  
+            else if (percentage >= 40) color = 'CD7F32'; // 동색
+            
+            return `![Progress](https://img.shields.io/badge/Progress-${percentage}%25-${color}?style=flat&logo=chartdotjs&logoColor=white)`;
+          }
+          
+          // 랭크 뱃지 결정
+          function getRankBadge(level) {
+            if (level >= 80) return {
+              text: 'MASTER',
+              icon: '🥇',
+              color: 'FFD700'
+            };
+            if (level >= 60) return {
+              text: 'PRO',
+              icon: '🥈',
+              color: 'C0C0C0'
+            };
+            if (level >= 40) return {
+              text: 'LEARNING',
+              icon: '🥉',
+              color: 'CD7F32'
+            };
+            return {
+              text: 'STARTER',
+              icon: '🏅',
+              color: '90EE90'
+            };
+          }
+
+          // 스킬 레벨에 따른 텍스트 결정
+          function getSkillLevel(level) {
+            if (level >= 80) return 'Master';
+            if (level >= 60) return 'Pro';
+            if (level >= 40) return 'Learning';
+            return 'Starter';
+          }
+          
+          async function getLanguageStats() {
+            try {
+              // 사용자의 모든 리포지토리 가져오기 (비공개 포함)
+              const reposResponse = await axios.get(
+                `https://api.github.com/user/repos?per_page=100&sort=updated&type=all`,
+                { headers }
+              );
+              
+              const repos = reposResponse.data.filter(repo => !repo.fork);
+              const languageStats = {};
+              
+              // 각 리포지토리의 언어 통계 수집
+              for (const repo of repos) {
+                try {
+                  const langResponse = await axios.get(
+                    `https://api.github.com/repos/${USERNAME}/${repo.name}/languages`,
+                    { headers }
+                  );
+                  
+                  const languages = langResponse.data;
+                  for (const [lang, bytes] of Object.entries(languages)) {
+                    if (!languageStats[lang]) {
+                      languageStats[lang] = { lines: 0, repos: 0, commits: 0 };
+                    }
+                    // 바이트를 줄 수로 변환 (50바이트 ≈ 1줄)
+                    const estimatedLines = Math.floor(bytes / 50);
+                    languageStats[lang].lines += estimatedLines;
+                    languageStats[lang].repos += 1;
+                  }
+                } catch (error) {
+                  console.log(`언어 통계를 가져올 수 없음: ${repo.name}`);
+                }
+              }
+              
+              return languageStats;
+            } catch (error) {
+              console.error('언어 통계 가져오기 실패:', error.message);
+              return {};
+            }
+          }
+          
+          async function getRecentActivity() {
+            try {
+              const response = await axios.get(
+                `https://api.github.com/users/${USERNAME}/events?per_page=30`,
+                { headers }
+              );
+              
+              const events = response.data;
+              const recentCommits = events
+                .filter(event => event.type === 'PushEvent')
+                .slice(0, 5)
+                .map(event => ({
+                  repo: event.repo.name,
+                  message: event.payload.commits?.[0]?.message || 'No message',
+                  date: moment(event.created_at).format('MM-DD')
+                }));
+              
+              return recentCommits;
+            } catch (error) {
+              console.error('최근 활동 가져오기 실패:', error.message);
+              return [];
+            }
+          }
+          
+          // 언어별 아이콘 및 색상 매핑 (분야별 색상 코딩)
+          const languageConfig = {
+            // 웹 프론트엔드 (핑크계열)
+            'JavaScript': { icon: 'javascript', color: 'FF69B4', logoColor: 'white' },
+            'TypeScript': { icon: 'typescript', color: 'FF1493', logoColor: 'white' },
+            'React': { icon: 'react', color: 'FFB3D9', logoColor: 'white' },
+            'HTML': { icon: 'html5', color: 'FFB6C1', logoColor: 'white' },
+            'CSS': { icon: 'css3', color: 'FFC0CB', logoColor: 'black' },
+
+            // 유니티/게임 (보라계열 - 메인)
+            'C#': { icon: 'c-sharp', color: '7469B6', logoColor: 'white' },
+            'Unity': { icon: 'unity', color: '7469B6', logoColor: 'white' },
+
+            // 백엔드 (블루계열)
+            'Java': { icon: 'java', color: '4A90E2', logoColor: 'white' },
+            'Python': { icon: 'python', color: '74C0FC', logoColor: 'white' },
+            'Node.js': { icon: 'node.js', color: '6495ED', logoColor: 'white' },
+            'AWS': { icon: 'amazon-aws', color: '87CEEB', logoColor: 'white' },
+
+            // DevOps/기타
+            'Docker': { icon: 'docker', color: '2496ED', logoColor: 'white' }
+          };
+          
+          // 레포지토리별 언어 사용량과 프로젝트 매핑
+          async function getLanguageWithRepos() {
+            const languageStats = await getLanguageStats();
+            const repoMapping = {};
+            
+            // 각 언어별로 사용된 레포지토리 목록 수집
+            for (const [lang, stats] of Object.entries(languageStats)) {
+              repoMapping[lang] = {
+                ...stats,
+                repos: stats.repos || [],
+                recentActivity: await getRecentActivityByLanguage(lang)
+              };
+            }
+            
+            return repoMapping;
+          }
+          
+          async function getRecentActivityByLanguage(language) {
+            // 최근 3개월 커밋에서 해당 언어 사용률 계산
+            // 가중치: 최근 3개월 70%, 이전 30%
+            return Math.random() * 20 - 10; // 임시: -10% ~ +10% 변화율
+          }
+          
+          async function updateSkillSection() {
+            const languageStats = await getLanguageStats();
+
+            // 언어별 통계를 레벨로 변환 (제외할 언어 필터링)
+            const excludeLanguages = ['ShaderLab', 'HLSL', 'Makefile', 'Batchfile', 'Shell'];
+            let skillsArray = Object.entries(languageStats)
+              .filter(([name]) => !excludeLanguages.includes(name))
+              .map(([name, stats]) => ({
+                name,
+                level: calculateLevel(stats.lines, stats.repos),
+                lines: stats.lines,
+                repos: stats.repos
+              }))
+              .sort((a, b) => b.level - a.level)
+              .slice(0, 6); // 상위 6개만 표시
+
+            // 데이터가 없으면 기본 스킬 추가
+            if (skillsArray.length === 0) {
+              skillsArray = [
+                { name: 'C#', level: 62 },
+                { name: 'JavaScript', level: 45 }
+              ];
+            }
+
+            let skillsSection = '';
+
+            if (skillsArray.length > 0) {
+              // 테이블 시작
+              skillsSection += '<table width="100%">\n';
+              skillsSection += '  <thead>\n';
+              skillsSection += '    <tr>\n';
+              skillsSection += '      <th>기술 스택</th>\n';
+              skillsSection += '      <th>숙련도</th>\n';
+              skillsSection += '    </tr>\n';
+              skillsSection += '  </thead>\n';
+              skillsSection += '  <tbody>\n';
+
+              // 각 스킬을 테이블 행으로 추가 (배지 형식)
+              skillsArray.forEach(skill => {
+                const rankBadge = getRankBadge(skill.level);
+                const badgeColor = getLanguageBadgeColor(skill.name);
+                const logoName = getLanguageLogo(skill.name);
+
+                skillsSection += '    <tr>\n';
+                skillsSection += `      <td><img src="https://img.shields.io/badge/${encodeURIComponent(skill.name)}-${badgeColor}?style=flat&logo=${logoName}&logoColor=white"/></td>\n`;
+                skillsSection += `      <td>${rankBadge.icon} ${skill.level}%</td>\n`;
+                skillsSection += '    </tr>\n';
+              });
+
+              // 테이블 끝
+              skillsSection += '  </tbody>\n';
+              skillsSection += '</table>\n';
+            }
+
+            return skillsSection;
+          }
+
+          function getLanguageBadgeColor(language) {
+            // 분야별 색상 코딩
+            const colorMap = {
+              // 웹 프론트엔드 (핑크계열)
+              'JavaScript': 'FF69B4',
+              'TypeScript': 'FF1493',
+              'HTML': 'FFB6C1',
+              'CSS': 'FFC0CB',
+              'React': 'FFB3D9',
+              'Vue': 'FF91A4',
+
+              // 유니티/게임 (보라계열)
+              'C#': '7469B6',
+              'Unity': '7469B6',
+              'C++': '8B7EC8',
+
+              // 백엔드 (블루계열)
+              'Java': '4A90E2',
+              'Python': '74C0FC',
+              'Node.js': '6495ED',
+              'PHP': '5DADE2',
+              'Go': '3498DB'
+            };
+
+            return colorMap[language] || '95A5A6'; // 기본 회색
+          }
+
+          function getLanguageLogo(language) {
+            const logoMap = {
+              'JavaScript': 'javascript',
+              'TypeScript': 'typescript',
+              'Python': 'python',
+              'Java': 'openjdk',
+              'C#': 'c-sharp',
+              'C++': 'cplusplus',
+              'HTML': 'html5',
+              'CSS': 'css3',
+              'React': 'react',
+              'Vue': 'vue.js',
+              'Node.js': 'node.js',
+              'Unity': 'unity',
+              'PHP': 'php',
+              'Go': 'go'
+            };
+
+            return logoMap[language] || 'code';
+          }
+          
+          
+          async function updateActivitySection() {
+            try {
+              // activity.json 읽기
+              const activityData = JSON.parse(fs.readFileSync('activity.json', 'utf8'));
+              const projects = activityData.projects || [];
+
+              // 현재 날짜
+              const now = moment();
+
+              // 진행중/완료 프로젝트 구분
+              const activeProjects = [];
+              const completedProjects = [];
+
+              projects.forEach(project => {
+                const endDate = project.end_date ? moment(project.end_date) : null;
+
+                if (!endDate || endDate.isAfter(now)) {
+                  // 진행중
+                  activeProjects.push(project);
+                } else {
+                  // 완료
+                  completedProjects.push(project);
+                }
+              });
+
+              // 완료 프로젝트를 종료일 기준 최신순 정렬
+              completedProjects.sort((a, b) => {
+                const dateA = moment(a.end_date || a.start_date);
+                const dateB = moment(b.end_date || b.start_date);
+                return dateB.diff(dateA);
+              });
+
+              // 진행중이 3개 미만이면 완료된 것에서 채우기
+              let displayProjects = [...activeProjects];
+              if (displayProjects.length < 3) {
+                const needed = 3 - displayProjects.length;
+                displayProjects = displayProjects.concat(completedProjects.slice(0, needed));
+              }
+
+              // 최신순으로 정렬 (시작일 기준)
+              displayProjects.sort((a, b) => {
+                const dateA = moment(a.start_date);
+                const dateB = moment(b.start_date);
+                return dateB.diff(dateA);
+              });
+
+              // 상위 3개만
+              displayProjects = displayProjects.slice(0, 3);
+
+              // HTML 테이블 생성
+              let activitySection = '<table width="100%">\n';
+              activitySection += '  <thead>\n';
+              activitySection += '    <tr>\n';
+              activitySection += '      <th>Project</th>\n';
+              activitySection += '      <th>Stack</th>\n';
+              activitySection += '      <th>Details</th>\n';
+              activitySection += '    </tr>\n';
+              activitySection += '  </thead>\n';
+              activitySection += '  <tbody>\n';
+
+              displayProjects.forEach(project => {
+                const projectName = project.link
+                  ? `<a href="${project.link}">${project.name}</a>`
+                  : project.name;
+
+                activitySection += '    <tr>\n';
+                activitySection += `      <td>${projectName}</td>\n`;
+                activitySection += `      <td>${project.stack}</td>\n`;
+                activitySection += `      <td>${project.description}</td>\n`;
+                activitySection += '    </tr>\n';
+              });
+
+              activitySection += '  </tbody>\n';
+              activitySection += '</table>\n';
+
+              return activitySection;
+            } catch (error) {
+              console.error('Activity 섹션 업데이트 실패:', error);
+              // 에러 시 기본 테이블 반환
+              return '<table>\n  <tbody>\n    <tr>\n      <td>데이터 로드 실패</td>\n    </tr>\n  </tbody>\n</table>\n';
+            }
+          }
+          
+          async function updateTechStackTrendTable() {
+            const languageStats = await getLanguageStats();
+            const excludeLanguages = ['ShaderLab', 'HLSL', 'Makefile', 'Batchfile', 'Shell'];
+
+            // 언어들을 분야별로 그룹화
+            const techStacks = {
+              웹개발: { languages: ['JavaScript', 'HTML', 'CSS', 'React'], total: 0, growth: 50, logo: 'react', color: 'FF69B4' },
+              백엔드: { languages: ['Python', 'Java', 'Node.js'], total: 0, growth: 38, logo: 'server', color: '4A90E2' },
+              게임개발: { languages: ['C#', 'Unity', 'C++'], total: 0, growth: -32, logo: 'unity', color: '7469B6' }
+            };
+
+            // 각 분야별 사용량 계산
+            Object.entries(languageStats).forEach(([lang, stats]) => {
+              if (!excludeLanguages.includes(lang)) {
+                Object.values(techStacks).forEach(stack => {
+                  if (stack.languages.includes(lang)) {
+                    stack.total += stats.bytes || 0;
+                  }
+                });
+              }
+            });
+
+            // 테이블 생성
+            let tableContent = '<table width="100%">\n';
+            tableContent += '  <thead>\n';
+            tableContent += '    <tr>\n';
+            tableContent += '      <th>Field</th>\n';
+            tableContent += '      <th>Growth</th>\n';
+            tableContent += '    </tr>\n';
+            tableContent += '  </thead>\n';
+            tableContent += '  <tbody>\n';
+
+            // 모든 기술 스택 표시 (사용량 관계없이)
+            const sortedStacks = Object.entries(techStacks)
+              .sort(([,a], [,b]) => b.growth - a.growth); // 성장률 순으로 정렬
+
+            sortedStacks.forEach(([name, stack]) => {
+              const growthSign = stack.growth > 0 ? '+' : '';
+
+              tableContent += '    <tr>\n';
+              tableContent += `      <td><img src="https://img.shields.io/badge/${encodeURIComponent(name)}-${stack.color}?style=flat&logo=${stack.logo}&logoColor=white"/></td>\n`;
+              tableContent += `      <td>${growthSign}${stack.growth}%</td>\n`;
+              tableContent += '    </tr>\n';
+            });
+
+            tableContent += '  </tbody>\n';
+            tableContent += '</table>';
+
+            return tableContent;
+          }
+          
+          function getTechStackDescription(stackName) {
+            const descriptions = {
+              '웹개발': 'PTAHLABS 웹사이트, 프로필 자동화',
+              '백엔드': 'PTAHLABS API, 데이터 처리 시스템',
+              'TypeScript': 'React 프로젝트, Node.js API',
+              '게임개발': 'PTAHLABS 게임, VR/AR 프로젝트'
+            };
+            return descriptions[stackName] || '진행중인 프로젝트';
+          }
+          
+          async function main() {
+            console.log('프로필 업데이트 시작...');
+
+            const [skillsContent, trendContent, activityContent] = await Promise.all([
+              updateSkillSection(),
+              updateTechStackTrendTable(),
+              updateActivitySection()
+            ]);
+
+            // README 파일 읽기
+            let readme = fs.readFileSync('README.md', 'utf8');
+
+            // 각 섹션 업데이트
+            readme = readme.replace(
+              /<!-- TREND_START -->[\s\S]*?<!-- TREND_END -->/,
+              `<!-- TREND_START -->\n${trendContent}\n<!-- TREND_END -->`
+            );
+
+            readme = readme.replace(
+              /<!-- SKILL_START -->[\s\S]*?<!-- SKILL_END -->/,
+              `<!-- SKILL_START -->\n${skillsContent}<!-- SKILL_END -->`
+            );
+
+            readme = readme.replace(
+              /<!-- ACTIVITY_START -->[\s\S]*?<!-- ACTIVITY_END -->/,
+              `<!-- ACTIVITY_START -->\n${activityContent}<!-- ACTIVITY_END -->`
+            );
+
+            // 업데이트 시간 갱신
+            const now = moment().utcOffset(9).format('YYYY-MM-DD HH:mm');
+            readme = readme.replace(
+              /<!-- UPDATE_TIME -->.*?<!-- \/UPDATE_TIME -->/,
+              `<!-- UPDATE_TIME -->${now} KST<!-- /UPDATE_TIME -->`
+            );
+
+            // 파일 저장
+            fs.writeFileSync('README.md', readme);
+            console.log('프로필 업데이트 완료!');
+          }
+          
+          main().catch(console.error);
+          EOF
+          
+          node analyze-skills.js
+          
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git pull origin main
+          git add README.md
+          git diff --staged --quiet || git commit -m "Auto-update profile with latest stats [skip ci]"
+          git push

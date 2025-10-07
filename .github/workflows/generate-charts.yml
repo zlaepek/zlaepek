@@ -1,0 +1,547 @@
+name: Generate Language Trend Charts
+
+on:
+  schedule:
+    # 매월 1일 오전 9시 (한국시간 기준, UTC 0시)
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/generate-charts.yml'
+      - 'monthly_data_*.json'
+
+jobs:
+  generate-charts:
+    runs-on: ubuntu-latest
+    # GitHub Action이 만든 커밋은 제외
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') && github.event.head_commit.author.email != 'action@github.com' }}
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          
+      - name: Install Dependencies
+        run: |
+          pip install matplotlib seaborn pandas requests python-dateutil
+          
+      - name: Generate Language Trend Charts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+        run: |
+          cat > generate_charts.py << 'EOF'
+          import matplotlib.pyplot as plt
+          import seaborn as sns
+          import pandas as pd
+          import requests
+          
+          # 한글 폰트 설정
+          plt.rcParams['font.family'] = ['DejaVu Sans', 'Arial', 'sans-serif']
+          plt.rcParams['axes.unicode_minus'] = False
+          import json
+          from datetime import datetime, timedelta
+          import os
+          from collections import defaultdict
+          import numpy as np
+          
+          # matplotlib 설정 - 폰트 문제 해결
+          import matplotlib
+          matplotlib.use('Agg')
+          matplotlib.rcParams['axes.unicode_minus'] = False
+          matplotlib.rcParams['font.family'] = 'DejaVu Sans'
+          
+          # GitHub API 설정
+          GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
+          USERNAME = os.environ['USERNAME']
+          
+          headers = {
+              'Authorization': f'token {GITHUB_TOKEN}',
+              'Accept': 'application/vnd.github.v3+json'
+          }
+          
+          # 언어별 색상 매핑 (새로운 분야별 색상 코딩)
+          language_colors = {
+              # 웹 프론트엔드 (핑크계열)
+              'JavaScript': '#FF69B4',  # 핫핑크
+              'TypeScript': '#FF1493',  # 딥핑크
+              'React': '#FFB3D9',       # 라이트핑크
+              'HTML': '#FFB6C1',        # 라이트핑크
+              'CSS': '#FFC0CB',         # 핑크
+              'Vue': '#FF91A4',         # 핑크 계열
+
+              # 유니티/게임 (보라계열 - 메인)
+              'C#': '#7469B6',          # 메인 보라
+              'Unity': '#7469B6',       # 메인 보라
+              'C++': '#8B7EC8',         # 라이트 보라
+
+              # 백엔드 (블루계열)
+              'Java': '#4A90E2',        # 진한 파랑
+              'Python': '#74C0FC',      # 밝은 파랑
+              'Node.js': '#6495ED',     # 코른플라워 블루
+              'AWS': '#87CEEB',         # 스카이 블루
+              'PHP': '#5DADE2',         # 라이트 블루
+              'Go': '#3498DB',          # 도지 블루
+
+              # DevOps/기타
+              'Docker': '#2496ED',      # 도커 블루
+              'Rust': '#FF6B35',        # 러스트 오렌지
+              'Swift': '#FA7343',       # 스위프트 오렌지
+              'Kotlin': '#7F52FF'       # 코틀린 퍼플
+          }
+          
+          def get_monthly_language_data():
+              """지난 12개월간 언어별 사용률 데이터 수집"""
+              print("📊 월별 언어 데이터 수집 시작...")
+              
+              # 2020년부터 현재까지 모든 월 생성
+              months = []
+              current_date = datetime.now()
+              start_date = datetime(2020, 1, 1)
+              
+              temp_date = start_date
+              while temp_date <= current_date:
+                  months.append(temp_date.strftime('%Y-%m'))
+                  # 다음 월로 이동
+                  if temp_date.month == 12:
+                      temp_date = temp_date.replace(year=temp_date.year + 1, month=1)
+                  else:
+                      temp_date = temp_date.replace(month=temp_date.month + 1)
+              
+              # 새로운 데이터를 위해 기존 파일 삭제
+              import os
+              current_year = datetime.now().year
+              
+              for year in range(current_year - 3, current_year + 1):
+                  filename = f'monthly_data_{year}.json'
+                  if os.path.exists(filename):
+                      os.remove(filename)
+                      print(f"🗑️  기존 {year}년 데이터 파일 삭제")
+              
+              saved_data = {}
+              
+              # 월별 언어 데이터 저장
+              monthly_data = defaultdict(lambda: defaultdict(int))
+              
+              try:
+                  # 사용자의 모든 리포지토리 가져오기
+                  repos_response = requests.get(
+                      f'https://api.github.com/users/{USERNAME}/repos?per_page=100&sort=created',
+                      headers=headers
+                  )
+                  repos = repos_response.json()
+                  
+                  # 모든 월에 대해 균등하게 데이터 배분
+                  for repo in repos:
+                      if repo['fork']:
+                          continue
+                          
+                      print(f"분석 중: {repo['name']}")
+                      
+                      # 각 리포지토리의 언어 통계
+                      try:
+                          lang_response = requests.get(
+                              f"https://api.github.com/repos/{USERNAME}/{repo['name']}/languages",
+                              headers=headers
+                          )
+                          languages = lang_response.json()
+                          
+                          if languages:
+                              # 리포지토리 생성일과 마지막 업데이트를 기준으로 활동 기간 계산
+                              created_at = datetime.strptime(repo['created_at'], '%Y-%m-%dT%H:%M:%SZ')
+                              updated_at = datetime.strptime(repo['updated_at'], '%Y-%m-%dT%H:%M:%SZ')
+                              
+                              # 리포지토리가 활동한 모든 월에 언어 데이터 추가
+                              for month in months:
+                                  month_date = datetime.strptime(month + '-01', '%Y-%m-%d')
+                                  
+                                  # 리포지토리가 해당 월에 존재했다면 데이터 추가
+                                  if created_at <= month_date <= updated_at:
+                                      # 제외할 언어들
+                                      exclude_languages = ['ShaderLab', 'HLSL', 'Makefile', 'Batchfile', 'Shell']
+                                      
+                                      for lang, bytes_count in languages.items():
+                                          # 제외 언어는 건너뛰기
+                                          if lang in exclude_languages:
+                                              continue
+                                          # 대략적인 줄 수로 변환 (평균 50 바이트 = 1줄)
+                                          lines_estimate = bytes_count // 50
+                                          monthly_data[month][lang] += lines_estimate
+                                  
+                      except Exception as e:
+                          print(f"언어 데이터 가져오기 실패 {repo['name']}: {e}")
+                          continue
+                          
+              except Exception as e:
+                  print(f"리포지토리 데이터 가져오기 실패: {e}")
+                  
+              # 수집된 모든 데이터가 monthly_data에 있으므로 그대로 사용
+              
+              # 데이터가 부족한 경우 경고만 표시
+              if len(monthly_data) < 6:  # 6개월 이하 데이터면 경고
+                  print("⚠️  실제 데이터가 부족합니다 (6개월 미만)")
+              
+              # 연도별로 데이터 분리 저장
+              try:
+                  years_data = {}
+                  for month, data in monthly_data.items():
+                      year = month.split('-')[0]
+                      if year not in years_data:
+                          years_data[year] = {}
+                      years_data[year][month] = data
+                  
+                  # 각 연도별 파일로 저장
+                  for year, year_data in years_data.items():
+                      filename = f'monthly_data_{year}.json'
+                      with open(filename, 'w') as f:
+                          json.dump(year_data, f, indent=2)
+                      print(f"💾 {year}년 데이터 저장 완료: {filename}")
+                      
+              except Exception as e:
+                  print(f"⚠️  데이터 저장 실패: {e}")
+              
+              return months, monthly_data
+          
+          def generate_sample_data(months):
+              """샘플 데이터 생성 (실제 데이터가 없을 때)"""
+              languages = ['C#', 'JavaScript', 'Python', 'TypeScript', 'HTML', 'CSS']
+              sample_data = defaultdict(lambda: defaultdict(int))
+              
+              # 2020년부터 현재까지 실제 개발 히스토리 반영 (줄 수 기준)
+              base_values = {
+                  'C#': 1000,      # Unity 개발 주력 (1000줄)
+                  'JavaScript': 400, # 점진적 증가 (400줄)
+                  'Python': 300,  # 대학 + PTAHLABS (300줄)
+                  'Java': 600,    # 대학 시절 주력 (600줄)
+                  'TypeScript': 100, # 최근 도입 (100줄)
+                  'HTML': 160,    # 웹 개발 (160줄)
+                  'CSS': 120       # 웹 개발 (120줄)
+              }
+              
+              for i, month in enumerate(months):
+                  year_month = month.split('-')
+                  year = int(year_month[0])
+                  month_num = int(year_month[1])
+                  
+                  for lang in languages:
+                      base = base_values[lang]
+                      
+                      # 연도별 기술 스택 변화 반영
+                      if year == 2020:  # 대학 1년차
+                          if lang == 'Java': value = base * 1.5  # 대학 커리큘럼
+                          elif lang == 'Python': value = base * 0.8
+                          elif lang == 'C#': value = base * 0.2  # 아직 Unity 전
+                          else: value = base * 0.3
+                      elif year == 2021:  # 대학 2년차
+                          if lang == 'Java': value = base * 1.3
+                          elif lang == 'Python': value = base * 1.0
+                          elif lang == 'C#': value = base * 0.4  # Unity 입문
+                          else: value = base * 0.4
+                      elif year == 2022:  # 대학 3년차
+                          if lang == 'Java': value = base * 1.0
+                          elif lang == 'C#': value = base * 0.7  # Unity 본격 시작
+                          elif lang == 'Python': value = base * 0.9
+                          else: value = base * 0.5
+                      elif year == 2023:  # 디캐릭 입사
+                          if lang == 'C#': value = base * 1.4  # Unity 전문가
+                          elif lang == 'Java': value = base * 0.3  # 사용 중단
+                          elif lang in ['JavaScript', 'HTML', 'CSS']: value = base * 0.4
+                          else: value = base * 0.8
+                      elif year == 2024 and month_num <= 10:  # 디캐릭 마지막
+                          if lang == 'C#': value = base * 1.3
+                          elif lang in ['JavaScript', 'HTML', 'CSS']: value = base * 0.6  # 웹 학습 시작
+                          elif lang == 'Python': value = base * 1.1
+                          else: value = base * 0.9
+                      else:  # PTAHLABS 시대 (2024.11~)
+                          if lang in ['JavaScript', 'HTML', 'CSS']: value = base * 2.2  # 웹 전환
+                          elif lang == 'Python': value = base * 1.8  # 백엔드
+                          elif lang == 'TypeScript': value = base * 3.0  # 새 기술
+                          elif lang == 'C#': value = base * 0.5  # 비중 감소
+                          else: value = base * 0.4
+                      
+                      # 시간에 따른 자연스러운 변화 추가 (줄 수)
+                      time_factor = i * 2  # 시간이 지날수록 약간씩 변화
+                      noise = np.random.normal(0, 10)  # 랜덤 노이즈
+                      final_value = max(10, int(value + time_factor + noise))  # 최소 10줄
+                      
+                      sample_data[month][lang] = final_value
+              
+              return sample_data
+          
+          def create_trend_chart(months, monthly_data):
+              """언어 트렌드 차트 생성"""
+              print("🎨 트렌드 차트 생성 중...")
+              
+              # 2025년 데이터만 표시
+              display_months = [month for month in months if month.startswith('2025')]
+              display_data = {month: monthly_data[month] for month in display_months if month in monthly_data}
+              
+              # 스타일 설정 (모던 디자인)
+              plt.style.use('dark_background')
+              
+              fig, ax = plt.subplots(figsize=(16, 10))
+              fig.patch.set_facecolor('#0d1117')  # GitHub 다크 배경
+              ax.set_facecolor('#161b22')         # 약간 밝은 차트 배경
+              
+              # 주요 언어들만 선택 (표시할 데이터에서)
+              all_languages = set()
+              for month_data in display_data.values():
+                  all_languages.update(month_data.keys())
+              
+              # 평균 사용률로 정렬해서 상위 5개 언어만
+              lang_averages = {}
+              for lang in all_languages:
+                  values = [display_data.get(month, {}).get(lang, 0) for month in display_months]
+                  lang_averages[lang] = sum(values) / len(values) if values else 0
+              
+              top_languages = sorted(lang_averages.items(), key=lambda x: x[1], reverse=True)[:5]
+              
+              # 분야별로 언어 그룹화
+              game_langs = ['C#', 'Unity', 'C++']
+              web_langs = ['JavaScript', 'TypeScript', 'HTML', 'CSS', 'React', 'Vue']
+              
+              # 모든 언어를 하나씩 그리기 (분야별 분류 제거)
+              for lang, _ in top_languages:
+                  line_values = [display_data.get(month, {}).get(lang, 0) for month in display_months]
+
+                  # 분야별 색상과 마커 설정
+                  if lang in web_langs:
+                      color = language_colors.get(lang, '#FF69B4')
+                      marker = 'o'
+                  elif lang in game_langs:
+                      color = language_colors.get(lang, '#7469B6')
+                      marker = 's'
+                  elif lang in ['Python', 'Java', 'Node.js', 'AWS']:
+                      color = language_colors.get(lang, '#4A90E2')
+                      marker = '^'
+                  else:
+                      color = language_colors.get(lang, '#95A5A6')
+                      marker = 'D'
+
+                  ax.plot(range(len(display_months)), line_values,
+                         marker=marker, linewidth=3, markersize=8,
+                         label=lang, color=color, alpha=0.9, linestyle='-')
+              
+              # 월 이름을 영어로 변환
+              month_names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+              
+              # 차트 스타일링
+              ax.set_xticks(range(len(display_months)))
+              month_labels = []
+              for month in display_months:
+                  year, month_num = month.split('-')
+                  month_name = month_names[int(month_num) - 1]
+                  month_labels.append(f'{month_name} {year[2:]}')
+
+              ax.set_xticklabels(month_labels, color='#f0f6fc', fontsize=14, rotation=45, fontweight='600')
+              ax.set_ylabel('Lines of Code', color='#AD88C6', fontsize=16, fontweight='bold', labelpad=20)
+              ax.set_title('2025 Programming Language Usage Trends', color='#f0f6fc',
+                          fontsize=22, fontweight='bold', pad=40)
+              
+              # 개선된 그리드와 범례
+              ax.grid(True, alpha=0.15, color='#30363d', linestyle='-', linewidth=1)
+              ax.legend(loc='upper left', frameon=True, fancybox=True, 
+                       shadow=False, ncol=1, fontsize=11, 
+                       facecolor='#21262d', edgecolor='#7c3aed', framealpha=0.95,
+                       borderpad=1.5, columnspacing=2)
+              
+              # 축 색상 및 스타일
+              ax.tick_params(axis='y', colors='#f0f6fc', labelsize=12)
+              ax.tick_params(axis='x', colors='#f0f6fc', labelsize=12)
+              ax.spines['bottom'].set_color('#30363d')
+              ax.spines['left'].set_color('#30363d')
+              ax.spines['top'].set_visible(False)
+              ax.spines['right'].set_visible(False)
+              ax.spines['bottom'].set_linewidth(2)
+              ax.spines['left'].set_linewidth(2)
+              
+              # Y축 범위 자동 설정 (데이터에 따라)
+              if display_data:
+                  all_values = []
+                  for month_data in display_data.values():
+                      all_values.extend(month_data.values())
+                  if all_values:
+                      max_val = max(all_values)
+                      ax.set_ylim(0, max_val * 1.1)  # 10% 여유 공간
+              
+              plt.tight_layout(pad=3.5)
+              plt.savefig('language_trend_chart.png', dpi=300, bbox_inches='tight',
+                         facecolor='#0d1117', edgecolor='none')
+              plt.close()
+              
+              print("✅ 차트 생성 완료: language_trend_chart.png")
+          
+          def create_yearly_chart(months, monthly_data):
+              """연도별 언어 사용량 차트 생성 (X축: 연도, Y축: 언어별 막대)"""
+              print("📊 연도별 언어 사용량 차트 생성 중...")
+
+              # 연도별로 데이터 집계
+              yearly_data = defaultdict(lambda: defaultdict(int))
+
+              for month, lang_data in monthly_data.items():
+                  year = month.split('-')[0]
+                  for lang, lines in lang_data.items():
+                      yearly_data[year][lang] += lines
+
+              # 연도와 주요 언어 추출
+              years = sorted(yearly_data.keys())
+              all_languages = set()
+              for year_data in yearly_data.values():
+                  all_languages.update(year_data.keys())
+
+              # 제외할 언어 필터링
+              exclude_languages = ['ShaderLab', 'HLSL', 'Makefile', 'Batchfile', 'Shell']
+              lang_totals = defaultdict(int)
+              for year_data in yearly_data.values():
+                  for lang, lines in year_data.items():
+                      if lang not in exclude_languages:
+                          lang_totals[lang] += lines
+
+              # 상위 언어만 선택 (총 사용량 기준)
+              top_languages = sorted(lang_totals.items(), key=lambda x: x[1], reverse=True)[:6]
+              top_lang_names = [lang for lang, _ in top_languages]
+
+              # 차트 설정 (가로형 - X축: 연도, Y축: 언어별 막대)
+              plt.style.use('dark_background')
+              fig, ax = plt.subplots(figsize=(12, 10))
+              fig.patch.set_facecolor('#0d1117')
+              ax.set_facecolor('#161b22')
+
+              # 데이터가 없으면 차트 생성 건너뛰기
+              if not years or not top_lang_names:
+                  print("⚠️  연도별 데이터 없음, 차트 생성 건너뜀")
+                  plt.close()
+                  return
+
+              # 분야별 언어 분류
+              game_langs = ['C#', 'Unity', 'UnityScript', 'C++']
+              web_langs = ['JavaScript', 'TypeScript', 'HTML', 'CSS', 'React', 'Vue', 'Angular']
+              backend_langs = ['Python', 'Java', 'Node.js', 'AWS']
+
+              # 연도별 x 위치 설정 (X축이 연도)
+              x_pos = np.arange(len(years))
+              bar_height = 0.12  # 막대 높이
+
+              # 언어별로 세로 막대 차트 생성 (연도별 그룹화)
+              bar_width = 0.12
+              for lang_idx, lang in enumerate(top_lang_names):
+                  values = []
+
+                  # 각 연도별 값 수집
+                  for year in years:
+                      value = yearly_data[year].get(lang, 0)
+                      values.append(value)
+
+                  # 분야별 색상 설정
+                  if lang in game_langs:
+                      color = language_colors.get(lang, '#7469B6')
+                  elif lang in web_langs:
+                      color = language_colors.get(lang, '#FF69B4')
+                  elif lang in backend_langs:
+                      color = language_colors.get(lang, '#4A90E2')
+                  else:
+                      color = language_colors.get(lang, '#95A5A6')
+
+                  # X 위치 계산 (언어별로 오프셋 적용)
+                  x_positions = x_pos + lang_idx * bar_width - bar_width * (len(top_lang_names) - 1) / 2
+
+                  # 세로 막대 차트 생성
+                  bars = ax.bar(x_positions, values, bar_width,
+                               color=color, alpha=0.8, label=lang, edgecolor='none')
+
+              # 차트 스타일링 (세로형)
+              ax.set_xlabel('Years', color='#AD88C6', fontsize=16, fontweight='bold', labelpad=20)
+              ax.set_ylabel('Lines of Code', color='#AD88C6', fontsize=16, fontweight='bold', labelpad=20)
+              ax.set_title('Yearly Language Usage by Technology Stack', color='#f0f6fc',
+                          fontsize=22, fontweight='bold', pad=40)
+
+              # X축 설정 (연도)
+              ax.set_xticks(x_pos)
+              ax.set_xticklabels(years, color='#f0f6fc', fontsize=14, fontweight='600')
+
+              # Y축 자동 조정
+              max_values = []
+              for lang in top_lang_names:
+                  for year in years:
+                      max_values.append(yearly_data[year].get(lang, 0))
+              if max_values:
+                  ax.set_ylim(0, max(max_values) * 1.15)
+
+              # 범례 설정 (언어별)
+              ax.legend(loc='upper left', frameon=True, fancybox=True,
+                       shadow=False, ncol=2, fontsize=10,
+                       facecolor='#21262d', edgecolor='#7c3aed', framealpha=0.95,
+                       borderpad=1, columnspacing=1.5)
+
+              # 그리드 설정
+              ax.grid(True, alpha=0.15, color='#30363d', linestyle='-', linewidth=1, axis='y')
+
+              # 축 색상 및 스타일
+              ax.tick_params(axis='both', colors='#f0f6fc', labelsize=12)
+              ax.spines['bottom'].set_color('#30363d')
+              ax.spines['left'].set_color('#30363d')
+              ax.spines['top'].set_visible(False)
+              ax.spines['right'].set_visible(False)
+              ax.spines['bottom'].set_linewidth(2)
+              ax.spines['left'].set_linewidth(2)
+
+              plt.tight_layout(pad=3.5)
+              plt.savefig('language_yearly_chart.png', dpi=300, bbox_inches='tight',
+                         facecolor='#0d1117', edgecolor='none')
+              plt.close()
+
+              print("✅ 연도별 차트 생성 완료: language_yearly_chart.png")
+          
+          def main():
+              print("🚀 언어 트렌드 차트 생성 시작...")
+              
+              months, monthly_data = get_monthly_language_data()
+              
+              if monthly_data:
+                  create_trend_chart(months, monthly_data)
+                  create_yearly_chart(months, monthly_data)
+                  
+                  print("🎉 모든 차트 생성 완료!")
+                  print("📁 생성된 파일:")
+                  print("  - language_trend_chart.png")
+                  print("  - language_yearly_chart.png")
+              else:
+                  print("❌ 데이터를 가져올 수 없어서 차트 생성 실패")
+          
+          if __name__ == "__main__":
+              main()
+          EOF
+          
+          python generate_charts.py
+          
+      - name: Update README with Charts
+        run: |
+          # README에 차트 이미지 링크 업데이트
+          if [ -f "language_trend_chart.png" ]; then
+            # 이미지를 assets 폴더로 이동
+            mkdir -p assets
+            mv language_trend_chart.png assets/
+            mv language_yearly_chart.png assets/
+            
+            # README 업데이트
+            sed -i 's|<!-- TREND_CHART -->.*<!-- /TREND_CHART -->|<!-- TREND_CHART -->\n![Language Trends](./assets/language_trend_chart.png)\n<!-- /TREND_CHART -->|g' README.md
+            
+            echo "✅ README 업데이트 완료"
+          fi
+          
+      - name: Commit and Push Charts
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git pull origin main
+          git add assets/ README.md monthly_data_*.json
+          git diff --staged --quiet || git commit -m "Update language trend charts [skip ci]"
+          git push

@@ -1,0 +1,36 @@
+{
+  "projects": [
+    {
+      "name": "PTAHLABS 웹사이트",
+      "stack": "React, Three.js, GitHub Actions",
+      "description": "회사 웹사이트 개발 및 유지보수",
+      "start_date": "2024-11",
+      "end_date": null,
+      "link": "https://ptahlabs.co.kr/"
+    },
+    {
+      "name": "과학관 사이트",
+      "stack": "React",
+      "description": "과학관 웹사이트 개발",
+      "start_date": "2025-10-01",
+      "end_date": null,
+      "link": null
+    },
+    {
+      "name": "포트폴리오",
+      "stack": "GitHub Pages, GitHub Actions",
+      "description": "개인 포트폴리오 사이트 개선",
+      "start_date": "2024-12",
+      "end_date": null,
+      "link": "https://github.com/zlaepek"
+    },
+    {
+      "name": "포토부스",
+      "stack": "JavaScript",
+      "description": "이벤트용 포토부스 앱",
+      "start_date": "2025-10-06",
+      "end_date": null,
+      "link": "https://ptahlabs.co.kr/#/project/Solution_PhotoBooth"
+    }
+  ]
+}
