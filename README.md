@@ -77,6 +77,10 @@
 
 ### Skills Overview
 
+<table width="100%">
+<tr>
+<td valign="top" width="50%">
+
 <!-- SKILL_START -->
 <table width="100%">
   <thead>
@@ -98,10 +102,6 @@
 </table>
 <!-- SKILL_END -->
 
-<!-- YEARLY_CHART -->
-![Yearly Usage](./assets/language_yearly_chart.png)
-<!-- /YEARLY_CHART -->
-
 <details>
 <summary><sub style="font-size: 10px;">레벨 계산 방식</sub></summary>
 <sub style="font-size: 9px;">
@@ -111,9 +111,24 @@
 </sub>
 </details>
 
+</td>
+<td valign="top" width="50%">
+
+<!-- YEARLY_CHART -->
+![Yearly Usage](./assets/language_yearly_chart.png)
+<!-- /YEARLY_CHART -->
+
+</td>
+</tr>
+</table>
+
 ---
 
 ### My Tech Focus 2025
+
+<table width="100%">
+<tr>
+<td valign="top" width="50%">
 
 <!-- TREND_START -->
 <table width="100%">
@@ -140,10 +155,6 @@
 </table>
 <!-- TREND_END -->
 
-<!-- TREND_CHART -->
-![Language Trends](./assets/language_trend_chart.png)
-<!-- /TREND_CHART -->
-
 <details>
 <summary><sub style="font-size: 10px;">변화율 계산 방식</sub></summary>
 <sub style="font-size: 9px;">
@@ -151,6 +162,17 @@
 양수: 증가 추세 | 음수: 감소 추세
 </sub>
 </details>
+
+</td>
+<td valign="top" width="50%">
+
+<!-- TREND_CHART -->
+![Language Trends](./assets/language_trend_chart.png)
+<!-- /TREND_CHART -->
+
+</td>
+</tr>
+</table>
 
 ---
 
